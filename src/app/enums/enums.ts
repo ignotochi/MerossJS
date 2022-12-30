@@ -8,6 +8,6 @@ export enum authActions {
 }
 
 export enum Menu {
-    Home = 'devices',
+    Home = 'home',
     Login = 'login',
 }

@@ -1,36 +1,38 @@
 import { HttpClient, HttpHeaders } from "@angular/common/http";
 import { Injectable } from "@angular/core";
 import { Observable } from "rxjs";
-import { IConf } from "../interfaces/Iconf";
+import { Token } from "../core/constants";
 import { ILogin, ILoginRequest } from "../interfaces/ILogin";
-import { String } from "../utils/helper";
+import { CommonService } from "./common.service";
 
 @Injectable()
 
 export class MerossLoginService {
 
-  private confUrl: string = 'assets/merossApi.conf.json';
-  public appSettings: IConf = { baseUrl: String.Empty, port: String.Empty, protocol: String.Empty };
+  constructor(private http: HttpClient, private commonService: CommonService) { 
+  }
 
-  constructor(private http: HttpClient) { }
+  validateLocalToken(token: string): Observable<ILogin> {
 
-  private buildUrl(): string {
-    const url =  this.appSettings.protocol + "://" + this.appSettings.baseUrl + ":" + this.appSettings.port;
-    return url;
+    const httpOptions = {
+      headers: new HttpHeaders({
+        'Content-Type':  'application/json',
+        Authorization: Token,
+        token: token
+      })
+    };
+    
+    const url = this.commonService.buildUrl() + "/check";
+    
+    return this.http.post<ILogin>(url, null, httpOptions);
   }
 
   login(username: string, password: string): Observable<ILogin> {
+
     const headers = new HttpHeaders({'Content-Type':'application/json; charset=utf-8'});
     const body: ILoginRequest = { user: username, password: password };
-    
-    const url = this.buildUrl() + "/auth";
+    const url = this.commonService.buildUrl() + "/auth";
     
     return this.http.post<ILogin>(url, body, { headers });
   }
-
-  loadConfigurationFile(): Observable<IConf> {
-    return this.http.get<IConf>(this.confUrl);
-  }
-
-
 }

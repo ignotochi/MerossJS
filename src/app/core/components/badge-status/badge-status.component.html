@@ -1,0 +1,20 @@
+<div class="badge-block">
+    <button *ngIf="showSuccessBadge" mat-raised-button color="primary" matBadgePosition="before" matBadgeColor="accent"
+        matBadgeSize="large">
+        {{ message }}
+    </button>
+</div>
+
+<div class="badge-block">
+    <button *ngIf="showErrorBadge" mat-raised-button color="warn" matBadgePosition="before" matBadgeColor="accent"
+        matBadgeSize="large">
+        {{ message }}
+    </button>
+</div>
+
+<div class="badge-block">
+    <button *ngIf="showWarningBadge" mat-raised-button color="accent" matBadgePosition="before" matBadgeColor="accent"
+        matBadgeSize="large">
+        {{ message }}
+    </button>
+</div>

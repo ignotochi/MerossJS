@@ -10,14 +10,16 @@ import { CommonModule } from '@angular/common';
 import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 import { LoadMerossDevices } from './load-devices/load-devices.component';
 import { ToggleMerossDevice } from './toggle-device/toggle-device.component';
+import { DeviceService } from '../services/device.service';
+import { BadgeStatus } from '../core/components/badge-status/badge-status.component';
+import { BadgeService } from '../services/badge.service';
 
 @NgModule({
   declarations: [
-    LoadMerossDevices, ToggleMerossDevice
   ],
 
   imports: [
-    CommonModule,
+    CommonModule, 
     MatButtonModule,
     MatInputModule,
     MatTabsModule,
@@ -25,9 +27,14 @@ import { ToggleMerossDevice } from './toggle-device/toggle-device.component';
     MatIconModule,
     MatDialogModule,
     MatProgressSpinnerModule,
-  ],
+    BadgeStatus,
+    LoadMerossDevices, 
+    ToggleMerossDevice
+   ],
 
-  exports: [FormsModule, CommonModule, MatButtonModule, MatInputModule, MatTabsModule, MatButtonToggleModule, MatIconModule, MatDialogModule, MatProgressSpinnerModule]
+  exports: [FormsModule, CommonModule, MatButtonModule, MatInputModule, MatTabsModule,
+            MatButtonToggleModule, MatIconModule, MatDialogModule, MatProgressSpinnerModule],
+  providers: [DeviceService, BadgeService]
 })
 export class CommonComponentModules { }
 

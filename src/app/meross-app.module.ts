@@ -5,7 +5,7 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { RouterModule } from '@angular/router';
 import { CommonComponentModules } from './components/components.module';
 import { ChangeDetectorAuth } from './core/detectors/AuthDetector.service';
-import { MerossApp } from './merossApp.component';
+import { MerossApp } from './meross-app.component';
 import { AuthGuardService as AuthGuard, AuthGuardService } from './services/auth-guard.service';
 import { Auth } from './services/auth.service';
 import { MerossLoginService } from './services/login.service';
@@ -17,18 +17,16 @@ import { MerossLoginService } from './services/login.service';
 
   imports: [
     RouterModule.forRoot([
-      // {
-      //   path: 'loaddevices',
-      //   loadChildren: () => import('./components/load-devices/load-devices.component').then(tt => tt.LoadMerossDevices),
-      //   canActivate: [AuthGuard]
-      // },
-      // {
-      //   path: 'toggledevice',
-      //   loadChildren: () => import('./components/toggle-device/toggle-device.component').then(tt => tt.ToggleMerossDevice),
-      //   canActivate: [AuthGuard]
-      // }
+      {
+        path: 'home',
+        loadChildren: () => import('./components/home/home.module').then(tt => tt.MerossHomeModule),
+        canActivate: [AuthGuard]
+      },
+      {
+        path: 'login',
+        loadChildren: () => import('./components/login/login.module').then(tt => tt.MerossLoginModule),
+      }
     ]),
-    
     FormsModule,
     BrowserAnimationsModule,
     HttpClientModule,
