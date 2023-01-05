@@ -6,19 +6,19 @@
     
     <mat-menu #menu="matMenu">
         
-        <button mat-menu-item>
+        <button mat-menu-item (click)="changeGridColumns(options.columns); $event.stopPropagation()">
             <mat-icon>dialpad</mat-icon>
-            <span>Redial</span>
+            <span>Elementi griglia ({{ options.columns }})</span>
         </button>
 
-        <button mat-menu-item disabled>
-            <mat-icon>voicemail</mat-icon>
-            <span>Check voice mail</span>
+        <button mat-menu-item (click)="changeLanguage(options.language); $event.stopPropagation()">
+            <mat-icon>language</mat-icon>
+            <span>Lingua ({{ options.language }})</span>
         </button>
 
-        <button mat-menu-item>
-            <mat-icon>notifications_off</mat-icon>
-            <span>Disable alerts</span>
+        <button mat-menu-item (click)="enablePolling(options.polling); $event.stopPropagation()">
+            <mat-icon>update</mat-icon>
+            <span>Aggiornamento ({{ options.polling ? 'Attivo' : 'Disattivo' }})</span>
         </button>
 
     </mat-menu>
