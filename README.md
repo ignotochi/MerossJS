@@ -1,3 +1,4 @@
+![ezcv logo]https://raw.githubusercontent.com/ignotochi/MerossJS/master/demos/images/merossJS-home.png
 # MerossJS
 
 This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 15.0.4.
