@@ -1,0 +1,63 @@
+mat-grid-tile {
+    background: white;
+}
+
+.device-block {
+    width: 100%;
+    padding: 10px;
+}
+
+.mat-grid-list {
+    display: block;
+    position: relative;
+    max-width: 1450px;
+    top: 25px;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    margin: auto;
+}
+
+.device-off {
+    display: block;
+    position: absolute;
+    top: 10px;
+    left: 10px;
+    width: 18px;
+    height: 18px;
+    border-radius: 100%;
+    background-color: red;
+}
+
+.device-on {
+    display: block;
+    position: absolute;
+    top: 10px;
+    left: 10px;
+    width: 18px;
+    height: 18px;
+    border-radius: 100%;
+    background-color: green;
+}
+
+.mss710 {
+    display: block;
+    width: 120px;
+    height: 120px;
+    background-image: url("../../../assets/img/meross-710.png");
+    background-repeat: no-repeat;
+    background-size: 100%;
+    background-position: center;
+    margin: auto;
+}
+
+.mss310h {
+    display: block;
+    width: 80px;
+    height: 120px;
+    background-image: url("../../../assets/img/mss310h.png");
+    background-repeat: no-repeat;
+    background-size: 100%;
+    background-position: center;
+    margin: auto;
+}
