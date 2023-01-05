@@ -35,4 +35,19 @@ export class MerossLoginService {
     
     return this.http.post<ILogin>(url, body, { headers });
   }
+
+  logout(token: string): Observable<{logout: boolean}> {
+
+    const url = this.commonService.buildUrl() + "/logout";
+
+    const httpOptions = {
+      headers: new HttpHeaders({
+        'Content-Type': 'application/json',
+        Authorization: Token,
+        token: token
+      }),
+    };
+
+    return this.http.get<{logout: boolean}>(url, httpOptions);
+  }
 }

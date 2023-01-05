@@ -1,4 +1,4 @@
-import { NgIf } from '@angular/common';
+import { NgFor, NgIf } from '@angular/common';
 import {
     AfterViewInit, ChangeDetectionStrategy, ChangeDetectorRef, Component, Directive, OnDestroy, OnInit
 } from '@angular/core';
@@ -12,12 +12,12 @@ import { String } from '../../../utils/helper';
     templateUrl: './badge-status.component.html',
     styleUrls: ['./badge-status.component.scss'],
     changeDetection: ChangeDetectionStrategy.Default,
-    imports: [MatButtonModule, NgIf],
+    imports: [MatButtonModule, NgIf, NgFor],
 })
 
 export class BadgeStatus implements OnInit, AfterViewInit, OnDestroy {
 
-    public message: string = String.Empty;
+    public messages: string[] = [];
     private expiry: number = 5000;
 
     public showSuccessBadge: boolean = false;
@@ -43,33 +43,38 @@ export class BadgeStatus implements OnInit, AfterViewInit, OnDestroy {
 
     successSubscription(): void {
         this.badgeService.showSuccess.subscribe((msg) => {
-            this.message = msg;
+            this.messages.push(msg);
             this.showSuccessBadge = true;
 
             setTimeout(() => {
-                this.showSuccessBadge = false; this.cd.markForCheck();
+                this.showSuccessBadge = false; 
+                this.messages = [];
+                this.cd.markForCheck();
             }, this.expiry);
         });
     }
 
     warningSubscription(): void {
         this.badgeService.showWarning.subscribe((msg) => {
-            this.message = msg;
+            this.messages.push(msg);
             this.showWarningBadge = true;
            
             setTimeout(() => {
-                this.showWarningBadge = false; this.cd.markForCheck();
+                this.showWarningBadge = false; 
+                this.messages = [];
+                this.cd.markForCheck();
             }, this.expiry);
         });
     }
 
     errorSubscription(): void {
         this.badgeService.showError.subscribe((msg) => {
-            this.message = msg;
+            this.messages.push(msg);
             this.showErrorBadge = true;
 
             setTimeout(() => {
                 this.showErrorBadge = false;
+                this.messages = [];
                 this.cd.markForCheck();
             }, this.expiry);
         });

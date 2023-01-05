@@ -13,6 +13,8 @@ import { ToggleMerossDevice } from './toggle-device/toggle-device.component';
 import { DeviceService } from '../services/device.service';
 import { BadgeStatus } from '../core/components/badge-status/badge-status.component';
 import { BadgeService } from '../services/badge.service';
+import {MatToolbarModule} from '@angular/material/toolbar';
+import {MatMenuModule} from '@angular/material/menu';
 
 @NgModule({
   declarations: [
@@ -24,15 +26,18 @@ import { BadgeService } from '../services/badge.service';
     MatInputModule,
     MatTabsModule,
     MatButtonToggleModule,
+    MatMenuModule,
     MatIconModule,
     MatDialogModule,
     MatProgressSpinnerModule,
+    
+    MatToolbarModule,
     BadgeStatus,
     LoadMerossDevices, 
     ToggleMerossDevice
    ],
 
-  exports: [FormsModule, CommonModule, MatButtonModule, MatInputModule, MatTabsModule,
+  exports: [FormsModule, CommonModule, MatButtonModule, MatInputModule, MatTabsModule, MatToolbarModule, MatMenuModule,
             MatButtonToggleModule, MatIconModule, MatDialogModule, MatProgressSpinnerModule],
   providers: [DeviceService, BadgeService]
 })

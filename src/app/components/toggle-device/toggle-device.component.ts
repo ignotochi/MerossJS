@@ -11,16 +11,20 @@ import { BadgeService } from "src/app/services/badge.service";
     standalone: true,
     selector: 'toggle-device',
     templateUrl: './toggle-device.component.html',
+    styleUrls: ['./toggle-device.component.scss'],
     changeDetection: ChangeDetectionStrategy.OnPush,
     imports:[NgIf, MatButtonModule]
   })
 
 export class ToggleMerossDevice implements OnInit, OnDestroy, AfterViewInit { 
 
+     public buttonMessage: string = String.Empty;
+
      @Input() device = { uid: String.Empty, enabled: false };
      @Output() toggled = new EventEmitter<boolean>();
 
-    constructor(private deviceService: DeviceService, private cd: ChangeDetectorRef, private badgeService: BadgeService) {}
+    constructor(private deviceService: DeviceService, private cd: ChangeDetectorRef, private badgeService: BadgeService) {
+    }
 
     ngOnInit(): void {
         
@@ -30,16 +34,13 @@ export class ToggleMerossDevice implements OnInit, OnDestroy, AfterViewInit {
         
     }
 
-    ngAfterViewInit(): void {
-        
+    ngAfterViewInit(): void { 
     }
 
     toggleDevice(toggled: boolean) {
 
-      this.device.enabled = toggled;
-
       const filters: IToggleDevicesFilter[] = [];
-      filters.push({deviceId: this.device.uid, enabled: this.device.enabled});
+      filters.push({deviceId: this.device.uid, enabled: toggled});
 
       try {
         this.deviceService.toggleDevice(filters).subscribe({
@@ -48,6 +49,7 @@ export class ToggleMerossDevice implements OnInit, OnDestroy, AfterViewInit {
             const toggledDevice = data.find(item => item.deviceUid === this.device.uid);
 
             if (data.length > 0 && toggledDevice) {
+              this.device.enabled = toggledDevice.active
               this.toggled.emit(toggledDevice.active);
               this.badgeService.showSuccessBadge("stato dispositivo cambiato con successo");
               this.cd.markForCheck();

@@ -1,6 +1,13 @@
 .badge-block {
+    display: block;
+    height: 100%;
     position: absolute;
-    top: 15px;
-    right: 15px;
+    top: 80px;
+    right: 0;
     z-index: 9999;
+}
+
+.badge-alert {
+    margin: 15px 15px 0px 15px;
+    padding: 25px;
 }

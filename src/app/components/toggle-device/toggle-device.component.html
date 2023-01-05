@@ -1,1 +1,1 @@
-<button mat-raised-button color="accent" (click)="toggleDevice(device.enabled !== true)">Toggle</button>
+<button mat-raised-button class="toggle-btn" color="accent" (click)="toggleDevice(device.enabled !== true)">{{ device.enabled ? 'spegni' : 'accendi' }}</button>

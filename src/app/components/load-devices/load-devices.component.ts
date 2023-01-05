@@ -32,8 +32,23 @@ export class LoadMerossDevices implements OnInit, OnDestroy, AfterViewInit {
   }
 
   ngOnDestroy(): void {
-
   }
+
+  setColsGrid(): number {
+
+    if (this.datasource.length > 4 && this.datasource.length <= 8)
+      return 4;
+
+    if (this.datasource.length > 8 && this.datasource.length <= 16)
+      return 8;
+
+    if (this.datasource.length > 16)
+      return 8;
+
+    else
+      return 4
+  }
+
   ngAfterViewInit() {
     try {
       this.deviceService.loadMerossDevices(this.devicesSearch).subscribe({
@@ -41,6 +56,11 @@ export class LoadMerossDevices implements OnInit, OnDestroy, AfterViewInit {
           if (data.length > 0) {
             this.showLoader = false;
             this.datasource = data;
+
+            // data.forEach(item => this.datasource.push(item))
+            // data.forEach(item => this.datasource.push(item))
+            // data.forEach(item => this.datasource.push(item))
+
             this.cd.markForCheck();
           }
         },

@@ -15,7 +15,7 @@ import { Settings, Token } from '../core/constants';
 
 export class Auth {
     public errorLogin: string = String.Empty;
-    public userIsLogged = (async()=>{ return await this.userLoggedIn() });
+    public userIsLogged = (async () => { return await this.userLoggedIn() });
 
     constructor(private router: Router, private authDetector: ChangeDetectorAuth, private commonService: CommonService, private loginService: MerossLoginService) {
     }
@@ -33,9 +33,9 @@ export class Auth {
     }
 
     private async userLoggedIn(): Promise<boolean> {
-       
+
         const localToken = this.getLocalToken();
-        const laodedToken = await this.validateLocalToken(localToken)   
+        const laodedToken = await this.validateLocalToken(localToken)
         const isValidLocalToken: boolean = localToken === laodedToken && !isNullOrEmptyString(localToken);
 
         if (!isValidLocalToken)
@@ -51,16 +51,16 @@ export class Auth {
     }
 
     private async validateLocalToken(localToken: string): Promise<string> {
-       
-        let loadedToken: string = String.Empty;   
+
+        let loadedToken: string = String.Empty;
         const source = this.loginService.validateLocalToken(localToken);
-      
+
         await lastValueFrom(source).then((value) => {
             loadedToken = value.token;
         })
-        .catch((error) => {
-            console.log(error);
-        });
+            .catch((error) => {
+                console.log(error);
+            });
         return loadedToken;
     }
 
@@ -94,9 +94,30 @@ export class Auth {
         }
     }
 
-    public logOutZm() {
-        this.destroySession();
-        this.router.navigate([Menu.Login]);
-        location.reload();
+    public logout(): void {
+        try {
+            this.loginService.logout(this.getLocalToken())
+
+                .subscribe({
+                    next: (data) => {
+                        if (!isNullOrEmptyString(data.logout === true)) {
+                            this.destroySession();
+                        }
+                    },
+                    error: (error) => {
+                        this.errorLogin = error.statusText;
+                        this.destroySession();
+                    },
+                    complete: () => {
+                        this.router.navigate([Menu.Login]);
+                        setTimeout(() => {
+                            location.reload();
+                        }, 800);
+                    }
+                });
+        }
+        catch (err) {
+            console.log(err);
+        }
     }
 }

@@ -3,23 +3,27 @@
 </div>
 
 
-<mat-grid-list cols="2" rowHeight="2.5:1">
+<div *ngIf="this.datasource.length > 0">
 
-    <div *ngIf="this.datasource.length > 0">
+    <mat-grid-list [cols]="setColsGrid()" rowHeight="45vh">
+
         <div *ngFor="let item of datasource; index as i;">
             <mat-grid-tile>
                 <div class="device-block">
-                    <p><b>Dispositivo</b>: {{ item.deviceName }}</p>
-                    <p><b>Uid</b>: {{ item.deviceUid }}</p>
-                    <p><b>Firmware</b> version: {{ item.firmwareVersion }}</p>
-                    <p><b>Hardware</b> version: {{ item.hardwareVersion }}</p>
-                    <p><b>Model</b>: {{ item.model }}</p>
-                    <p><b>Status</b>: {{ item.status }}</p>
-                    <p><b>ip address</b>: {{ item.ip }}</p>
-                    <p><b>is active</b>: {{ item.active }}</p>
-                    <toggle-device [device]="{uid: item.deviceUid, enabled: item.active}" (toggled)="item.active = $event"></toggle-device>
+                    <div [class]="item.model"></div>
+                    <p><b>Dispositivo:</b> {{ item.deviceName }}</p>
+                    <p><b>Firmware:</b> {{ item.firmwareVersion }}</p>
+                    <p><b>Hardware:</b> {{ item.hardwareVersion }}</p>
+                    <p><b>Modello:</b> {{ item.model }}</p>
+                    <p><b>Stato:</b> {{ item.status }}</p>
+                    <p><b>Indirizzo IP:</b> {{ item.ip }}</p>
+                    <div [class]="item.active ? 'device-on' : 'device-off'"></div>
+                    
+                    <toggle-device [device]="{uid: item.deviceUid, enabled: item.active}"
+                        (toggled)="item.active = $event"></toggle-device>
                 </div>
             </mat-grid-tile>
         </div>
 
-    </div>
+    </mat-grid-list>
+</div>
