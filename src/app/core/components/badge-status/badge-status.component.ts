@@ -3,9 +3,9 @@ import {
     AfterViewInit, ChangeDetectionStrategy, ChangeDetectorRef, Component, Directive, OnDestroy, OnInit
 } from '@angular/core';
 import { MatButtonModule } from '@angular/material/button';
+import { Badge } from 'src/app/enums/enums';
 import { BadgeService } from 'src/app/services/badge.service';
-import { String } from '../../../utils/helper';
-  
+
 @Component({
     standalone: true,
     selector: 'badgeStatus',
@@ -30,9 +30,7 @@ export class BadgeStatus implements OnInit, AfterViewInit, OnDestroy {
     }
 
     ngOnInit() {
-        this.successSubscription();
-        this.errorSubscription();
-        this.warningSubscription();
+        this.badgeSubscription();
     }
 
     ngAfterViewInit() {
@@ -41,39 +39,22 @@ export class BadgeStatus implements OnInit, AfterViewInit, OnDestroy {
     ngOnDestroy(): void {
     }
 
-    successSubscription(): void {
-        this.badgeService.showSuccess.subscribe((msg) => {
-            this.messages.push(msg);
-            this.showSuccessBadge = true;
+    badgeSubscription(): void {
+        this.badgeService.badge.subscribe((item) => {
+
+            this.messages.push(item.msg);
+
+            if (item.type === Badge.Success)
+                this.showSuccessBadge = true;
+
+            if (item.type === Badge.Warning)
+                this.showSuccessBadge = true;
+
+            if (item.type === Badge.Error)
+                this.showSuccessBadge = true;
 
             setTimeout(() => {
-                this.showSuccessBadge = false; 
-                this.messages = [];
-                this.cd.markForCheck();
-            }, this.expiry);
-        });
-    }
-
-    warningSubscription(): void {
-        this.badgeService.showWarning.subscribe((msg) => {
-            this.messages.push(msg);
-            this.showWarningBadge = true;
-           
-            setTimeout(() => {
-                this.showWarningBadge = false; 
-                this.messages = [];
-                this.cd.markForCheck();
-            }, this.expiry);
-        });
-    }
-
-    errorSubscription(): void {
-        this.badgeService.showError.subscribe((msg) => {
-            this.messages.push(msg);
-            this.showErrorBadge = true;
-
-            setTimeout(() => {
-                this.showErrorBadge = false;
+                this.showSuccessBadge = false;
                 this.messages = [];
                 this.cd.markForCheck();
             }, this.expiry);

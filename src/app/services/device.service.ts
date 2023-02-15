@@ -44,7 +44,6 @@ export class DeviceService {
 
     const url = this.commonService.buildUrl() + "/toggledevice";
     const body: IToggleDevicesFilter[] = filters;
-
     return this.http.post<IDevice[]>(url, body, httpOptions);
   }
 }

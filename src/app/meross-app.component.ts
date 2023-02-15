@@ -20,14 +20,9 @@ import { isNullOrEmptyString } from './utils/helper';
 
 export class MerossApp implements OnInit, AfterViewInit, OnDestroy {
   public title = "MerossJS";
-  private auth$: Subscription;
 
   constructor(private authDetector: ChangeDetectorAuth, public router: Router, public auth: Auth) {
     this.redirectIfUserNotLogged();
-
-    this.auth$ = this.authDetector.getDataChanges().pipe(filter(tt => tt.action === authActions.token)).subscribe((result) => {
-      this.loadHomePageIfLoggedIn(result.payload.token);    
-    });
   }
 
   ngOnInit() {
@@ -38,21 +33,25 @@ export class MerossApp implements OnInit, AfterViewInit, OnDestroy {
 
   redirectIfUserNotLogged(): void {
     (async () => {
-      if (!await this.auth.userIsLogged())
-        this.router.navigate([Menu.Login]);
-      else
-        this.router.navigate([Menu.Home]);
+      let userLoggedIn: boolean = false;
+
+      this.authDetector.getDataChanges().pipe(filter(tt => tt.action === authActions.token)).subscribe((result) => { 
+        userLoggedIn = !isNullOrEmptyString(result.payload.token);
+        this.loadHomePageIfLoggedIn(!isNullOrEmptyString(result.payload.token));
+      });
+
+      userLoggedIn = await this.auth.userIsLogged();
+      this.loadHomePageIfLoggedIn(userLoggedIn);
     })();
   }
 
-  loadHomePageIfLoggedIn(token: string): void {
-    if (!isNullOrEmptyString(token))
+  loadHomePageIfLoggedIn(userAthenticated: boolean): void {
+    if (userAthenticated)
       this.router.navigate([Menu.Home]);
     else
       this.router.navigate([Menu.Login]);
   }
 
   ngOnDestroy(): void {
-    this.auth$.unsubscribe();
   }
 }

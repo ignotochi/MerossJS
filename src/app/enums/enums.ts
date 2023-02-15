@@ -11,3 +11,10 @@ export enum Menu {
     Home = 'home',
     Login = 'login',
 }
+
+export enum Badge {
+    Error = 'error',
+    Success = 'success',
+    Warning = 'warning'
+}
+
