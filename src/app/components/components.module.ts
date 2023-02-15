@@ -8,10 +8,7 @@ import { NgModule } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { CommonModule } from '@angular/common';
 import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
-import { LoadMerossDevices } from './load-devices/load-devices.component';
-import { ToggleMerossDevice } from './toggle-device/toggle-device.component';
 import { DeviceService } from '../services/device.service';
-import { BadgeStatus } from '../core/components/badge-status/badge-status.component';
 import { BadgeService } from '../services/badge.service';
 import {MatToolbarModule} from '@angular/material/toolbar';
 import {MatMenuModule} from '@angular/material/menu';
@@ -30,11 +27,7 @@ import {MatMenuModule} from '@angular/material/menu';
     MatIconModule,
     MatDialogModule,
     MatProgressSpinnerModule,
-    
-    MatToolbarModule,
-    BadgeStatus,
-    LoadMerossDevices, 
-    ToggleMerossDevice
+    MatToolbarModule
    ],
 
   exports: [FormsModule, CommonModule, MatButtonModule, MatInputModule, MatTabsModule, MatToolbarModule, MatMenuModule,
