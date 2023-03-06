@@ -2,6 +2,8 @@
 
 # MerossJS
 
+This app is frontend development for MerossApi, with this app you can manage your meross account and switch your devices. Please remember this is a work in progress project.
+
 This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 15.0.4.
 
 ## Development server
