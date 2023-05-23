@@ -1,0 +1,1 @@
+ng build --configuration production --base-href /merossjs/ --deploy-url /merossjs/

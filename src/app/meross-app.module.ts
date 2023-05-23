@@ -20,13 +20,14 @@ import { MerossLoginService } from './services/login.service';
       {
         path: 'home',
         loadChildren: () => import('./components/home/home.module').then(tt => tt.MerossHomeModule),
-        canActivate: [AuthGuard]
+        canActivate: [AuthGuard] 
       },
       {
-        path: 'login',
+        path: '',
         loadChildren: () => import('./components/login/login.module').then(tt => tt.MerossLoginModule),
       }
-    ]),
+    ], { useHash: true }),
+    
     FormsModule,
     BrowserAnimationsModule,
     HttpClientModule,

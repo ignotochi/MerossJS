@@ -6,7 +6,6 @@ import { Auth } from './services/auth.service';
 import { filter } from 'rxjs/operators';
 import { authActions, Menu } from './enums/enums';
 import { ChangeDetectorAuth } from './core/detectors/AuthDetector.service';
-import { Subscription } from 'rxjs';
 import { CommonService } from './services/common.service';
 import { isNullOrEmptyString } from './utils/helper';
 
@@ -15,13 +14,12 @@ import { isNullOrEmptyString } from './utils/helper';
   selector: 'merossApp',
   template: '<router-outlet></router-outlet>',
   changeDetection: ChangeDetectionStrategy.OnPush,
-  providers: [CommonService]
 })
 
 export class MerossApp implements OnInit, AfterViewInit, OnDestroy {
   public title = "MerossJS";
 
-  constructor(private authDetector: ChangeDetectorAuth, public router: Router, public auth: Auth) {
+  constructor(private authDetector: ChangeDetectorAuth, public router: Router, public auth: Auth, private commonService: CommonService) {
     this.redirectIfUserNotLogged();
   }
 
@@ -33,9 +31,12 @@ export class MerossApp implements OnInit, AfterViewInit, OnDestroy {
 
   redirectIfUserNotLogged(): void {
     (async () => {
+     
+      await this.commonService.loadConfigurationFile();
+
       let userLoggedIn: boolean = false;
 
-      this.authDetector.getDataChanges().pipe(filter(tt => tt.action === authActions.token)).subscribe((result) => { 
+      this.authDetector.getDataChanges().pipe(filter(tt => tt.action === authActions.token)).subscribe((result) => {
         userLoggedIn = !isNullOrEmptyString(result.payload.token);
         this.loadHomePageIfLoggedIn(!isNullOrEmptyString(result.payload.token));
       });
@@ -46,10 +47,12 @@ export class MerossApp implements OnInit, AfterViewInit, OnDestroy {
   }
 
   loadHomePageIfLoggedIn(userAthenticated: boolean): void {
-    if (userAthenticated)
+    if (userAthenticated) {
       this.router.navigate([Menu.Home]);
-    else
-      this.router.navigate([Menu.Login]);
+    }
+    else {
+      this.router.navigate([Menu.Base]);
+    }
   }
 
   ngOnDestroy(): void {

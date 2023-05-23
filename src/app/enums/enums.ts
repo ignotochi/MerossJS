@@ -10,6 +10,7 @@ export enum authActions {
 export enum Menu {
     Home = 'home',
     Login = 'login',
+    Base = ''
 }
 
 export enum Badge {

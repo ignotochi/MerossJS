@@ -1,5 +1,5 @@
 {
-    "port": "4449",
-    "baseUrl": "localhost",
-    "protocol": "http"
+    "port": "",
+    "baseUrl": "meross.fetchtec.com",
+    "protocol": "https"
 }

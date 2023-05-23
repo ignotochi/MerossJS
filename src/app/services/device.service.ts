@@ -4,7 +4,6 @@ import { Observable } from "rxjs";
 import { Token } from "../core/constants";
 import { IDevice } from "../interfaces/IDevice";
 import { IDevicesFilter } from "../interfaces/IDevicesFilter";
-import { IToggled } from "../interfaces/IToggled";
 import { IToggleDevicesFilter } from "../interfaces/IToggleDevices";
 import { Auth } from "./auth.service";
 import { CommonService } from "./common.service";

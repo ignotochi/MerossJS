@@ -4,12 +4,8 @@ import { ChangeDetectorAuth } from '../core/detectors/AuthDetector.service';
 import { Menu } from '../enums/enums';
 import { MerossLoginService } from './login.service';
 import { isNullOrEmptyString, String } from '../utils/helper';
-import { lastValueFrom, switchMap } from 'rxjs';
-import { IConf } from '../interfaces/IConf';
-import { CommonService } from './common.service';
-import { Settings, Token } from '../core/constants';
-
-
+import { lastValueFrom } from 'rxjs';
+import { Token } from '../core/constants';
 
 @Injectable({ providedIn: 'root' })
 
@@ -17,15 +13,12 @@ export class Auth {
     public errorLogin: string = String.Empty;
     public userIsLogged = (async () => { return await this.userLoggedIn() });
 
-    constructor(private router: Router, private authDetector: ChangeDetectorAuth, private commonService: CommonService, private loginService: MerossLoginService) {
+    constructor(private router: Router, private authDetector: ChangeDetectorAuth, private loginService: MerossLoginService) {
     }
 
-    private saveSession(token: string, settings?: IConf) {
+    private saveSession(token: string) {
         if (!isNullOrEmptyString(token))
             localStorage.setItem(Token, token);
-
-        if (settings)
-            localStorage.setItem(Settings, JSON.stringify(settings));
     }
 
     public getLocalToken(): string {
@@ -47,7 +40,7 @@ export class Auth {
     public destroySession() {
         localStorage.setItem(Token, String.Empty);
         this.authDetector.compleDataChanges();
-        this.router.navigate([Menu.Login]);
+        this.router.navigate([Menu.Base]);
     }
 
     private async validateLocalToken(localToken: string): Promise<string> {
@@ -61,17 +54,13 @@ export class Auth {
             .catch((error) => {
                 console.log(error);
             });
+
         return loadedToken;
     }
 
     public login(username: string, password: string): void {
         try {
-            this.commonService.loadConfigurationFile().pipe(
-                switchMap((conf: IConf) => {
-                    this.commonService.appSettings = conf;
-                    this.saveSession(String.Empty, conf);
-                    return this.loginService.login(username, password);
-                }))
+            this.loginService.login(username, password)
                 .subscribe({
                     next: (data) => {
                         if (!isNullOrEmptyString(data.token)) {
@@ -109,7 +98,7 @@ export class Auth {
                         this.destroySession();
                     },
                     complete: () => {
-                        this.router.navigate([Menu.Login]);
+                        this.router.navigate([Menu.Base]);
                         setTimeout(() => {
                             location.reload();
                         }, 800);
