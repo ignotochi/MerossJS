@@ -10,12 +10,11 @@ import { CommonService } from './common.service';
 import { Settings, Token } from '../core/constants';
 
 
-
 @Injectable({ providedIn: 'root' })
 
 export class Auth {
     public errorLogin: string = String.Empty;
-    public userIsLogged = (async () => { return await this.userLoggedIn() });
+    public userIsLogged = (async () => await this.userLoggedIn());
 
     constructor(private router: Router, private authDetector: ChangeDetectorAuth, private commonService: CommonService, private loginService: MerossLoginService) {
     }
@@ -45,9 +44,14 @@ export class Auth {
     }
 
     public destroySession() {
+
         localStorage.setItem(Token, String.Empty);
-        this.authDetector.compleDataChanges();
-        this.router.navigate([Menu.Login]);
+
+        if(location.origin != Menu.Login) {
+            this.router.navigate([Menu.Login]);
+        }
+
+        this.authDetector.setToken("");
     }
 
     private async validateLocalToken(localToken: string): Promise<string> {
@@ -65,59 +69,53 @@ export class Auth {
     }
 
     public login(username: string, password: string): void {
-        try {
-            this.commonService.loadConfigurationFile().pipe(
+
+        this.commonService.loadConfigurationFile()
+            .pipe(
                 switchMap((conf: IConf) => {
                     this.commonService.appSettings = conf;
                     this.saveSession(String.Empty, conf);
                     return this.loginService.login(username, password);
                 }))
-                .subscribe({
-                    next: (data) => {
-                        if (!isNullOrEmptyString(data.token)) {
-                            this.saveSession(data.token);
-                            this.authDetector.setToken(data.token);
-                        }
-                    },
-                    error: (error) => {
-                        this.errorLogin = error.statusText;
-                        this.destroySession();
-                    },
-                    complete: () => {
-                        if (this.getLocalToken().length > 0)
-                            console.log("user logged in");
+            .subscribe({
+                next: (data) => {
+                    if (!isNullOrEmptyString(data.token)) {
+                        this.saveSession(data.token);
+                        this.authDetector.setToken(data.token);
                     }
-                });
-        }
-        catch (err) {
-            console.log(err);
-        }
+                },
+                error: (error) => {
+                    this.errorLogin = error.message;
+                    this.destroySession();
+                },
+                complete: () => {
+                    if (this.getLocalToken().length > 0)
+                        console.log("user logged in");
+                }
+            });
     }
 
     public logout(): void {
-        try {
-            this.loginService.logout(this.getLocalToken())
 
-                .subscribe({
-                    next: (data) => {
-                        if (!isNullOrEmptyString(data.logout === true)) {
-                            this.destroySession();
-                        }
-                    },
-                    error: (error) => {
-                        this.errorLogin = error.statusText;
-                        this.destroySession();
-                    },
-                    complete: () => {
-                        this.router.navigate([Menu.Login]);
-                        setTimeout(() => {
-                            location.reload();
-                        }, 800);
-                    }
-                });
-        }
-        catch (err) {
-            console.log(err);
-        }
+        this.loginService.logout(this.getLocalToken())
+
+        .subscribe({
+            next: (data) => {
+                if (!isNullOrEmptyString(data.logout === true)) {
+                    this.destroySession();
+                }
+            },
+            error: (error) => {
+                this.errorLogin = error.message;
+                this.destroySession();
+            },
+            complete: () => {
+                this.router.navigate([Menu.Login]);
+                
+                setTimeout(() => {
+                    location.reload();
+                }, 800);
+            }
+        });
     }
 }

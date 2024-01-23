@@ -5,9 +5,10 @@ import { Badge } from "../enums/enums";
 
 export class BadgeService implements OnInit, AfterViewInit, OnDestroy {
 
-    public badge = new EventEmitter<{type: Badge, msg: string}>();
+    public badge;
 
     constructor() {
+        this.badge = new EventEmitter<{type: Badge, msg: string}>();
     }
 
     ngOnInit(): void {
@@ -24,10 +25,10 @@ export class BadgeService implements OnInit, AfterViewInit, OnDestroy {
     }
 
     showSuccessBadge(message: string): void {
-        this.badge.emit({type: Badge.Error, msg: message});
+        this.badge.emit({type: Badge.Success, msg: message});
     }
 
     showWarningBadge(message: string): void {
-        this.badge.emit({type: Badge.Error, msg: message});
+        this.badge.emit({type: Badge.Warning, msg: message});
     }
 }

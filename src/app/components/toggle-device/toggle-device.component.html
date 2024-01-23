@@ -1,1 +1,6 @@
-<button mat-raised-button class="toggle-btn" color="accent" (click)="toggleDevice(device.enabled !== true)">{{ device.enabled ? 'spegni' : 'accendi' }}</button>
+<button *ngIf="showSwitchBtn" mat-raised-button class="toggle-btn" color="accent" (click)="toggleDevice(device.enabled !== true)">{{
+    device.enabled ? 'spegni' : 'accendi' }}</button>
+
+<div *ngIf="showSpinner" class="spinner-container">
+    <mat-spinner [diameter]="30"></mat-spinner>
+</div>

@@ -11,7 +11,7 @@ import { BadgeService } from 'src/app/services/badge.service';
     selector: 'badgeStatus',
     templateUrl: './badge-status.component.html',
     styleUrls: ['./badge-status.component.scss'],
-    changeDetection: ChangeDetectionStrategy.Default,
+    changeDetection: ChangeDetectionStrategy.OnPush,
     imports: [MatButtonModule, NgIf, NgFor],
 })
 
@@ -23,7 +23,6 @@ export class BadgeStatus implements OnInit, AfterViewInit, OnDestroy {
     public showSuccessBadge: boolean = false;
     public showErrorBadge: boolean = false;
     public showWarningBadge: boolean = false;
-
     public showBadge: boolean = false;
 
     constructor(private cd: ChangeDetectorRef, private badgeService: BadgeService) {
@@ -40,24 +39,34 @@ export class BadgeStatus implements OnInit, AfterViewInit, OnDestroy {
     }
 
     badgeSubscription(): void {
+
         this.badgeService.badge.subscribe((item) => {
 
             this.messages.push(item.msg);
 
-            if (item.type === Badge.Success)
+            if (item.type === Badge.Success) { 
                 this.showSuccessBadge = true;
+            }
 
-            if (item.type === Badge.Warning)
-                this.showSuccessBadge = true;
+            if (item.type === Badge.Warning) {
+                this.showWarningBadge = true;
+            }
 
-            if (item.type === Badge.Error)
-                this.showSuccessBadge = true;
+            if (item.type === Badge.Error) {
+                this.showErrorBadge = true;
+            }
 
             setTimeout(() => {
                 this.showSuccessBadge = false;
+                this.showWarningBadge = false;
+                this.showErrorBadge = false;
+
                 this.messages = [];
                 this.cd.markForCheck();
+
             }, this.expiry);
+
+            this.cd.markForCheck();
         });
     }
 }

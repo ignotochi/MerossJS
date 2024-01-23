@@ -1,6 +1,7 @@
 .badge-block {
     display: block;
-    height: 100%;
+    min-height: 80px;
+    height: auto;
     position: absolute;
     top: 80px;
     right: 0;

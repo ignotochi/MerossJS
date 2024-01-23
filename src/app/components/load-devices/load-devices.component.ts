@@ -7,6 +7,8 @@ import { IDevicesFilter } from "src/app/interfaces/IDevicesFilter";
 import { BadgeService } from "src/app/services/badge.service";
 import { DeviceService } from "src/app/services/device.service";
 import { ToggleMerossDevice } from "../toggle-device/toggle-device.component";
+import { BadgeStatus } from 'src/app/core/components/badge-status/badge-status.component';
+import { MSS_310H, MSS_710 } from "src/app/constants";
 
 @Component({
   standalone: true,
@@ -14,7 +16,7 @@ import { ToggleMerossDevice } from "../toggle-device/toggle-device.component";
   templateUrl: './load-devices.component.html',
   styleUrls: ['./load-devices.component.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush,
-  imports: [NgIf, NgFor, ToggleMerossDevice, MatGridListModule, MatProgressBarModule]
+  imports: [NgIf, NgFor, ToggleMerossDevice, MatGridListModule, MatProgressBarModule, BadgeStatus]
 })
 
 export class LoadMerossDevices implements OnInit, OnDestroy, AfterViewInit {
@@ -24,7 +26,7 @@ export class LoadMerossDevices implements OnInit, OnDestroy, AfterViewInit {
   public devicesSearch: IDevicesFilter[] = [];
 
   constructor(private deviceService: DeviceService, private cd: ChangeDetectorRef, private badgeService: BadgeService) {
-    this.devicesSearch.push({ model: "mss710" }, { model: "mss310h" });
+    this.devicesSearch.push({ model: MSS_710 }, { model: MSS_310H });
   }
 
   ngOnInit(): void {
@@ -50,17 +52,13 @@ export class LoadMerossDevices implements OnInit, OnDestroy, AfterViewInit {
   }
 
   ngAfterViewInit() {
-    try {
+
       this.deviceService.loadMerossDevices(this.devicesSearch).subscribe({
+
         next: (data) => {
           if (data.length > 0) {
             this.showLoader = false;
             this.datasource = data;
-
-            // data.forEach(item => this.datasource.push(item))
-            // data.forEach(item => this.datasource.push(item))
-            // data.forEach(item => this.datasource.push(item))
-
             this.cd.markForCheck();
           }
         },
@@ -75,9 +73,5 @@ export class LoadMerossDevices implements OnInit, OnDestroy, AfterViewInit {
           }
         }
       });
-    }
-    catch (error) {
-      console.log(error);
-    }
   }
 }

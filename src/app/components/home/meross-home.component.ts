@@ -1,12 +1,8 @@
 import {
-    AfterViewInit, ChangeDetectionStrategy, Component, OnDestroy, OnInit, ViewChild, ViewContainerRef
+    AfterViewInit, ChangeDetectionStrategy, Component, OnDestroy, OnInit, ViewContainerRef
 } from '@angular/core';
-import { MatMenuTrigger } from '@angular/material/menu';
-import { BadgeStatus } from 'src/app/core/components/badge-status/badge-status.component';
 import { Auth } from 'src/app/services/auth.service';
 import { LoadMerossDevices } from '../load-devices/load-devices.component';
-
-
 
 @Component({
     selector: 'merossHome',
@@ -23,7 +19,6 @@ export class MerossHome implements OnInit, AfterViewInit, OnDestroy {
     }
 
     ngOnInit() {
-        this.containerRef.createComponent<BadgeStatus>(BadgeStatus);
         this.containerRef.createComponent<LoadMerossDevices>(LoadMerossDevices);
     }
 
