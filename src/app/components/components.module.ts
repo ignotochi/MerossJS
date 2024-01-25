@@ -12,6 +12,8 @@ import { DeviceService } from '../services/device.service';
 import { BadgeService } from '../services/badge.service';
 import {MatToolbarModule} from '@angular/material/toolbar';
 import {MatMenuModule} from '@angular/material/menu';
+import { TranslatePipe } from '../pipes/translate.pipe';
+import { TranslatorService } from '../services/translator.service';
 
 @NgModule({
   declarations: [
@@ -27,12 +29,12 @@ import {MatMenuModule} from '@angular/material/menu';
     MatIconModule,
     MatDialogModule,
     MatProgressSpinnerModule,
-    MatToolbarModule
+    MatToolbarModule,
    ],
 
   exports: [FormsModule, CommonModule, MatButtonModule, MatInputModule, MatTabsModule, MatToolbarModule, MatMenuModule,
             MatButtonToggleModule, MatIconModule, MatDialogModule, MatProgressSpinnerModule],
-  providers: [DeviceService, BadgeService]
+  providers: [DeviceService, BadgeService, TranslatePipe, TranslatorService]
 })
 export class CommonComponentModules { }
 

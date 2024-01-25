@@ -17,13 +17,17 @@ import { BadgeService } from 'src/app/services/badge.service';
 
 export class BadgeStatus implements OnInit, AfterViewInit, OnDestroy {
 
-    public messages: string[] = [];
+    public messages: Map<number,  Map<Badge, string>> = new Map();
+
     private expiry: number = 5000;
 
     public showSuccessBadge: boolean = false;
     public showErrorBadge: boolean = false;
     public showWarningBadge: boolean = false;
     public showBadge: boolean = false;
+
+    private id: number = 0;
+    public uid = (() => () => this.id ++)();
 
     constructor(private cd: ChangeDetectorRef, private badgeService: BadgeService) {
     }
@@ -38,35 +42,79 @@ export class BadgeStatus implements OnInit, AfterViewInit, OnDestroy {
     ngOnDestroy(): void {
     }
 
-    badgeSubscription(): void {
+    private badgeSubscription(): void {
 
         this.badgeService.badge.subscribe((item) => {
 
-            this.messages.push(item.msg);
+            const id = this.uid();
 
-            if (item.type === Badge.Success) { 
+            if (item.type === Badge.Success) 
+            {   
+                this.messages.set(id, new Map().set(Badge.Success, item.msg))
                 this.showSuccessBadge = true;
             }
 
-            if (item.type === Badge.Warning) {
+            if (item.type === Badge.Warning) 
+            {
+                this.messages.set(id, new Map().set(Badge.Warning, item.msg))
                 this.showWarningBadge = true;
             }
 
-            if (item.type === Badge.Error) {
+            if (item.type === Badge.Error) 
+            {
+                this.messages.set(id, new Map().set(Badge.Error, item.msg))
                 this.showErrorBadge = true;
             }
 
-            setTimeout(() => {
-                this.showSuccessBadge = false;
-                this.showWarningBadge = false;
-                this.showErrorBadge = false;
-
-                this.messages = [];
-                this.cd.markForCheck();
-
-            }, this.expiry);
-
             this.cd.markForCheck();
+
+            this.closeBadgeAfterTime(id);
         });
     }
-}
+
+    public closeBadgeAfterTime(id: number) {
+
+        setTimeout(() => {
+
+            if (id != null) {
+
+                const item = this.messages.get(id);
+        
+                for (const [key, value] of (item?.entries() ?? [])) {
+        
+                    if (!key && !value) { return; }
+        
+                    switch (key) {
+                        case Badge.Success:
+                            this.showSuccessBadge = false;
+                        break;
+        
+                        case Badge.Warning:
+                            this.showWarningBadge = false;
+                        break;
+        
+                        case Badge.Error:
+                            this.showErrorBadge = false;
+                        break;       
+                    }     
+                }
+
+                this.messages.delete(id);
+            
+                this.cd.markForCheck();
+            }
+
+        }, this.expiry);
+    }
+
+    public getMessageFromMap(item: [number, Map<Badge, string>]): string {
+
+        const value = item[1];
+
+        const [badge]  = value.entries();
+
+        const message: string = badge[1];
+
+        return message;
+    }
+ }

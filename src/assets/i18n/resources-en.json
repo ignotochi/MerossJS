@@ -1,0 +1,18 @@
+{
+    "GridElements":"Grid elements",
+    "Username": "Nome",
+    "Language": "Language",
+    "Update": "Update",
+    "Device": "Device",
+    "Firmware": "Firmware",
+    "Hardware": "Hardware",
+    "Model": "Model",
+    "State": "State",
+    "IpAdress": "Ip adress",
+    "SwitchOn": "On",
+    "SwitchOff": "Off",
+    "Enabled": "Active",
+    "Disabled":"Disabled",
+    "DeviceSwitchedWithSuccess": "Device state changed successfully",
+    "DevicesLoadedWithSuccess": "Devices loaded successfully"
+}

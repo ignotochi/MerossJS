@@ -1,15 +1,18 @@
 <div id="login-main">
+
+  <badgeStatus></badgeStatus>
+
   <div id="login-block">
     <h3 id="login-title">Login in MerossJS</h3>
 
     <form class="example-form">
       <mat-form-field class="input-login" appearance="fill">
-        <mat-label>Username</mat-label>
+        <mat-label>{{ 'Username' | translate }}</mat-label>
         <input #username matInput placeholder="username" type="text" name="username">
       </mat-form-field>
 
       <mat-form-field class="password-login" appearance="fill">
-        <mat-label>Password</mat-label>
+        <mat-label>{{ 'Password' | translate }}</mat-label>
         <input #password matInput placeholder="password" type="password" name="password">
       </mat-form-field>
     </form>

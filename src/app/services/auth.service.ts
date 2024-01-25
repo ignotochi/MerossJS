@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { Router } from '@angular/router';
-import { ChangeDetectorAuth } from '../core/detectors/AuthDetector.service';
+import { AuthChangeDetectorService } from '../core/detectors/auth-change-detector.service';
 import { Menu } from '../enums/enums';
 import { MerossLoginService } from './login.service';
 import { isNullOrEmptyString, String } from '../utils/helper';
@@ -16,7 +16,7 @@ export class Auth {
     public errorLogin: string = String.Empty;
     public userIsLogged = (async () => await this.userLoggedIn());
 
-    constructor(private router: Router, private authDetector: ChangeDetectorAuth, private commonService: CommonService, private loginService: MerossLoginService) {
+    constructor(private router: Router, private authDetector: AuthChangeDetectorService, private commonService: CommonService, private loginService: MerossLoginService) {
     }
 
     private saveSession(token: string, settings?: IConf) {

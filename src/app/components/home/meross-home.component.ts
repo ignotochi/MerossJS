@@ -2,10 +2,12 @@ import {
     AfterViewInit, ChangeDetectionStrategy, Component, OnDestroy, OnInit, ViewContainerRef
 } from '@angular/core';
 import { Auth } from 'src/app/services/auth.service';
-import { LoadMerossDevices } from '../load-devices/load-devices.component';
+import { CommonService } from 'src/app/services/common.service';
+import { language } from 'src/app/enums/enums';
+import { PollingChangeDetectorService } from 'src/app/core/detectors/polling-change-detector.service';
 
 @Component({
-    selector: 'merossHome',
+    selector: 'meross-home',
     templateUrl: './meross-home.component.html',
     styleUrls: ['./meross-home.component.scss'],
     changeDetection: ChangeDetectionStrategy.OnPush
@@ -13,51 +15,54 @@ import { LoadMerossDevices } from '../load-devices/load-devices.component';
 
 export class MerossHome implements OnInit, AfterViewInit, OnDestroy {
 
-    public options = { language: 'it-IT' , polling: false, columns: 4 };
-    
-    constructor(private containerRef: ViewContainerRef, public auth: Auth) {
+    constructor(private containerRef: ViewContainerRef, public auth: Auth, private authDetector: PollingChangeDetectorService, public commonService: CommonService) {
+
+        if (this.commonService.options.polling) {
+            this.authDetector.enabled(true);
+        }
     }
 
     ngOnInit() {
-        this.containerRef.createComponent<LoadMerossDevices>(LoadMerossDevices);
     }
 
     ngAfterViewInit() {
     }
 
     ngOnDestroy(): void {
+        this.authDetector.compleDataChanges();
     }
 
     changeLanguage(value: string): string {   
         if (value === 'it-IT') {
-            this.options.language = 'en-EN';
+            this.commonService.appSettings.language = language.En;
             return 'en-EN';
         }
         else {
-            this.options.language = 'it-IT';
+            this.commonService.appSettings.language = language.It;
             return 'it-IT';
         }
     }
 
     changeGridColumns(value: number): string {
         if (value === 4) {
-            this.options.columns = 8;
+            this.commonService.options.columns = 8;
             return '8';
         }
         else {
-            this.options.columns = 4;
+            this.commonService.options.columns = 4;
             return '4';
         }
     }
 
-    enablePolling(value: boolean): string {
+    enablePolling(value: boolean): void {
+    
         if (value === true) {
-            this.options.polling = false;
-            return 'Disattivo';
+            this.commonService.options.polling = false;
+            this.authDetector.enabled(false);
         }
         else {
-            this.options.polling = true;
-            return 'Attivo';
+            this.commonService.options.polling = true;
+            this.authDetector.enabled(true);
         }
     }
 }

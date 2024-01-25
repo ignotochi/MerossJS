@@ -1,26 +1,26 @@
 <div class="badge-block">
-    <div *ngFor="let message of messages; index as i;">
+    <div *ngFor="let message of messages.entries()">
         <button *ngIf="showSuccessBadge" class="badge-alert" mat-raised-button color="primary" matBadgePosition="before"
             matBadgeColor="accent" matBadgeSize="large">
-            {{ message }}
+            {{ getMessageFromMap(message) }}
         </button>
     </div>
 </div>
 
 <div class="badge-block">
-    <div *ngFor="let message of messages; index as i;">
+    <div *ngFor="let message of messages.entries();">
         <button *ngIf="showErrorBadge" class="badge-alert" mat-raised-button color="warn" matBadgePosition="before"
             matBadgeColor="accent" matBadgeSize="large">
-            {{ message }}
+            {{ getMessageFromMap(message) }}
         </button>
     </div>
 </div>
 
 <div class="badge-block">
-    <div *ngFor="let message of messages; index as i;">
+    <div *ngFor="let message of messages.entries();">
         <button *ngIf="showWarningBadge" class="badge-alert" mat-raised-button color="accent" matBadgePosition="before"
             matBadgeColor="accent" matBadgeSize="large">
-            {{ message }}
+            {{ getMessageFromMap(message) }}
         </button>
     </div>
 </div>

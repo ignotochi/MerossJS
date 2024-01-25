@@ -5,8 +5,7 @@ import { Router } from '@angular/router';
 import { Auth } from './services/auth.service';
 import { filter } from 'rxjs/operators';
 import { authActions, Menu } from './enums/enums';
-import { ChangeDetectorAuth } from './core/detectors/AuthDetector.service';
-import { Subscription } from 'rxjs';
+import { AuthChangeDetectorService } from './core/detectors/auth-change-detector.service';
 import { CommonService } from './services/common.service';
 import { isNullOrEmptyString } from './utils/helper';
 
@@ -21,7 +20,7 @@ import { isNullOrEmptyString } from './utils/helper';
 export class MerossApp implements OnInit, AfterViewInit, OnDestroy {
   public title = "MerossJS";
 
-  constructor(private authDetector: ChangeDetectorAuth, public router: Router, public auth: Auth) {
+  constructor(private authDetector: AuthChangeDetectorService, public router: Router, public auth: Auth) {
 
     this.authDetector.getDataChanges().pipe(filter(tt => tt.action === authActions.token))
 
@@ -54,5 +53,6 @@ export class MerossApp implements OnInit, AfterViewInit, OnDestroy {
   }
 
   ngOnDestroy(): void {
+    this.authDetector.compleDataChanges();
   }
 }

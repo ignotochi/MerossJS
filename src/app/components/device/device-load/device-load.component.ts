@@ -6,20 +6,22 @@ import { IDevice } from "src/app/interfaces/IDevice";
 import { IDevicesFilter } from "src/app/interfaces/IDevicesFilter";
 import { BadgeService } from "src/app/services/badge.service";
 import { DeviceService } from "src/app/services/device.service";
-import { ToggleMerossDevice } from "../toggle-device/toggle-device.component";
+import { SwitchMerossDevice } from "../device-switch/device-switch.component";
 import { BadgeStatus } from 'src/app/core/components/badge-status/badge-status.component';
 import { MSS_310H, MSS_710 } from "src/app/constants";
+import { SharedModule } from "src/app/shared.module";
+import { DevicePollingComponent } from "../../../directives/device-polling/device-polling.directive";
 
 @Component({
   standalone: true,
-  selector: 'load-devices',
-  templateUrl: './load-devices.component.html',
-  styleUrls: ['./load-devices.component.scss'],
+  selector: 'device-load',
+  templateUrl: './device-load.component.html',
+  styleUrls: ['./device-load.component.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush,
-  imports: [NgIf, NgFor, ToggleMerossDevice, MatGridListModule, MatProgressBarModule, BadgeStatus]
+  imports: [NgIf, NgFor, SwitchMerossDevice, MatGridListModule, MatProgressBarModule, SharedModule, BadgeStatus, DevicePollingComponent]
 })
 
-export class LoadMerossDevices implements OnInit, OnDestroy, AfterViewInit {
+export class LoadMerossDevice implements OnInit, OnDestroy, AfterViewInit {
 
   public showLoader: boolean = true;
   public datasource: IDevice[] = [] as IDevice[];
@@ -30,7 +32,6 @@ export class LoadMerossDevices implements OnInit, OnDestroy, AfterViewInit {
   }
 
   ngOnInit(): void {
-
   }
 
   ngOnDestroy(): void {
@@ -69,7 +70,7 @@ export class LoadMerossDevices implements OnInit, OnDestroy, AfterViewInit {
         },
         complete: () => {
           if (this.datasource.length > 0) {
-            this.badgeService.showSuccessBadge("Dispositivi caricati con successo");
+            this.badgeService.showSuccessBadge("DevicesLoadedWithSuccess");
           }
         }
       });

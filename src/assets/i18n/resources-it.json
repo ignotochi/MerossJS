@@ -1,0 +1,20 @@
+{
+    "GridElements":"Elementi griglia",
+    "Username": "Nome",
+    "Password": "Password",
+    "Language": "Lingua",
+    "Update": "Aggiornamento",
+    "Device": "Dispositivo",
+    "Firmware": "Firmware",
+    "Hardware": "Hardware",
+    "Model": "Modello",
+    "State": "Stato",
+    "IpAdress": "Indirizzo IP",
+    "SwitchOn": "Accendi",
+    "SwitchOff": "Spegni",
+    "Enabled": "Attivo",
+    "Disabled":"Disattivo",
+    "DeviceSwitchedWithSuccess": "Stato dispositivo cambiato con successo",
+    "DevicesLoadedWithSuccess": "Dispositivi caricati con successo"
+}
+    

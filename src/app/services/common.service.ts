@@ -4,22 +4,26 @@ import { Observable } from "rxjs";
 import { Settings } from "../core/constants";
 import { IConf } from "../interfaces/IConf";
 import { isNullOrEmptyString, String } from "../utils/helper";
+import { language } from "../enums/enums";
+
 
 
 @Injectable({ providedIn: 'root' })
 
 export class CommonService {
+
+  public options = { polling: true, columns: 4 };
+  public appSettings: IConf = { language: language.En, baseUrl: String.Empty, port: String.Empty, protocol: String.Empty };
+
   private confUrl: string = 'assets/merossApi.conf.json';
-  public appSettings: IConf = { baseUrl: String.Empty, port: String.Empty, protocol: String.Empty };
-  private settings: IConf = {} as IConf;
 
   constructor(private http: HttpClient) {
-    
+
     const settings = localStorage.getItem(Settings)
-    
-    if(!isNullOrEmptyString(settings)) {
+
+    if (!isNullOrEmptyString(settings)) {
       const parsedSettings: IConf = JSON.parse(settings as string);
-      this.settings = parsedSettings;
+      this.appSettings = parsedSettings;
     }
   }
 
@@ -28,7 +32,7 @@ export class CommonService {
   }
 
   public buildUrl(): string {
-    const url = this.settings.protocol + "://" + this.settings.baseUrl + ":" + this.settings.port;
+    const url = this.appSettings.protocol + "://" + this.appSettings.baseUrl + ":" + this.appSettings.port;
     return url;
   }
 }

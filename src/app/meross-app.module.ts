@@ -4,11 +4,12 @@ import { FormsModule } from '@angular/forms';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { RouterModule } from '@angular/router';
 import { CommonComponentModules } from './components/components.module';
-import { ChangeDetectorAuth } from './core/detectors/AuthDetector.service';
+import { AuthChangeDetectorService } from './core/detectors/auth-change-detector.service';
 import { MerossApp } from './meross-app.component';
 import { AuthGuardService as AuthGuard, AuthGuardService } from './services/auth-guard.service';
 import { Auth } from './services/auth.service';
 import { MerossLoginService } from './services/login.service';
+import { I18nService } from './services/i18n.service';
 
 @NgModule({
   declarations: [
@@ -33,7 +34,7 @@ import { MerossLoginService } from './services/login.service';
     CommonComponentModules
   ],
   bootstrap: [MerossApp],
-  providers: [Auth, AuthGuardService, ChangeDetectorAuth, MerossLoginService],
+  providers: [Auth, AuthGuardService, AuthChangeDetectorService, MerossLoginService, I18nService],
   exports: [RouterModule]
 })
 export class MerossMainModule { }

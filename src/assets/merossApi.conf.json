@@ -1,4 +1,5 @@
 {
+    "language" : "it",
     "port": "4449",
     "baseUrl": "localhost",
     "protocol": "http"

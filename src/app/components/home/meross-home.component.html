@@ -6,19 +6,19 @@
     
     <mat-menu #menu="matMenu">
         
-        <button mat-menu-item (click)="changeGridColumns(options.columns); $event.stopPropagation()">
+        <button mat-menu-item (click)="changeGridColumns(commonService.options.columns); $event.stopPropagation()">
             <mat-icon>dialpad</mat-icon>
-            <span>Elementi griglia ({{ options.columns }})</span>
+            <span>{{ 'GridElements' | translate }} ({{ commonService.options.columns }})</span>
         </button>
 
-        <button mat-menu-item (click)="changeLanguage(options.language); $event.stopPropagation()">
+        <button mat-menu-item (click)="changeLanguage(commonService.appSettings.language); $event.stopPropagation()">
             <mat-icon>language</mat-icon>
-            <span>Lingua ({{ options.language }})</span>
+            <span>{{ 'Language' | translate }} ({{ commonService.appSettings.language }})</span>
         </button>
 
-        <button mat-menu-item (click)="enablePolling(options.polling); $event.stopPropagation()">
+        <button mat-menu-item (click)="enablePolling(commonService.options.polling); $event.stopPropagation()">
             <mat-icon>update</mat-icon>
-            <span>Aggiornamento ({{ options.polling ? 'Attivo' : 'Disattivo' }})</span>
+            <span>{{ 'Update' | translate }} ({{ (commonService.options.polling ? 'Enabled' : 'Disabled') | translate }})</span>
         </button>
 
     </mat-menu>
@@ -30,4 +30,7 @@
     <button mat-icon-button class="nav-icon" aria-label="icon-button with logout icon" (click)="auth.logout()">
         <mat-icon aria-hidden="false" aria-label="logout icon" fontIcon="logout"></mat-icon>
     </button>
+
 </mat-toolbar>
+
+<device-load></device-load>
