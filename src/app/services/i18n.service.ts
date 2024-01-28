@@ -14,7 +14,7 @@ export class I18nService implements OnInit, AfterViewInit, OnDestroy {
     public it_rsx: Map<string, string> = new Map();
     public en_rsx: Map<string, string> = new Map();
 
-    constructor(private http: HttpClient, private commonService: CommonService) {
+    constructor(private commonService: CommonService) {
 
         this.userLangauge = commonService.appSettings.language;
         this.loadResources();

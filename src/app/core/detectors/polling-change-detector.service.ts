@@ -1,5 +1,5 @@
 import { Injectable } from "@angular/core";
-import { pollingActions} from "src/app/enums/enums";
+import { pollingAction} from "src/app/enums/enums";
 import { DataStoreDetector } from "./data-store-detector.service";
 
 
@@ -7,9 +7,9 @@ import { DataStoreDetector } from "./data-store-detector.service";
   providedIn: 'root',
 })
 
-export class PollingChangeDetectorService extends DataStoreDetector<boolean, pollingActions> {
+export class PollingChangeDetectorService extends DataStoreDetector<boolean, pollingAction> {
     
     enabled(enabled: boolean) {
-        this.updateDataChanges({ action: pollingActions.Enabled, payload: enabled });
+        this.updateDataChanges({ action: pollingAction.Enabled, payload: enabled });
     }
 }

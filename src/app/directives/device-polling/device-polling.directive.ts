@@ -4,9 +4,9 @@ import { DeviceService } from "src/app/services/device.service";
 import { IDevicesFilter } from "src/app/interfaces/IDevicesFilter";
 import { IDevice } from "src/app/interfaces/IDevice";
 import { PollingChangeDetectorService } from "src/app/core/detectors/polling-change-detector.service";
-import { pollingActions } from "src/app/enums/enums";
+import { pollingAction } from "src/app/enums/enums";
 
-enum pollingAction {
+enum polling {
     timeout = "timeout",
     stop = "stop",
     continue = 'continue'
@@ -27,12 +27,12 @@ export class DevicePollingComponent implements OnInit, OnDestroy, AfterViewInit 
 
     private stopIteration: boolean = false;
     private pollingTimeout_mm: number = 180;
-    private pollingInterval_ms: number = 15000;
-    private communicationTestPolling$: Subscription = new Subscription();;
+    private pollingInterval_ms: number = 10000;
+    private deviceLoadPolling$: Subscription = new Subscription();;
 
     constructor(private authDetector: PollingChangeDetectorService, private deviceService: DeviceService) {
 
-        this.authDetector.getDataChanges().pipe(filter(tt => tt.action === pollingActions.Enabled))
+        this.authDetector.getDataChanges().pipe(filter(tt => tt.action === pollingAction.Enabled))
 
             .subscribe((result) => {
 
@@ -51,7 +51,7 @@ export class DevicePollingComponent implements OnInit, OnDestroy, AfterViewInit 
     }
 
     ngOnDestroy(): void {
-        this.communicationTestPolling$.unsubscribe();
+        this.deviceLoadPolling$.unsubscribe();
         this.authDetector.compleDataChanges();
     }
 
@@ -60,7 +60,7 @@ export class DevicePollingComponent implements OnInit, OnDestroy, AfterViewInit 
 
     getDataPolling(interval_ms: number) {
 
-        this.communicationTestPolling$ = timer(1000, interval_ms)
+        this.deviceLoadPolling$ = timer(1000, interval_ms)
 
             .pipe(takeWhile(t => this.continuePollingIteration(t) && !this.stopIteration),
 
@@ -87,27 +87,27 @@ export class DevicePollingComponent implements OnInit, OnDestroy, AfterViewInit 
         const overAttemps = attemps >= this.maxPollingAttemps();
 
         if (overAttemps)
-            result = this.pollingSubscriptionAction(pollingAction.timeout);
+            result = this.pollingSubscriptionAction(polling.timeout);
 
         else if (!overAttemps)
-            result = this.pollingSubscriptionAction(pollingAction.continue);
+            result = this.pollingSubscriptionAction(polling.continue);
 
         return result;
     }
 
-    pollingSubscriptionAction(value: pollingAction): boolean {
+    pollingSubscriptionAction(value: polling): boolean {
 
         let continueToSubscription: boolean = false;
 
-        if (value === pollingAction.continue) {
+        if (value === polling.continue) {
             return continueToSubscription = true;
         }
 
-        if (value === pollingAction.timeout) {
+        if (value === polling.timeout) {
             continueToSubscription = false;
         }
 
-        if (value === pollingAction.stop) {
+        if (value === polling.stop) {
             continueToSubscription = false;
         }
 

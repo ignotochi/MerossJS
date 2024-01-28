@@ -7,6 +7,7 @@ import { DeviceService } from "src/app/services/device.service";
 import { BadgeService } from "src/app/services/badge.service";
 import { MatProgressSpinnerModule } from "@angular/material/progress-spinner";
 import { SharedModule } from "src/app/shared.module";
+import { Auth } from "src/app/services/auth.service";
 
 
 @Component({
@@ -30,7 +31,7 @@ export class SwitchMerossDevice implements OnInit, OnDestroy, AfterViewInit {
   @Output() 
   toggled = new EventEmitter<boolean>();
 
-  constructor(private deviceService: DeviceService, private cd: ChangeDetectorRef, private badgeService: BadgeService) {
+  constructor(private auth: Auth, private deviceService: DeviceService, private cd: ChangeDetectorRef, private badgeService: BadgeService) {
   }
 
   ngOnInit(): void {
@@ -69,6 +70,7 @@ export class SwitchMerossDevice implements OnInit, OnDestroy, AfterViewInit {
         this.badgeService.showErrorBadge(error.error)
         this.isWitchMode();
         this.cd.markForCheck();
+        this.auth.destroySession();
       }
     });
   }

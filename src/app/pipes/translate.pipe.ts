@@ -1,14 +1,23 @@
-import { Pipe, PipeTransform } from "@angular/core";
+import { AfterViewInit, OnDestroy, OnInit, Pipe, PipeTransform } from "@angular/core";
 import { I18nService } from "../services/i18n.service";
-import { language } from "../enums/enums";
+import { language, languageAction } from "../enums/enums";
+import { filter } from "rxjs";
 
 @Pipe({
     name: 'translate'
 })
 
-export class TranslatePipe implements PipeTransform {
+export class TranslatePipe implements PipeTransform, OnInit, AfterViewInit, OnDestroy {
 
-    constructor(private i18n: I18nService) { 
+    constructor(private i18n: I18nService) {
+    }
+    ngAfterViewInit(): void {
+    }
+
+    ngOnDestroy(): void {
+    }
+
+    ngOnInit(): void {
     }
 
     public transform(value: string, args?: any): any {
@@ -31,5 +40,5 @@ export class TranslatePipe implements PipeTransform {
 
         const translation = this.transform(message);
         return translation;
-      }
+    }
 }

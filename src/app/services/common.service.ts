@@ -7,7 +7,6 @@ import { isNullOrEmptyString, String } from "../utils/helper";
 import { language } from "../enums/enums";
 
 
-
 @Injectable({ providedIn: 'root' })
 
 export class CommonService {

@@ -27,7 +27,8 @@ import { I18nService } from './services/i18n.service';
         path: 'login',
         loadChildren: () => import('./components/login/login.module').then(tt => tt.MerossLoginModule),
       }
-    ]),
+    ], { onSameUrlNavigation: 'reload' }),
+
     FormsModule,
     BrowserAnimationsModule,
     HttpClientModule,

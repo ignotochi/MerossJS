@@ -6,7 +6,7 @@ import { BadgeService } from 'src/app/services/badge.service';
 import { AuthChangeDetectorService } from 'src/app/core/detectors/auth-change-detector.service';
 import { filter } from 'rxjs';
 import { isNullOrEmptyString } from 'src/app/utils/helper';
-import { authActions } from 'src/app/enums/enums';
+import { authAction } from 'src/app/enums/enums';
 
 @Component({
     selector: 'meross-login',
@@ -22,7 +22,7 @@ export class MerossLogin implements OnInit, AfterViewInit, OnDestroy {
 
     constructor(public auth: Auth, private authDetector: AuthChangeDetectorService, private badgeService: BadgeService, private cd: ChangeDetectorRef) {
 
-        this.authDetector.getDataChanges().pipe(filter(tt => tt.action === authActions.token))
+        this.authDetector.getDataChanges().pipe(filter(tt => tt.action === authAction.token))
 
         .subscribe((result) => {
 

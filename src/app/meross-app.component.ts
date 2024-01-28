@@ -4,7 +4,7 @@ import {
 import { Router } from '@angular/router';
 import { Auth } from './services/auth.service';
 import { filter } from 'rxjs/operators';
-import { authActions, Menu } from './enums/enums';
+import { authAction, Menu } from './enums/enums';
 import { AuthChangeDetectorService } from './core/detectors/auth-change-detector.service';
 import { CommonService } from './services/common.service';
 import { isNullOrEmptyString } from './utils/helper';
@@ -22,7 +22,7 @@ export class MerossApp implements OnInit, AfterViewInit, OnDestroy {
 
   constructor(private authDetector: AuthChangeDetectorService, public router: Router, public auth: Auth) {
 
-    this.authDetector.getDataChanges().pipe(filter(tt => tt.action === authActions.token))
+    this.authDetector.getDataChanges().pipe(filter(tt => tt.action === authAction.token))
 
       .subscribe((result) => {
         (async () => {
@@ -48,7 +48,11 @@ export class MerossApp implements OnInit, AfterViewInit, OnDestroy {
       this.router.navigate([Menu.Home]);
     }
     else {
-      this.router.navigate([Menu.Login]);
+      setTimeout(() => {
+        if (location.origin != Menu.Login) {
+            this.router.navigate([Menu.Login]);
+        }
+    }, 1500);
     }
   }
 

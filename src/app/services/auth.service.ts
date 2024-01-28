@@ -44,14 +44,8 @@ export class Auth {
     }
 
     public destroySession() {
-
         localStorage.setItem(Token, String.Empty);
-
-        if(location.origin != Menu.Login) {
-            this.router.navigate([Menu.Login]);
-        }
-
-        this.authDetector.setToken("");
+        this.authDetector.setToken(String.Empty);
     }
 
     private async validateLocalToken(localToken: string): Promise<string> {
@@ -99,23 +93,23 @@ export class Auth {
 
         this.loginService.logout(this.getLocalToken())
 
-        .subscribe({
-            next: (data) => {
-                if (!isNullOrEmptyString(data.logout === true)) {
+            .subscribe({
+                next: (data) => {
+                    if (!isNullOrEmptyString(data.logout === true)) {
+                        this.destroySession();
+                    }
+                },
+                error: (error) => {
+                    this.errorLogin = error.message;
                     this.destroySession();
+                },
+                complete: () => {
+                    this.router.navigate([Menu.Login]);
+
+                    setTimeout(() => {
+                        location.reload();
+                    }, 800);
                 }
-            },
-            error: (error) => {
-                this.errorLogin = error.message;
-                this.destroySession();
-            },
-            complete: () => {
-                this.router.navigate([Menu.Login]);
-                
-                setTimeout(() => {
-                    location.reload();
-                }, 800);
-            }
-        });
+            });
     }
 }

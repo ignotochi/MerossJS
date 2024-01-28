@@ -1,25 +1,41 @@
 import {
-    AfterViewInit, ChangeDetectionStrategy, Component, OnDestroy, OnInit, ViewContainerRef
+    AfterViewInit, ChangeDetectionStrategy, Component, OnDestroy, OnInit
 } from '@angular/core';
 import { Auth } from 'src/app/services/auth.service';
 import { CommonService } from 'src/app/services/common.service';
-import { language } from 'src/app/enums/enums';
+import { Menu, language, languageAction } from 'src/app/enums/enums';
 import { PollingChangeDetectorService } from 'src/app/core/detectors/polling-change-detector.service';
+import { Router } from '@angular/router';
+import { LanguageChangeDetectorService } from 'src/app/core/detectors/language-change-detector.service';
+import { filter } from 'rxjs';
+import { I18nService } from 'src/app/services/i18n.service';
 
 @Component({
     selector: 'meross-home',
     templateUrl: './meross-home.component.html',
     styleUrls: ['./meross-home.component.scss'],
-    changeDetection: ChangeDetectionStrategy.OnPush
+    changeDetection: ChangeDetectionStrategy.OnPush,
+    providers: [PollingChangeDetectorService, LanguageChangeDetectorService]
 })
 
 export class MerossHome implements OnInit, AfterViewInit, OnDestroy {
 
-    constructor(private containerRef: ViewContainerRef, public auth: Auth, private authDetector: PollingChangeDetectorService, public commonService: CommonService) {
+    mySubscription: any;
+
+    constructor(private router: Router, public auth: Auth, private pollingAuthDetector: PollingChangeDetectorService, private langAuthDetector: LanguageChangeDetectorService,
+        public commonService: CommonService, private i18n: I18nService) {
 
         if (this.commonService.options.polling) {
-            this.authDetector.enabled(true);
+            this.pollingAuthDetector.enabled(true);
         }
+
+        this.router.routeReuseStrategy.shouldReuseRoute = () => false;
+
+        this.langAuthDetector.getDataChanges().pipe(filter(tt => tt.action === languageAction.Language))
+
+            .subscribe((result) => {
+                this.i18n.userLangauge = result.payload;
+            });
     }
 
     ngOnInit() {
@@ -29,17 +45,24 @@ export class MerossHome implements OnInit, AfterViewInit, OnDestroy {
     }
 
     ngOnDestroy(): void {
-        this.authDetector.compleDataChanges();
+        this.langAuthDetector.compleDataChanges();
     }
 
-    changeLanguage(value: string): string {   
-        if (value === 'it-IT') {
+    changeLanguage(value: string): string {
+
+        setTimeout(() => {
+            this.router.navigate([Menu.Home]);
+        }, 500);
+
+        if (value === 'it') {
             this.commonService.appSettings.language = language.En;
-            return 'en-EN';
+            this.langAuthDetector.setLanguage(language.En)
+            return 'en';
         }
         else {
             this.commonService.appSettings.language = language.It;
-            return 'it-IT';
+            this.langAuthDetector.setLanguage(language.It)
+            return 'it';
         }
     }
 
@@ -55,14 +78,14 @@ export class MerossHome implements OnInit, AfterViewInit, OnDestroy {
     }
 
     enablePolling(value: boolean): void {
-    
+
         if (value === true) {
             this.commonService.options.polling = false;
-            this.authDetector.enabled(false);
+            this.pollingAuthDetector.enabled(false);
         }
         else {
             this.commonService.options.polling = true;
-            this.authDetector.enabled(true);
+            this.pollingAuthDetector.enabled(true);
         }
     }
 }

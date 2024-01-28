@@ -11,6 +11,8 @@ import { BadgeStatus } from 'src/app/core/components/badge-status/badge-status.c
 import { MSS_310H, MSS_710 } from "src/app/constants";
 import { SharedModule } from "src/app/shared.module";
 import { DevicePollingComponent } from "../../../directives/device-polling/device-polling.directive";
+import { Menu } from "src/app/enums/enums";
+import { Auth } from "src/app/services/auth.service";
 
 @Component({
   standalone: true,
@@ -27,7 +29,7 @@ export class LoadMerossDevice implements OnInit, OnDestroy, AfterViewInit {
   public datasource: IDevice[] = [] as IDevice[];
   public devicesSearch: IDevicesFilter[] = [];
 
-  constructor(private deviceService: DeviceService, private cd: ChangeDetectorRef, private badgeService: BadgeService) {
+  constructor(private auth: Auth, private deviceService: DeviceService, private cd: ChangeDetectorRef, private badgeService: BadgeService) {
     this.devicesSearch.push({ model: MSS_710 }, { model: MSS_310H });
   }
 
@@ -54,25 +56,26 @@ export class LoadMerossDevice implements OnInit, OnDestroy, AfterViewInit {
 
   ngAfterViewInit() {
 
-      this.deviceService.loadMerossDevices(this.devicesSearch).subscribe({
+    this.deviceService.loadMerossDevices(this.devicesSearch).subscribe({
 
-        next: (data) => {
-          if (data.length > 0) {
-            this.showLoader = false;
-            this.datasource = data;
-            this.cd.markForCheck();
-          }
-        },
-        error: (error) => {
+      next: (data) => {
+        if (data.length > 0) {
           this.showLoader = false;
-          this.badgeService.showErrorBadge(error.error)
+          this.datasource = data;
           this.cd.markForCheck();
-        },
-        complete: () => {
-          if (this.datasource.length > 0) {
-            this.badgeService.showSuccessBadge("DevicesLoadedWithSuccess");
-          }
         }
-      });
+      },
+      error: (error) => {
+        this.showLoader = false;
+        this.badgeService.showErrorBadge(error.error)
+        this.cd.markForCheck();
+        this.auth.destroySession();
+      },
+      complete: () => {
+        if (this.datasource.length > 0) {
+          this.badgeService.showSuccessBadge("DevicesLoadedWithSuccess");
+        }
+      }
+    });
   }
 }
