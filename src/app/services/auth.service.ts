@@ -5,9 +5,9 @@ import { Menu } from '../enums/enums';
 import { MerossLoginService } from './login.service';
 import { isNullOrEmptyString, String } from '../utils/helper';
 import { lastValueFrom, switchMap } from 'rxjs';
-import { IConf } from '../interfaces/IConf';
 import { CommonService } from './common.service';
 import { Settings, Token } from '../core/constants';
+import { IConf } from '../interfaces/IConf';
 
 
 @Injectable({ providedIn: 'root' })
