@@ -1,10 +1,9 @@
 {
-    "GridElements":"Elementi griglia",
     "Username": "Nome",
     "Password": "Password",
     "Language": "Lingua",
     "Update": "Aggiornamento",
-    "Device": "Dispositivo",
+    "Device": "Dispositivo", 
     "Firmware": "Firmware",
     "Hardware": "Hardware",
     "Model": "Modello",
