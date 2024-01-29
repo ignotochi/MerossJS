@@ -1,4 +1,10 @@
-![ezcv logo](https://raw.githubusercontent.com/ignotochi/MerossJS/master/demos/images/merossJS-home.png)
+# Login
+
+![ezcv logo](https://raw.githubusercontent.com/ignotochi/MerossJS/master/demos/images/merossJs_login.png)
+
+# Home
+
+![ezcv logo](https://raw.githubusercontent.com/ignotochi/MerossJS/master/demos/images/merossJs_home.png)
 
 # MerossJS
 
