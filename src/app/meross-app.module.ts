@@ -33,7 +33,7 @@ import { APP_BASE_HREF, HashLocationStrategy, LocationStrategy } from '@angular/
         path: 'login',
         loadChildren: () => import('./components/login/login.module').then(tt => tt.MerossLoginModule),
       }
-    ], { onSameUrlNavigation: 'reload', useHash: true}),
+    ], { onSameUrlNavigation: 'reload'}),
 
     FormsModule,
     BrowserAnimationsModule,
