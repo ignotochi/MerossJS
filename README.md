@@ -6,11 +6,17 @@
 
 ![ezcv logo](https://raw.githubusercontent.com/ignotochi/MerossJS/master/demos/images/merossJs_home.png)
 
-# MerossJS
+# MerossJS Changelog
 
-This app is frontend development for MerossApi, with this app you can manage your meross account and switch your devices. Please remember this is a work in progress project.
+This frontend development for the MerossApi now includes two significant enhancements:
 
-This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 15.0.4.
+1. **Multilingual Support:**
+   - Added support for Italian, English, French, Spanish, German, Russian, and Chinese languages. Users can now seamlessly interact with the app in their preferred language.
+
+2. **Session Polling Functionality:**
+   - Introduced a polling feature to keep the session active. Users have the flexibility to enable or disable this function based on their preferences.
+
+Please note that MerossJS is an evolving project, and your feedback is greatly appreciated.
 
 ## Development server
 
