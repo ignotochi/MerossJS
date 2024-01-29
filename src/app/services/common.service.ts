@@ -14,7 +14,7 @@ export class CommonService {
   public angularPackajeJson: Map<string, string> = new Map();
 
   public options = { polling: true };
-  public appSettings: IConfiguration = { language: language.En, baseUrl: String.Empty, port: String.Empty, protocol: String.Empty, version: String.Empty };
+  public appSettings: IConfiguration = { language: language.En, marossApiUrl: String.Empty, port: String.Empty, protocol: String.Empty, version: String.Empty };
 
   private confUrl: string = 'assets/merossApi.conf.json';
 
@@ -47,7 +47,7 @@ export class CommonService {
   }
 
   public buildUrl(): string {
-    const url = this.appSettings.protocol + "://" + this.appSettings.baseUrl + ":" + this.appSettings.port;
+    const url = this.appSettings.protocol + "://" + this.appSettings.marossApiUrl + ":" + this.appSettings.port;
     return url;
   }
 }
