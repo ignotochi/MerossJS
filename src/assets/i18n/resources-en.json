@@ -13,6 +13,7 @@
     "SwitchOff": "Off",
     "Enabled": "Active",
     "Disabled":"Disabled",
+    "Login": "Login",
     "DeviceSwitchedWithSuccess": "Device state changed successfully",
     "DevicesLoadedWithSuccess": "Devices loaded successfully"
 }

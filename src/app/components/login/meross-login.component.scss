@@ -1,12 +1,15 @@
 #login-main {
     background: #1c183d;
 }
+
 .btn-login {
     min-height: 25px;
 }
+
 #login-title {
     color: black;
 }
+
 #login-main {
     display: flex;
     width: 100%;
@@ -16,16 +19,23 @@
     background-position: center;
     background-size: 100%;
 }
+
 #login-block {
     display: block;
     position: fixed;
     width: 400px;
     text-align: center;
-    padding: 15px 3px;
-    background: #ffffff8f;
+    padding: 35px 20px;
+    background: rgb(46 69 119 / 40%);
+    border-radius: 12px;
     top: 50%;
     left: 50%;
     transform: translate(-50%, -50%);
+    backdrop-filter: blur(5px);
+}
+
+#login-main form {
+    padding: 25px 15px 8px;
 }
 
 .info-h3 {
@@ -69,6 +79,17 @@
 }
 
 .spinner-container mat-spinner {
+    margin: auto;
+}
+
+.logo {
+    display: block;
+    width: 180px;
+    height: 60px;
+    background-image: url("../../../assets/img/MerossJS.png");
+    background-repeat: no-repeat;
+    background-size: 100%;
+    background-position: center;
     margin: auto;
 }
 

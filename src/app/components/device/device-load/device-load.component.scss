@@ -10,7 +10,7 @@ mat-grid-tile {
 .mat-grid-list {
     display: block;
     position: relative;
-    max-width: 1450px;
+    width: 1400px;
     top: 25px;
     left: 0;
     right: 0;
@@ -18,11 +18,15 @@ mat-grid-tile {
     margin: auto;
 }
 
+mat-grid-tile.mat-grid-tile {
+    min-width: 300px;
+}
+
 .device-off {
     display: block;
     position: absolute;
-    top: 10px;
-    left: 10px;
+    top: 15px;
+    left: 15px;
     width: 18px;
     height: 18px;
     border-radius: 100%;
@@ -32,10 +36,34 @@ mat-grid-tile {
 .device-on {
     display: block;
     position: absolute;
-    top: 10px;
-    left: 10px;
+    top: 15px;
+    left: 15px;
     width: 18px;
     height: 18px;
+    border-radius: 100%;
+    background-color: green;
+}
+
+.mss710 .device-off {
+    display: block;
+    position: absolute;
+    width: 7px;
+    height: 7px;
+    top: 81px;
+    left: 193px;
+    transform: translate(-50%, -50%);
+    border-radius: 100%;
+    background-color: red;
+}
+
+.mss710 .device-on {
+    display: block;
+    position: absolute;
+    width: 7px;
+    height: 7px;
+    top: 81px;
+    left: 193px;
+    transform: translate(-50%, -50%);
     border-radius: 100%;
     background-color: green;
 }

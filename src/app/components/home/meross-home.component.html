@@ -5,11 +5,6 @@
     </button>
     
     <mat-menu #menu="matMenu">
-        
-        <button mat-menu-item (click)="changeGridColumns(commonService.options.columns); $event.stopPropagation()">
-            <mat-icon>dialpad</mat-icon>
-            <span>{{ 'GridElements' | translate }} ({{ commonService.options.columns }})</span>
-        </button>
 
         <button mat-menu-item (click)="changeLanguage(commonService.appSettings.language); $event.stopPropagation()">
             <mat-icon>language</mat-icon>
@@ -23,7 +18,7 @@
 
     </mat-menu>
 
-    <span>MerossJS</span>
+    <div class="logo"></div>
 
     <span class="nav-spacer"></span>
 

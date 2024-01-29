@@ -1,0 +1,19 @@
+{
+    "GridElements": "Éléments de grille",
+    "Username": "Nom d'utilisateur",
+    "Language": "Langue",
+    "Update": "Mettre à jour",
+    "Device": "Appareil",
+    "Firmware": "Micrologiciel",
+    "Hardware": "Matériel",
+    "Model": "Modèle",
+    "State": "État",
+    "IpAdress": "Adresse IP",
+    "SwitchOn": "Allumer",
+    "SwitchOff": "Éteindre",
+    "Enabled": "Activé",
+    "Disabled": "Désactivé",
+    "Login": "Connexion",
+    "DeviceSwitchedWithSuccess": "État de l'appareil modifié avec succès",
+    "DevicesLoadedWithSuccess": "Appareils chargés avec succès"
+}

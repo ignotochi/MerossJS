@@ -1,0 +1,19 @@
+{
+    "GridElements": "Gitterelemente",
+    "Username": "Name",
+    "Language": "Sprache",
+    "Update": "Aktualisieren",
+    "Device": "Gerät",
+    "Firmware": "Firmware",
+    "Hardware": "Hardware",
+    "Model": "Modell",
+    "State": "Status",
+    "IpAdress": "IP-Adresse",
+    "SwitchOn": "Ein",
+    "SwitchOff": "Aus",
+    "Enabled": "Aktiv",
+    "Disabled": "Deaktiviert",
+    "Login": "Anmelden",
+    "DeviceSwitchedWithSuccess": "Gerätestatus erfolgreich geändert",
+    "DevicesLoadedWithSuccess": "Geräte erfolgreich geladen"
+}

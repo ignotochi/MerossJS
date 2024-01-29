@@ -1,0 +1,19 @@
+{
+    "GridElements": "网格元素",
+    "Username": "用户名",
+    "Language": "语言",
+    "Update": "更新",
+    "Device": "设备",
+    "Firmware": "固件",
+    "Hardware": "硬件",
+    "Model": "型号",
+    "State": "状态",
+    "IpAdress": "IP地址",
+    "SwitchOn": "开",
+    "SwitchOff": "关",
+    "Enabled": "启用",
+    "Disabled": "禁用",
+    "Login": "登录",
+    "DeviceSwitchedWithSuccess": "设备状态成功更改",
+    "DevicesLoadedWithSuccess": "设备成功加载"
+}

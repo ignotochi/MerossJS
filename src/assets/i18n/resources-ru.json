@@ -1,0 +1,19 @@
+{
+    "GridElements": "Элементы сетки",
+    "Username": "Имя пользователя",
+    "Language": "Язык",
+    "Update": "Обновить",
+    "Device": "Устройство",
+    "Firmware": "Прошивка",
+    "Hardware": "Аппаратное обеспечение",
+    "Model": "Модель",
+    "State": "Состояние",
+    "IpAdress": "IP-адрес",
+    "SwitchOn": "Включено",
+    "SwitchOff": "Выключено",
+    "Enabled": "Включено",
+    "Disabled": "Отключено",
+    "Login": "Войти",
+    "DeviceSwitchedWithSuccess": "Состояние устройства успешно изменено",
+    "DevicesLoadedWithSuccess": "Устройства успешно загружены"
+}

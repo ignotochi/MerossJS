@@ -27,7 +27,7 @@ export class DevicePollingComponent implements OnInit, OnDestroy, AfterViewInit 
 
     private stopIteration: boolean = false;
     private pollingTimeout_mm: number = 180;
-    private pollingInterval_ms: number = 10000;
+    private pollingInterval_ms: number = 30000;
     private deviceLoadPolling$: Subscription = new Subscription();;
 
     constructor(private authDetector: PollingChangeDetectorService, private deviceService: DeviceService) {

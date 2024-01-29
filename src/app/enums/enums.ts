@@ -28,7 +28,12 @@ export enum Badge {
 
 export enum language {
     It = "it",
-    En = "en"
+    En = "en",
+    De = "de",
+    Es = "es",
+    Fr = "fr",
+    Ru = "ru",
+    Cn = "cn"
 }
 
 

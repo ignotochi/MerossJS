@@ -32,6 +32,26 @@ export class TranslatePipe implements PipeTransform, OnInit, AfterViewInit, OnDe
 
             translation = this.i18n.en_rsx.get(value) ?? value;
         }
+        else if (this.i18n.userLangauge == language.De) {
+
+            translation = this.i18n.de_rsx.get(value) ?? value;
+        }
+        else if (this.i18n.userLangauge == language.Es) {
+
+            translation = this.i18n.es_rsx.get(value) ?? value;
+        }
+        else if (this.i18n.userLangauge == language.Fr) {
+
+            translation = this.i18n.fr_rsx.get(value) ?? value;
+        }
+        else if (this.i18n.userLangauge == language.Ru) {
+
+            translation = this.i18n.ru_rsx.get(value) ?? value;
+        }
+        else if (this.i18n.userLangauge == language.Cn) {
+
+            translation = this.i18n.cn_rsx.get(value) ?? value;
+        }
 
         return translation;
     }

@@ -20,11 +20,13 @@ export class Auth {
     }
 
     private saveSession(token: string, settings?: IConf) {
-        if (!isNullOrEmptyString(token))
-            localStorage.setItem(Token, token);
 
-        if (settings)
+        if (!isNullOrEmptyString(token)) {
+            localStorage.setItem(Token, token);
+        }          
+        if (settings) {
             localStorage.setItem(Settings, JSON.stringify(settings));
+        }   
     }
 
     public getLocalToken(): string {
@@ -105,10 +107,6 @@ export class Auth {
                 },
                 complete: () => {
                     this.router.navigate([Menu.Login]);
-
-                    setTimeout(() => {
-                        location.reload();
-                    }, 800);
                 }
             });
     }

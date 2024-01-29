@@ -11,7 +11,7 @@ import { language } from "../enums/enums";
 
 export class CommonService {
 
-  public options = { polling: true, columns: 4 };
+  public options = { polling: true };
   public appSettings: IConf = { language: language.En, baseUrl: String.Empty, port: String.Empty, protocol: String.Empty };
 
   private confUrl: string = 'assets/merossApi.conf.json';

@@ -3,7 +3,8 @@
   <badgeStatus></badgeStatus>
 
   <div id="login-block">
-    <h3 id="login-title">Login in MerossJS</h3>
+
+    <div class="logo"></div>
 
     <form class="example-form">
       <mat-form-field class="input-login" appearance="fill">
@@ -18,11 +19,11 @@
     </form>
 
     <button *ngIf="showLoginBtn" mat-raised-button color="primary"
-      (click)="this.auth.login(username.value, password.value); isLoadingMode()">{{ 'Login' }}
+      (click)="this.auth.login(username.value, password.value); isLoadingMode()">{{ 'Login' | translate }}
     </button>
 
     <div *ngIf="showSpinner" class="spinner-container">
-      <mat-spinner [diameter]="30"></mat-spinner>
+      <mat-spinner color="accent" [diameter]="30"></mat-spinner> 
     </div>
 
   </div>

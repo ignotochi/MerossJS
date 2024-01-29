@@ -1,0 +1,19 @@
+{
+    "GridElements": "Elementos de la cuadrícula",
+    "Username": "Nombre de usuario",
+    "Language": "Idioma",
+    "Update": "Actualizar",
+    "Device": "Dispositivo",
+    "Firmware": "Firmware",
+    "Hardware": "Hardware",
+    "Model": "Modelo",
+    "State": "Estado",
+    "IpAdress": "Dirección IP",
+    "SwitchOn": "Encendido",
+    "SwitchOff": "Apagado",
+    "Enabled": "Habilitado",
+    "Disabled": "Deshabilitado",
+    "Login": "Iniciar sesión",
+    "DeviceSwitchedWithSuccess": "Estado del dispositivo cambiado exitosamente",
+    "DevicesLoadedWithSuccess": "Dispositivos cargados exitosamente"
+}

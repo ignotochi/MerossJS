@@ -6,20 +6,21 @@
 
 <div *ngIf="this.datasource.length > 0">
 
-    <mat-grid-list [cols]="setColsGrid()" rowHeight="45vh">
+    <mat-grid-list fxLayout [cols]="4" rowHeight="45vh" [gutterSize]="'3px'">
 
         <div *ngFor="let item of datasource; index as i;">
             <mat-grid-tile>
                 <div class="device-block">
-                    <div [class]="item.model"></div>
+                    <div [class]="item.model">
+                        <div [class]="item.active ? 'device-on' : 'device-off'"></div>
+                    </div>
                     <p><b>{{ 'Device' | translate }}:</b> {{ item.deviceName }}</p>
                     <p><b>{{ 'Firmware' | translate }}:</b> {{ item.firmwareVersion }}</p>
                     <p><b>{{ 'Hardware' | translate }}:</b> {{ item.hardwareVersion }}</p>
                     <p><b>{{ 'Model' | translate }}:</b> {{ item.model }}</p>
                     <p><b>{{ 'State' | translate }}:</b> {{ item.status }}</p>
                     <p><b>{{ 'IpAdress' | translate }}:</b> {{ item.ip }}</p>
-                    <div [class]="item.active ? 'device-on' : 'device-off'"></div>
-                    
+                                   
                     <device-switch [device]="{uid: item.deviceUid, enabled: item.active}"
                         (toggled)="item.active = $event"></device-switch>
                 </div>

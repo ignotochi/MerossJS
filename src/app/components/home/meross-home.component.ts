@@ -7,8 +7,9 @@ import { Menu, language, languageAction } from 'src/app/enums/enums';
 import { PollingChangeDetectorService } from 'src/app/core/detectors/polling-change-detector.service';
 import { Router } from '@angular/router';
 import { LanguageChangeDetectorService } from 'src/app/core/detectors/language-change-detector.service';
-import { filter } from 'rxjs';
+import { Subject, debounceTime, filter } from 'rxjs';
 import { I18nService } from 'src/app/services/i18n.service';
+import { Settings } from 'src/app/core/constants';
 
 @Component({
     selector: 'meross-home',
@@ -20,7 +21,8 @@ import { I18nService } from 'src/app/services/i18n.service';
 
 export class MerossHome implements OnInit, AfterViewInit, OnDestroy {
 
-    mySubscription: any;
+    private languageActionDelay_ms: number = 2000;
+    private languageAction$ = new Subject<language>();
 
     constructor(private router: Router, public auth: Auth, private pollingAuthDetector: PollingChangeDetectorService, private langAuthDetector: LanguageChangeDetectorService,
         public commonService: CommonService, private i18n: I18nService) {
@@ -36,6 +38,15 @@ export class MerossHome implements OnInit, AfterViewInit, OnDestroy {
             .subscribe((result) => {
                 this.i18n.userLangauge = result.payload;
             });
+
+        this.languageAction$.pipe(debounceTime(this.languageActionDelay_ms)).subscribe((value) => {
+
+            this.langAuthDetector.setLanguage(value);
+      
+            setTimeout(() => {
+                this.router.navigate([Menu.Home]);
+            }, 500);
+        });
     }
 
     ngOnInit() {
@@ -46,34 +57,47 @@ export class MerossHome implements OnInit, AfterViewInit, OnDestroy {
 
     ngOnDestroy(): void {
         this.langAuthDetector.compleDataChanges();
+        this.languageAction$.unsubscribe();
     }
 
     changeLanguage(value: string): string {
 
-        setTimeout(() => {
-            this.router.navigate([Menu.Home]);
-        }, 500);
+        this.languageActionDelay_ms += 1000;
 
-        if (value === 'it') {
+        if (value === language.It) {
             this.commonService.appSettings.language = language.En;
-            this.langAuthDetector.setLanguage(language.En)
-            return 'en';
+            this.languageAction$.next(language.En);
+            return language.En;
+        }
+        else if (value === language.En) {
+            this.commonService.appSettings.language = language.De;
+            this.languageAction$.next(language.De);
+            return language.De;
+        }
+        else if (value === language.De) {
+            this.commonService.appSettings.language = language.Es;
+            this.languageAction$.next(language.Es);
+            return language.Es;
+        }
+        else if (value === language.Es) {
+            this.commonService.appSettings.language = language.Fr;
+            this.languageAction$.next(language.Fr);
+            return language.Fr;
+        }
+        else if (value === language.Fr) {
+            this.commonService.appSettings.language = language.Ru;
+            this.languageAction$.next(language.Ru);
+            return language.Ru;
+        }
+        else if (value === language.Ru) {
+            this.commonService.appSettings.language = language.Cn;
+            this.languageAction$.next(language.Cn);
+            return language.Cn;
         }
         else {
             this.commonService.appSettings.language = language.It;
-            this.langAuthDetector.setLanguage(language.It)
-            return 'it';
-        }
-    }
-
-    changeGridColumns(value: number): string {
-        if (value === 4) {
-            this.commonService.options.columns = 8;
-            return '8';
-        }
-        else {
-            this.commonService.options.columns = 4;
-            return '4';
+            this.languageAction$.next(language.It);
+            return language.It;
         }
     }
 
