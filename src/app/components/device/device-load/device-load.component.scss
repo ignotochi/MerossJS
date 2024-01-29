@@ -19,7 +19,7 @@ mat-grid-tile {
 }
 
 mat-grid-tile.mat-grid-tile {
-    min-width: 300px;
+    height: 400px!important;
 }
 
 .device-off {
@@ -49,7 +49,7 @@ mat-grid-tile.mat-grid-tile {
     position: absolute;
     width: 7px;
     height: 7px;
-    top: 81px;
+    top: 67px;
     left: 193px;
     transform: translate(-50%, -50%);
     border-radius: 100%;
@@ -61,7 +61,7 @@ mat-grid-tile.mat-grid-tile {
     position: absolute;
     width: 7px;
     height: 7px;
-    top: 81px;
+    top: 67px;
     left: 193px;
     transform: translate(-50%, -50%);
     border-radius: 100%;

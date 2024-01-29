@@ -5,4 +5,5 @@ export interface IConfiguration {
     baseUrl : string;
     port: string;
     protocol: string,
+    version: string
 }
