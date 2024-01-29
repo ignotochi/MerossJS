@@ -1,5 +1,6 @@
 # Login
 
+![ezcv logo](https://raw.githubusercontent.com/ignotochi/MerossJS/master/demos/images/merossJs_login.png)
 
 
 # Home (en)
