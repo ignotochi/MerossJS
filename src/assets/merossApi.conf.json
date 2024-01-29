@@ -1,6 +1,6 @@
 {
     "language" : "it",
     "port": "4449",
-    "marossApiUrl": "fetchtec.com",
+    "marossApiUrl": "localhost",
     "protocol": "http"
 }
