@@ -4,7 +4,7 @@ import { DeviceService } from "src/app/services/device.service";
 import { IDevicesFilter } from "src/app/interfaces/IDevicesFilter";
 import { IDevice } from "src/app/interfaces/IDevice";
 import { PollingChangeDetectorService } from "src/app/core/detectors/polling-change-detector.service";
-import { pollingAction } from "src/app/enums/enums";
+import { pollingAction } from "src/app/enum/enums";
 
 enum polling {
     timeout = "timeout",

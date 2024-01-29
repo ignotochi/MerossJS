@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { Router, CanActivate } from '@angular/router';
-import { Menu } from '../enums/enums';
+import { Menu } from '../enum/enums';
 import { Auth } from './auth.service';
 
 @Injectable()

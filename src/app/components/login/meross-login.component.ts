@@ -6,7 +6,7 @@ import { BadgeService } from 'src/app/services/badge.service';
 import { AuthChangeDetectorService } from 'src/app/core/detectors/auth-change-detector.service';
 import { filter } from 'rxjs';
 import { isNullOrEmptyString } from 'src/app/utils/helper';
-import { authAction } from 'src/app/enums/enums';
+import { authAction } from 'src/app/enum/enums';
 
 @Component({
     selector: 'meross-login',

@@ -3,7 +3,7 @@ import {
 } from '@angular/core';
 import { Auth } from 'src/app/services/auth.service';
 import { CommonService } from 'src/app/services/common.service';
-import { Menu, language, languageAction } from 'src/app/enums/enums';
+import { Menu, language, languageAction } from 'src/app/enum/enums';
 import { PollingChangeDetectorService } from 'src/app/core/detectors/polling-change-detector.service';
 import { Router } from '@angular/router';
 import { LanguageChangeDetectorService } from 'src/app/core/detectors/language-change-detector.service';

@@ -1,5 +1,5 @@
 import { Injectable } from "@angular/core";
-import { authAction} from "src/app/enums/enums";
+import { authAction} from "src/app/enum/enums";
 import { ILogin } from "src/app/interfaces/ILogin";
 import { DataStoreDetector } from "./data-store-detector.service";
 

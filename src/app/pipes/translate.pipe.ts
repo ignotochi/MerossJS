@@ -1,6 +1,6 @@
 import { AfterViewInit, OnDestroy, OnInit, Pipe, PipeTransform } from "@angular/core";
 import { I18nService } from "../services/i18n.service";
-import { language, languageAction } from "../enums/enums";
+import { language, languageAction } from "../enum/enums";
 import { filter } from "rxjs";
 
 @Pipe({

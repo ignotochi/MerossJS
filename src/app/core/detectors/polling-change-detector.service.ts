@@ -1,5 +1,5 @@
 import { Injectable } from "@angular/core";
-import { pollingAction} from "src/app/enums/enums";
+import { pollingAction} from "src/app/enum/enums";
 import { DataStoreDetector } from "./data-store-detector.service";
 
 

@@ -3,7 +3,7 @@ import {
     AfterViewInit, ChangeDetectionStrategy, ChangeDetectorRef, Component, Directive, OnDestroy, OnInit
 } from '@angular/core';
 import { MatButtonModule } from '@angular/material/button';
-import { Badge } from 'src/app/enums/enums';
+import { Badge } from 'src/app/enum/enums';
 import { BadgeService } from 'src/app/services/badge.service';
 
 @Component({

@@ -1,6 +1,6 @@
-import { language } from "../enums/enums";
+import { language } from "../enum/enums";
 
-export interface IConf {
+export interface IConfiguration {
     language: language,
     baseUrl : string;
     port: string;

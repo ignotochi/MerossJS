@@ -4,7 +4,7 @@ import {
 import { Router } from '@angular/router';
 import { Auth } from './services/auth.service';
 import { filter } from 'rxjs/operators';
-import { authAction, Menu } from './enums/enums';
+import { authAction, Menu } from './enum/enums';
 import { AuthChangeDetectorService } from './core/detectors/auth-change-detector.service';
 import { CommonService } from './services/common.service';
 import { isNullOrEmptyString } from './utils/helper';

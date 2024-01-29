@@ -1,6 +1,6 @@
 import { BehaviorSubject, Observable } from 'rxjs';
 import { filter } from 'rxjs/operators';
-import { Enum } from 'src/app/enums/enums';
+import { Enum } from 'src/app/enum/enums';
 import { hardObjectClone } from 'src/app/utils/helper';
 
 

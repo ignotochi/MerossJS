@@ -11,7 +11,7 @@ import { BadgeStatus } from 'src/app/core/components/badge-status/badge-status.c
 import { MSS_310H, MSS_710 } from "src/app/constants";
 import { SharedModule } from "src/app/shared.module";
 import { DevicePollingComponent } from "../../../directives/device-polling/device-polling.directive";
-import { Menu } from "src/app/enums/enums";
+import { Menu } from "src/app/enum/enums";
 import { Auth } from "src/app/services/auth.service";
 
 @Component({

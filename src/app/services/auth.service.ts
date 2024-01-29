@@ -1,13 +1,13 @@
 import { Injectable } from '@angular/core';
 import { Router } from '@angular/router';
 import { AuthChangeDetectorService } from '../core/detectors/auth-change-detector.service';
-import { Menu } from '../enums/enums';
+import { Menu } from '../enum/enums';
 import { MerossLoginService } from './login.service';
 import { isNullOrEmptyString, String } from '../utils/helper';
 import { lastValueFrom, switchMap } from 'rxjs';
 import { CommonService } from './common.service';
 import { Settings, Token } from '../core/constants';
-import { IConf } from '../interfaces/IConf';
+import { IConfiguration } from '../interfaces/IConfiguration';
 
 
 @Injectable({ providedIn: 'root' })
@@ -19,7 +19,7 @@ export class Auth {
     constructor(private router: Router, private authDetector: AuthChangeDetectorService, private commonService: CommonService, private loginService: MerossLoginService) {
     }
 
-    private saveSession(token: string, settings?: IConf) {
+    private saveSession(token: string, settings?: IConfiguration) {
 
         if (!isNullOrEmptyString(token)) {
             localStorage.setItem(Token, token);
@@ -68,7 +68,7 @@ export class Auth {
 
         this.commonService.loadConfigurationFile()
             .pipe(
-                switchMap((conf: IConf) => {
+                switchMap((conf: IConfiguration) => {
                     this.commonService.appSettings = conf;
                     this.saveSession(String.Empty, conf);
                     return this.loginService.login(username, password);
