@@ -8,7 +8,7 @@
 
 # Home (ru) examples
 
-![ezcv logo](https://raw.githubusercontent.com/ignotochi/MerossJS/master/demos/images/merossJs_home_ru.png)
+![ezcv logo](https://raw.githubusercontent.com/ignotochi/MerossJS/master/demos/images/marossJs_home_ru.png)
 
 # MerossJS Changelog
 
