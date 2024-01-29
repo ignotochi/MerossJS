@@ -6,7 +6,7 @@
 
 ![ezcv logo](https://raw.githubusercontent.com/ignotochi/MerossJS/master/demos/images/merossJs_home.png)
 
-# Home (ru) examples
+# Home (ru) example
 
 ![ezcv logo](https://raw.githubusercontent.com/ignotochi/MerossJS/master/demos/images/marossJs_home_ru.png)
 
