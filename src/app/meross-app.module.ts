@@ -20,6 +20,11 @@ import { APP_BASE_HREF } from '@angular/common';
   imports: [
     RouterModule.forRoot([
       {
+        path: '',
+        pathMatch: 'full',
+        redirectTo: 'login'
+      },
+      {
         path: 'home',
         loadChildren: () => import('./components/home/home.module').then(tt => tt.MerossHomeModule),
         canActivate: [AuthGuard]
@@ -28,7 +33,7 @@ import { APP_BASE_HREF } from '@angular/common';
         path: 'login',
         loadChildren: () => import('./components/login/login.module').then(tt => tt.MerossLoginModule),
       }
-    ], { onSameUrlNavigation: 'reload' }),
+    ], { onSameUrlNavigation: 'reload'}),
 
     FormsModule,
     BrowserAnimationsModule,

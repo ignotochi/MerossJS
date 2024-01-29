@@ -13,8 +13,8 @@ import { IConfiguration } from '../interfaces/IConfiguration';
 @Injectable({ providedIn: 'root' })
 
 export class Auth {
+    
     public errorLogin: string = String.Empty;
-    public userIsLogged = (async () => await this.userLoggedIn());
 
     constructor(private router: Router, private authDetector: AuthChangeDetectorService, private commonService: CommonService, private loginService: MerossLoginService) {
     }
@@ -33,7 +33,7 @@ export class Auth {
         return localStorage.getItem(Token) ?? String.Empty;
     }
 
-    private async userLoggedIn(): Promise<boolean> {
+    public async userIsLogged(): Promise<boolean> {
 
         const localToken = this.getLocalToken();
         const laodedToken = await this.validateLocalToken(localToken)
