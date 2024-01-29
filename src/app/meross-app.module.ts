@@ -10,6 +10,7 @@ import { AuthGuardService as AuthGuard, AuthGuardService } from './services/auth
 import { Auth } from './services/auth.service';
 import { MerossLoginService } from './services/login.service';
 import { I18nService } from './services/i18n.service';
+import { APP_BASE_HREF } from '@angular/common';
 
 @NgModule({
   declarations: [
@@ -35,7 +36,7 @@ import { I18nService } from './services/i18n.service';
     CommonComponentModules
   ],
   bootstrap: [MerossApp],
-  providers: [Auth, AuthGuardService, AuthChangeDetectorService, MerossLoginService, I18nService],
+  providers: [{ provide: APP_BASE_HREF, useValue: '/' }, Auth, AuthGuardService, AuthChangeDetectorService, MerossLoginService, I18nService],
   exports: [RouterModule]
 })
 export class MerossMainModule { }
