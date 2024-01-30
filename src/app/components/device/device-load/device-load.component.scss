@@ -40,6 +40,28 @@ mat-grid-tile {
     background-color: green;
 }
 
+.mss710 {
+    display: block;
+    width: 120px;
+    height: 120px;
+    background-image: url("../../../../assets/img/meross-710.png");
+    background-repeat: no-repeat;
+    background-size: 100%;
+    background-position: center;
+    margin: auto;
+}
+
+.mss310h {
+    display: block;
+    width: 80px;
+    height: 120px;
+    background-image: url("../../../../assets/img/mss310h.png");
+    background-repeat: no-repeat;
+    background-size: 100%;
+    background-position: center;
+    margin: auto;
+}    
+
 .mss710 .device-off {
     display: block;
     position: absolute;
@@ -64,24 +86,27 @@ mat-grid-tile {
     background-color: green;
 }
 
-.mss710 {
+.mss310h .device-off {
     display: block;
-    width: 120px;
-    height: 120px;
-    background-image: url("../../../../assets/img/meross-710.png");
-    background-repeat: no-repeat;
-    background-size: 100%;
-    background-position: center;
-    margin: auto;
+    position: absolute;
+    top: 19%;
+    left: 54.3%;
+    width: 7px;
+    height: 7px;
+    transform: translate(-50%, -50%);
+    border-radius: 100%;
+    background-color: red;
 }
 
-.mss310h {
+.mss310h .device-on {
     display: block;
-    width: 80px;
-    height: 120px;
-    background-image: url("../../../../assets/img/mss310h.png");
-    background-repeat: no-repeat;
-    background-size: 100%;
-    background-position: center;
-    margin: auto;
+    position: absolute;
+    top: 19%;
+    left: 54.3%;
+    width: 7px;
+    height: 7px;
+    transform: translate(-50%, -50%);
+    border-radius: 100%;
+    background-color: green;
 }
+
