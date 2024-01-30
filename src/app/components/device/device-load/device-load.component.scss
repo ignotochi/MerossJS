@@ -67,7 +67,7 @@ mat-grid-tile {
     position: absolute;
     width: 7px;
     height: 7px;
-    top: 16.8%;
+    top: 21.9%;
     left: 55.5%;
     transform: translate(-50%, -50%);
     border-radius: 100%;
@@ -79,7 +79,7 @@ mat-grid-tile {
     position: absolute;
     width: 7px;
     height: 7px;
-    top: 16.8%;
+    top: 21.9%;
     left: 55.5%;
     transform: translate(-50%, -50%);
     border-radius: 100%;
@@ -89,7 +89,7 @@ mat-grid-tile {
 .mss310h .device-off {
     display: block;
     position: absolute;
-    top: 20%;
+    top: 18.5%;
     left: 55.3%;
     width: 7px;
     height: 7px;
@@ -101,12 +101,22 @@ mat-grid-tile {
 .mss310h .device-on {
     display: block;
     position: absolute;
-    top: 13%;
+    top: 18.5%;
     left: 55.3%;
     width: 7px;
     height: 7px;
     transform: translate(-50%, -50%);
     border-radius: 100%;
     background-color: green;
+}
+
+.device-info {
+    font-size: 13px;
+    font-weight: 400;
+}
+
+.device-info-key {
+    font-weight: 500;
+    color: #951b2b;
 }
 

@@ -14,12 +14,24 @@
                     <div [class]="item.model">
                         <div [class]="item.active ? 'device-on' : 'device-off'"></div>
                     </div>
-                    <p><b>{{ 'Device' | translate }}:</b> {{ item.deviceName }}</p>
-                    <p><b>{{ 'Firmware' | translate }}:</b> {{ item.firmwareVersion }}</p>
-                    <p><b>{{ 'Hardware' | translate }}:</b> {{ item.hardwareVersion }}</p>
-                    <p><b>{{ 'Model' | translate }}:</b> {{ item.model }}</p>
-                    <p><b>{{ 'State' | translate }}:</b> {{ item.status }}</p>
-                    <p><b>{{ 'IpAdress' | translate }}:</b> {{ item.ip }}</p>
+                    <p class="device-info">
+                        <span class="device-info-key">{{ 'Device' | translate }}</span>   
+                        : {{ item.deviceName }}</p>
+                    <p class="device-info">
+                        <span class="device-info-key">{{ 'Firmware' | translate }}</span> 
+                        : {{ item.firmwareVersion }}</p>
+                    <p class="device-info">
+                        <span class="device-info-key">{{ 'Hardware' | translate }}</span> 
+                        : {{ item.hardwareVersion }}</p>
+                    <p class="device-info">
+                        <span class="device-info-key">{{ 'Model' | translate }}</span>    
+                        : {{ item.model }}</p>
+                    <p class="device-info">
+                        <span class="device-info-key">{{ 'State' | translate }}</span>    
+                        : {{ item.status }}</p>
+                    <p class="device-info">
+                        <span class="device-info-key">{{ 'IpAdress' | translate }}</span> 
+                        : {{ item.ip }}</p>
                                    
                     <device-switch [device]="{uid: item.deviceUid, enabled: item.active}"
                         (toggled)="item.active = $event"></device-switch>
