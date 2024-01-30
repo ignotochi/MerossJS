@@ -111,11 +111,13 @@ mat-grid-tile {
 }
 
 .device-info {
+    text-transform: lowercase;
     font-size: 13px;
     font-weight: 400;
 }
 
 .device-info-key {
+    text-transform: capitalize;
     font-weight: 500;
     color: #951b2b;
 }
