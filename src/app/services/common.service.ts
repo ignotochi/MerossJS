@@ -47,7 +47,13 @@ export class CommonService {
   }
 
   public buildUrl(): string {
-    const url = this.appSettings.protocol + "://" + this.appSettings.marossApiUrl + ":" + this.appSettings.port;
+
+    let url = this.appSettings.protocol + "://" + this.appSettings.marossApiUrl;
+
+    if (!isNullOrEmptyString(this.appSettings.port)) {
+      url += ":" + this.appSettings.port;
+    }
+    
     return url;
   }
 }
