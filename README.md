@@ -67,7 +67,7 @@ Inside the dist/assets folder, you will find a file named merossApi.conf.json:
 
 ``` json 
 {
-    "language" : "it",
+    "language" : "it", (default language used by frontend)
     "port": "4449", (port of MerossApi server)
     "marossApiUrl": "localhost", (url of MerossAPI server)
     "protocol": "https" (protocol of MerossAPI server)
