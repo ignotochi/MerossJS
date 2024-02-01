@@ -10,38 +10,54 @@
 
 ![ezcv logo](https://raw.githubusercontent.com/ignotochi/MerossJS/master/demos/images/marossJs_home_ru.png)
 
-# MerossJS Changelog
+# Changelog - 1.0.2
 
 This frontend development for the MerossApi now includes two significant enhancements:
 
-1. **Multilingual Support:**
+[Added] **Multilingual Support:**
    - Added support for Italian, English, French, Spanish, German, Russian, and Chinese languages. Users can now seamlessly interact with the app in their preferred language.
 
-2. **Session Polling Functionality:**
+[Added] **Session Polling Functionality:**
    - Introduced a polling feature to keep the session active. Users have the flexibility to enable or disable this function based on their preferences.
-
-Please note that MerossJS is an evolving project, and your feedback is greatly appreciated.
 
 ## Development server
 
-Run `ng serve` for a dev server. Navigate to `http://localhost:4200/`. The application will automatically reload if you change any of the source files.
+To debug the project first of all you need to install al dependecies, foollow this steps:
 
-## Code scaffolding
+- install nvm (https://github.com/coreybutler/nvm-windows), and than install and use nodejs v18 from nvm.
 
-Run `ng generate component component-name` to generate a new component. You can also use `ng generate directive|pipe|service|class|guard|interface|enum|module`.
+- Run  `nmp install`
+
+- Run `nmp start` for a dev server
+
+- Navigate to `http://localhost:4200/`.
+
+- The application will automatically reload if you change any of the source files.
 
 ## Build
+To build the application from this source code run from source code root directory:
 
-Run `ng build` to build the project. The build artifacts will be stored in the `dist/` directory.
+``` json 
+{
+ng build --configuration production --base-href "/"
+}
+```
+change "/" whit base ut you prefer.
 
-## Running unit tests
+Than a folder called dist will be created in roout directory whit copiled source. 
+Move all files into you web server.
 
-Run `ng test` to execute the unit tests via [Karma](https://karma-runner.github.io).
+If accessed from localhost, no additional action is required. Otherwise, you can set up a reverse proxy for both containers and reach them in the way you prefer.
 
-## Running end-to-end tests
+Inside the dist/assets folder, you will find a file named merossApi.conf.json:
 
-Run `ng e2e` to execute the end-to-end tests via a platform of your choice. To use this command, you need to first add a package that implements end-to-end testing capabilities.
+``` json 
+{
+    "language" : "it",
+    "port": "4449",
+    "marossApiUrl": "localhost",
+    "protocol": "https"
+}
 
-## Further help
+Modify it only if necessary, such as when the backend is exposed on an address other than localhost (default) or if you want to change the default language.
 
-To get more help on the Angular CLI use `ng help` or go check out the [Angular CLI Overview and Command Reference](https://angular.io/cli) page.
