@@ -61,15 +61,15 @@ Change "/" with the base URL you prefer.
 
 A folder called dist will be created in the root directory with compiled source files. Move all files into your web server.
 
-If accessed from localhost, no additional action is required. Otherwise, you can set up a reverse proxy for both containers and reach them in the way you prefer.
+If accessed from localhost, no additional action is required.
 
 Inside the dist/assets folder, you will find a file named merossApi.conf.json:
 
 ``` json 
 {
     "language" : "it",
-    "port": "4449",
-    "marossApiUrl": "localhost",
+    "port": "4449", (port of MerossApi server)
+    "marossApiUrl": "localhost", (url of MerossAPI server)
     "protocol": "https"
 }
 
