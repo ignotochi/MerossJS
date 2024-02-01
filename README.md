@@ -55,9 +55,7 @@ To debug this project, you need to install all dependencies. Follow these steps:
 To build the application from this source code, run the following command from the root directory:
 
 ``` bash 
-{
 ng build --configuration production --base-href "/"
-}
 ```
 Change "/" with the base URL you prefer.
 
