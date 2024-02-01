@@ -10,9 +10,15 @@
 
 ![ezcv logo](https://raw.githubusercontent.com/ignotochi/MerossJS/master/demos/images/marossJs_home_ru.png)
 
-# Changelog - 1.0.2
+## What is MerossJS?
 
-This frontend development for the MerossApi now includes two significant enhancements:
+**MerossJS** is a frontend developed in Angular for **MerossAPI** ([GitHub Repository](https://github.com/ignotochi/MerossApi.git)) to manage all your devices. You can find the source code to make improvements and debug the project. To do this, you need to download and execute MerossAPI with a Python interpreter and then compile and expose this project.
+
+# See MerossJsBundle
+
+If you don't want to install MerossAPI and MerossJS separately and just want to use it, check out **MerossJsBundle** ([GitHub Repository](https://github.com/ignotochi/MerossJsBundle.git)). It's an all-in-one solution with Docker. A bash script clones all required repositories (MerossApi & MerossJS), compiles them, and publishes both on two Docker containers. You can access the app at http://localhost:8389.
+
+# Changelog - 1.0.2
 
 [Added] **Multilingual Support:**
    - Added support for Italian, English, French, Spanish, German, Russian, and Chinese languages. Users can now seamlessly interact with the app in their preferred language.
@@ -20,32 +26,32 @@ This frontend development for the MerossApi now includes two significant enhance
 [Added] **Session Polling Functionality:**
    - Introduced a polling feature to keep the session active. Users have the flexibility to enable or disable this function based on their preferences.
 
-## Development server
+## Development Server
 
-To debug the project first of all you need to install al dependecies, foollow this steps:
+To debug this project, you need to install all dependencies. Follow these steps:
 
-- install nvm (https://github.com/coreybutler/nvm-windows), and than install and use nodejs v18 from nvm.
+- Install NVM ([GitHub Repository](https://github.com/coreybutler/nvm-windows)), and then install and use Node.js v18 from NVM.
 
-- Run  `nmp install`
+- Run `npm install`.
 
-- Run `nmp start` for a dev server
+- Run `npm start` for a dev server.
 
 - Navigate to `http://localhost:4200/`.
 
 - The application will automatically reload if you change any of the source files.
 
 ## Build
-To build the application from this source code run from source code root directory:
 
-``` json 
+To build the application from this source code, run the following command from the root directory:
+
+``` bash 
 {
 ng build --configuration production --base-href "/"
 }
 ```
-change "/" whit base ut you prefer.
+Change "/" with the base URL you prefer.
 
-Than a folder called dist will be created in roout directory whit copiled source. 
-Move all files into you web server.
+A folder called dist will be created in the root directory with compiled source files. Move all files into your web server.
 
 If accessed from localhost, no additional action is required. Otherwise, you can set up a reverse proxy for both containers and reach them in the way you prefer.
 
@@ -60,4 +66,6 @@ Inside the dist/assets folder, you will find a file named merossApi.conf.json:
 }
 
 Modify it only if necessary, such as when the backend is exposed on an address other than localhost (default) or if you want to change the default language.
+
+Feel free to adjust any part according to your preferences!
 
