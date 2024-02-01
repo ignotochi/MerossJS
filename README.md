@@ -17,8 +17,11 @@
 ## See MerossJsBundle
 
 If you don't want to install MerossAPI and MerossJS separately and just want to use it, check out **MerossJsBundle** ([GitHub Repository](https://github.com/ignotochi/MerossJsBundle.git)). 
+
 It's an all-in-one solution with Docker. 
+
 A bash script clones all required repositories (MerossApi & MerossJS), compiles them, and publishes both on two Docker containers. 
+
 You can access the app at http://localhost:8389.
 
 ## Changelog - 1.0.2
