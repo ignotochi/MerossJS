@@ -67,7 +67,7 @@ mat-grid-tile {
     position: absolute;
     width: 7px;
     height: 7px;
-    top: 21.9%;
+    top: 23%;
     left: 55.5%;
     transform: translate(-50%, -50%);
     border-radius: 100%;
@@ -79,7 +79,7 @@ mat-grid-tile {
     position: absolute;
     width: 7px;
     height: 7px;
-    top: 21.9%;
+    top: 23%;
     left: 55.5%;
     transform: translate(-50%, -50%);
     border-radius: 100%;
@@ -111,8 +111,8 @@ mat-grid-tile {
 }
 
 .device-info {
-    text-transform: lowercase;
-    font-size: 13px;
+    height: 15px;
+    font-size: 12px;
     font-weight: 400;
 }
 

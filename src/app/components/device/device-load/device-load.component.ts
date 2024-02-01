@@ -20,7 +20,7 @@ import { Auth } from "src/app/services/auth.service";
   templateUrl: './device-load.component.html',
   styleUrls: ['./device-load.component.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush,
-  imports: [NgIf, NgFor, SwitchMerossDevice, MatGridListModule, MatProgressBarModule, SharedModule, BadgeStatus, DevicePollingComponent]
+  imports: [NgIf, NgFor , SwitchMerossDevice, MatGridListModule, MatProgressBarModule, SharedModule, BadgeStatus, DevicePollingComponent]
 })
 
 export class LoadMerossDevice implements OnInit, OnDestroy, AfterViewInit {
@@ -37,6 +37,7 @@ export class LoadMerossDevice implements OnInit, OnDestroy, AfterViewInit {
   }
 
   ngOnDestroy(): void {
+
   }
 
   setColsGrid(): number {
