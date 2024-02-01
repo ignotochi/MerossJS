@@ -38,9 +38,9 @@ To debug this project, you need to install all dependencies. Follow these steps:
 
 - Install NVM ([GitHub Repository](https://github.com/coreybutler/nvm-windows)), and then install and use Node.js v18 from NVM.
 
-- nvm install 18
+- Run `nvm install 18`
   
-- nvm use 18
+- Run `nvm use 18`
   
 - Run `npm install`.
 
