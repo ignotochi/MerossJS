@@ -14,7 +14,7 @@
 
 **MerossJS** is a frontend developed in Angular for **MerossAPI** ([GitHub Repository](https://github.com/ignotochi/MerossApi.git)) to manage all your devices. You can find the source code to make improvements and debug the project. To do this, you need to download and execute MerossAPI with a Python interpreter and then compile and expose this project.
 
-## See MerossJsBundle
+## All in one solution: MerossJsBundle
 
 If you don't want to install MerossAPI and MerossJS separately and just want to use it, check out **MerossJsBundle** ([GitHub Repository](https://github.com/ignotochi/MerossJsBundle.git)). 
 
