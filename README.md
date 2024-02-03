@@ -49,7 +49,7 @@ To debug this project, you need to install all dependencies. Follow these steps:
 
 - Run `npm start` for a dev server.
 
-- Navigate to `http://localhost:4200/`.
+- Navigate to `http://localhost:4200/`
 
 - The application will automatically reload if you change any of the source files.
 
@@ -73,7 +73,7 @@ Inside the dist/assets folder, you will find a file named merossApi.conf.json:
     "language" : "it",            (default language used by frontend)
     "port": "4449",               (port of MerossApi server)
     "marossApiUrl": "localhost",  (url of MerossAPI server)
-    "protocol": "https"           (protocol of MerossAPI server)
+    "protocol": "http"           (protocol of MerossAPI server)
 }
 
 Modify it only if necessary, such as when the backend is exposed on an address other than localhost (default) or if you want to change the default language.
