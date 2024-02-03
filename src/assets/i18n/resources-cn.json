@@ -13,6 +13,8 @@
     "Enabled": "启用",
     "Disabled": "禁用",
     "Login": "登录",
+    "Close": "关闭",
+    "DeviceFilter": "设备过滤器",
     "DeviceSwitchedWithSuccess": "设备状态成功更改",
     "DevicesLoadedWithSuccess": "设备成功加载"
 }

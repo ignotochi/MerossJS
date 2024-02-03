@@ -13,6 +13,8 @@
     "Enabled": "Habilitado",
     "Disabled": "Deshabilitado",
     "Login": "Iniciar sesión",
+    "Close": "Cerrar",
+    "DeviceFilter": "Filtro dispositivos",
     "DeviceSwitchedWithSuccess": "Estado del dispositivo cambiado exitosamente",
     "DevicesLoadedWithSuccess": "Dispositivos cargados exitosamente"
 }

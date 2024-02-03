@@ -2,16 +2,16 @@ export interface Enum {
     [id: number]: string;
 }
 
-export enum authAction {
+export enum AuthAction {
     All = "All",
     token = "token"
 }
 
-export enum pollingAction {
+export enum PollingAction {
     Enabled = "enabled",
 }
 
-export enum languageAction {
+export enum LanguageAction {
     Language = "language",
 }
 
@@ -26,7 +26,7 @@ export enum Badge {
     Warning = 'warning'
 }
 
-export enum language {
+export enum Language {
     It = "it",
     En = "en",
     De = "de",
@@ -35,6 +35,11 @@ export enum language {
     Ru = "ru",
     Cn = "cn"
 }
+
+export enum FilterName {
+    Device = "device",
+}
+
 
 
 

@@ -5,16 +5,15 @@ import { Settings } from "../core/constants";
 import { IConfiguration } from "../interfaces/IConfiguration";
 import { isNullOrEmptyString, String } from "../utils/helper";
 import packajeJson from './../../../package.json';
-import { language } from "../enum/enums";
+import { Language } from "../enum/enums";
 
 @Injectable({ providedIn: 'root' })
 
 export class CommonService {
 
   public angularPackajeJson: Map<string, string> = new Map();
-
   public options = { polling: true };
-  public appSettings: IConfiguration = { language: language.En, marossApiUrl: String.Empty, port: String.Empty, protocol: String.Empty, version: String.Empty };
+  public appSettings: IConfiguration = { language: Language.En, marossApiUrl: String.Empty, port: String.Empty, protocol: String.Empty, version: String.Empty };
 
   private confUrl: string = 'assets/merossApi.conf.json';
 

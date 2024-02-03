@@ -1,5 +1,5 @@
 import { Injectable } from "@angular/core";
-import { authAction, language, languageAction} from "src/app/enum/enums";
+import { AuthAction, Language, LanguageAction} from "src/app/enum/enums";
 import { DataStoreDetector } from "./data-store-detector.service";
 
 
@@ -7,11 +7,11 @@ import { DataStoreDetector } from "./data-store-detector.service";
   providedIn: 'root',
 })
 
-export class LanguageChangeDetectorService extends DataStoreDetector<language, languageAction> {
+export class LanguageChangeDetectorService extends DataStoreDetector<Language, LanguageAction> {
 
     
-    setLanguage(lang: language) {
-        this.updateDataChanges({ action: languageAction.Language, payload: lang });
+    setLanguage(lang: Language) {
+        this.updateDataChanges({ action: LanguageAction.Language, payload: lang });
     }
 
 }

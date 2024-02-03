@@ -11,11 +11,15 @@
             <span>{{ 'Language' | translate }} ({{ commonService.appSettings.language }})</span>
         </button>
 
-        <button mat-menu-item (click)="enablePolling(commonService.options.polling); $event.stopPropagation()">
+        <button mat-menu-item (click)="enablePolling(commonService.options.polling)">
             <mat-icon>update</mat-icon>
             <span>{{ 'Update' | translate }} ({{ (commonService.options.polling ? 'Enabled' : 'Disabled') | translate }})</span>
         </button>
 
+        <button mat-menu-item (click)="openDialog()">
+            <mat-icon>filter_alt</mat-icon>
+            <span>{{ 'DeviceFilter' | translate }}</span>
+        </button>
     </mat-menu>
 
     <div class="logo"></div>

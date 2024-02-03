@@ -3,7 +3,7 @@ import { Injectable } from "@angular/core";
 import { Observable } from "rxjs";
 import { Token } from "../core/constants";
 import { IDevice } from "../interfaces/IDevice";
-import { IDevicesFilter } from "../interfaces/IDevicesFilter";
+import { IFilter } from "../interfaces/IDeviceFilter";
 import { IToggleDevicesFilter } from "../interfaces/IToggleDevices";
 import { Auth } from "./auth.service";
 import { CommonService } from "./common.service";
@@ -14,7 +14,7 @@ export class DeviceService {
   constructor(private http: HttpClient, private commonService: CommonService, private auth: Auth) {
   }
 
-  loadMerossDevices(filters: IDevicesFilter[]): Observable<IDevice[]> {
+  loadMerossDevices(filters: { model: string }[]): Observable<IDevice[]> {
     const url = this.commonService.buildUrl() + "/loaddevices";
 
     const httpOptions = {

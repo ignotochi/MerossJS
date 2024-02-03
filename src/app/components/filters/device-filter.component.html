@@ -1,0 +1,18 @@
+<mat-dialog-content>
+    <div class="dialog-header">
+        <h2 mat-dialog-title>{{ 'DeviceFilter' | translate }}</h2>
+    </div>
+
+    <mat-chip-listbox aria-label="Device selection" selectable multiple>
+        <mat-chip-option color="accent" *ngFor="let device of devicesList; index as i" (click)="toggle(device)"
+            [selected]="chipIsSelected(device)">{{ device }}</mat-chip-option>
+    </mat-chip-listbox>
+
+
+    <mat-dialog-actions>
+        <div class="dialog-footer">
+            <button mat-raised-button class="toggle-btn" color="primary" (click)="onNoClick()">{{ 'Close' | translate
+                }}</button>
+        </div>
+    </mat-dialog-actions>
+</mat-dialog-content>

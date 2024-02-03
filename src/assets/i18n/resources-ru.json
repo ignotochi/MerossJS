@@ -13,6 +13,8 @@
     "Enabled": "Включено",
     "Disabled": "Отключено",
     "Login": "Войти",
+    "Close": "Закрыть",
+    "DeviceFilter": "Фильтр устройств",
     "DeviceSwitchedWithSuccess": "Состояние устройства успешно изменено",
     "DevicesLoadedWithSuccess": "Устройства успешно загружены"
 }

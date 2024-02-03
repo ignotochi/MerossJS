@@ -4,6 +4,7 @@ import { CommonComponentModules } from "../components.module";
 import { MerossHome } from "./meross-home.component";
 import { SharedModule } from "src/app/shared.module";
 import { LoadMerossDevice } from "../device/device-load/device-load.component";
+import { MatDialogModule } from "@angular/material/dialog";
 
 const routes: Routes = [ { path: '', component: MerossHome} ]; 
 
@@ -11,6 +12,7 @@ const routes: Routes = [ { path: '', component: MerossHome} ];
   imports: [
       RouterModule.forChild(routes),
       CommonComponentModules,
+      MatDialogModule,
       LoadMerossDevice,
       SharedModule
     ],

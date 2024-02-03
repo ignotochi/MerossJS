@@ -6,7 +6,7 @@ import { TranslatePipe } from "../pipes/translate.pipe";
 
 export class BadgeService implements OnInit, AfterViewInit, OnDestroy {
 
-    public badge;
+    public badge: EventEmitter<{type: Badge, msg: string}>;
 
     constructor(private translatePipe: TranslatePipe) {
         this.badge = new EventEmitter<{type: Badge, msg: string}>();

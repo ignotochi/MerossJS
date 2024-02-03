@@ -1,7 +1,6 @@
 import { AfterViewInit, OnDestroy, OnInit, Pipe, PipeTransform } from "@angular/core";
 import { I18nService } from "../services/i18n.service";
-import { language, languageAction } from "../enum/enums";
-import { filter } from "rxjs";
+import { Language } from "../enum/enums";
 
 @Pipe({
     name: 'translate'
@@ -24,31 +23,31 @@ export class TranslatePipe implements PipeTransform, OnInit, AfterViewInit, OnDe
 
         let translation: string = "";
 
-        if (this.i18n.userLangauge == language.It) {
+        if (this.i18n.userLangauge == Language.It) {
 
             translation = this.i18n.it_rsx.get(value) ?? value;
         }
-        else if (this.i18n.userLangauge == language.En) {
+        else if (this.i18n.userLangauge == Language.En) {
 
             translation = this.i18n.en_rsx.get(value) ?? value;
         }
-        else if (this.i18n.userLangauge == language.De) {
+        else if (this.i18n.userLangauge == Language.De) {
 
             translation = this.i18n.de_rsx.get(value) ?? value;
         }
-        else if (this.i18n.userLangauge == language.Es) {
+        else if (this.i18n.userLangauge == Language.Es) {
 
             translation = this.i18n.es_rsx.get(value) ?? value;
         }
-        else if (this.i18n.userLangauge == language.Fr) {
+        else if (this.i18n.userLangauge == Language.Fr) {
 
             translation = this.i18n.fr_rsx.get(value) ?? value;
         }
-        else if (this.i18n.userLangauge == language.Ru) {
+        else if (this.i18n.userLangauge == Language.Ru) {
 
             translation = this.i18n.ru_rsx.get(value) ?? value;
         }
-        else if (this.i18n.userLangauge == language.Cn) {
+        else if (this.i18n.userLangauge == Language.Cn) {
 
             translation = this.i18n.cn_rsx.get(value) ?? value;
         }

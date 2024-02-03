@@ -13,6 +13,8 @@
     "Enabled": "Active",
     "Disabled":"Disabled",
     "Login": "Login",
+    "Close": "Close",
+    "DeviceFilter": "Device filter",
     "DeviceSwitchedWithSuccess": "Device state changed successfully",
     "DevicesLoadedWithSuccess": "Devices loaded successfully"
 }

@@ -1,18 +1,20 @@
 import { NgFor, NgIf } from "@angular/common";
-import { AfterViewInit, ChangeDetectionStrategy, ChangeDetectorRef, Component, OnDestroy, OnInit } from "@angular/core";
+import { AfterViewInit, ChangeDetectionStrategy, ChangeDetectorRef, Component, Input, OnDestroy, OnInit } from "@angular/core";
 import { MatGridListModule } from "@angular/material/grid-list";
 import { MatProgressBarModule } from "@angular/material/progress-bar";
 import { IDevice } from "src/app/interfaces/IDevice";
-import { IDevicesFilter } from "src/app/interfaces/IDevicesFilter";
+import { IDeviceFilter, IFilter } from "src/app/interfaces/IDeviceFilter";
 import { BadgeService } from "src/app/services/badge.service";
 import { DeviceService } from "src/app/services/device.service";
 import { SwitchMerossDevice } from "../device-switch/device-switch.component";
 import { BadgeStatus } from 'src/app/core/components/badge-status/badge-status.component';
-import { MSS_310H, MSS_710 } from "src/app/constants";
+import { MSS_310H, MSS_710 } from "src/app/device-constants";
 import { SharedModule } from "src/app/shared.module";
 import { DevicePollingComponent } from "../../../directives/device-polling/device-polling.directive";
-import { Menu } from "src/app/enum/enums";
 import { Auth } from "src/app/services/auth.service";
+import { FilterService } from "src/app/services/filter.service";
+import { FilterName } from "src/app/enum/enums";
+
 
 @Component({
   standalone: true,
@@ -20,20 +22,31 @@ import { Auth } from "src/app/services/auth.service";
   templateUrl: './device-load.component.html',
   styleUrls: ['./device-load.component.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush,
-  imports: [NgIf, NgFor , SwitchMerossDevice, MatGridListModule, MatProgressBarModule, SharedModule, BadgeStatus, DevicePollingComponent]
+  imports: [NgIf, NgFor, SwitchMerossDevice, MatGridListModule, MatProgressBarModule, SharedModule, BadgeStatus, DevicePollingComponent],
 })
 
 export class LoadMerossDevice implements OnInit, OnDestroy, AfterViewInit {
 
   public showLoader: boolean = true;
   public datasource: IDevice[] = [] as IDevice[];
-  public devicesSearch: IDevicesFilter[] = [];
 
-  constructor(private auth: Auth, private deviceService: DeviceService, private cd: ChangeDetectorRef, private badgeService: BadgeService) {
-    this.devicesSearch.push({ model: MSS_710 }, { model: MSS_310H });
+  private deviceFilter: Record<FilterName.Device, IDeviceFilter> = {
+
+    device: {
+      models: [{ model: MSS_310H }, { model:MSS_710 }],
+      uid: 0,
+      name: FilterName.Device,
+      type: 'IDeviceFilter',
+      invoke: () => this.LoadDevices(this.deviceFilter.device)
+    }
+  };
+
+  constructor(private auth: Auth, private deviceService: DeviceService, private cd: ChangeDetectorRef, private badgeService: BadgeService,
+    private filterService: FilterService<Record<FilterName, IFilter>>) {
   }
 
   ngOnInit(): void {
+    this.filterService.register(this.deviceFilter);
   }
 
   ngOnDestroy(): void {
@@ -56,8 +69,12 @@ export class LoadMerossDevice implements OnInit, OnDestroy, AfterViewInit {
   }
 
   ngAfterViewInit() {
+    this.LoadDevices(this.deviceFilter.device);
+  }
 
-    this.deviceService.loadMerossDevices(this.devicesSearch).subscribe({
+  private LoadDevices(deviceFilter: IDeviceFilter): void {
+
+    this.deviceService.loadMerossDevices(deviceFilter.models).subscribe({
 
       next: (data) => {
         if (data.length > 0) {

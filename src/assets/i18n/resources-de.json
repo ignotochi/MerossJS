@@ -13,6 +13,8 @@
     "Enabled": "Aktiv",
     "Disabled": "Deaktiviert",
     "Login": "Anmelden",
+    "Close": "Schließen",
+    "DeviceFilter": "Gerätefilter",
     "DeviceSwitchedWithSuccess": "Gerätestatus erfolgreich geändert",
     "DevicesLoadedWithSuccess": "Geräte erfolgreich geladen"
 }

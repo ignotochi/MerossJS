@@ -1,7 +1,7 @@
-import { language } from "../enum/enums";
+import { Language } from "../enum/enums";
 
 export interface IConfiguration {
-    language: language,
+    language: Language,
     marossApiUrl : string;
     port: string;
     protocol: string,

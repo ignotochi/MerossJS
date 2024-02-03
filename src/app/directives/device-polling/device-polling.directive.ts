@@ -1,10 +1,11 @@
 import { AfterViewInit, Directive, Input, OnDestroy, OnInit } from "@angular/core";
 import { Subscription, catchError, filter, switchMap, takeWhile, timer } from "rxjs";
 import { DeviceService } from "src/app/services/device.service";
-import { IDevicesFilter } from "src/app/interfaces/IDevicesFilter";
 import { IDevice } from "src/app/interfaces/IDevice";
 import { PollingChangeDetectorService } from "src/app/core/detectors/polling-change-detector.service";
-import { pollingAction } from "src/app/enum/enums";
+import { FilterName, PollingAction } from "src/app/enum/enums";
+import { FilterService } from "src/app/services/filter.service";
+import { IDeviceFilter } from "src/app/interfaces/IDeviceFilter";
 
 enum polling {
     timeout = "timeout",
@@ -19,8 +20,6 @@ enum polling {
 
 export class DevicePollingComponent implements OnInit, OnDestroy, AfterViewInit {
 
-    @Input()
-    public devicesSearch: IDevicesFilter[] = [];
 
     @Input()
     public datasource: IDevice[] = [];
@@ -28,11 +27,13 @@ export class DevicePollingComponent implements OnInit, OnDestroy, AfterViewInit 
     private stopIteration: boolean = false;
     private pollingTimeout_mm: number = 180;
     private pollingInterval_ms: number = 30000;
-    private deviceLoadPolling$: Subscription = new Subscription();;
+    private deviceLoadPolling$: Subscription = new Subscription();
 
-    constructor(private authDetector: PollingChangeDetectorService, private deviceService: DeviceService) {
+    private deviceFilter: Record<FilterName.Device, IDeviceFilter> = { device: { type : 'IDeviceFilter' }} as Record<FilterName, IDeviceFilter>;
 
-        this.authDetector.getDataChanges().pipe(filter(tt => tt.action === pollingAction.Enabled))
+    constructor(private authDetector: PollingChangeDetectorService, private deviceService: DeviceService, private filterService: FilterService<Record<FilterName, IDeviceFilter>>) {
+
+        this.authDetector.getDataChanges().pipe(filter(tt => tt.action === PollingAction.Enabled))
 
             .subscribe((result) => {
 
@@ -44,6 +45,8 @@ export class DevicePollingComponent implements OnInit, OnDestroy, AfterViewInit 
                     this.stopIteration = true;
                 }
             });
+
+        this.deviceFilter = this.filterService.retrieveInstance(this.deviceFilter);
     }
 
     ngOnInit(): void {
@@ -65,7 +68,7 @@ export class DevicePollingComponent implements OnInit, OnDestroy, AfterViewInit 
             .pipe(takeWhile(t => this.continuePollingIteration(t) && !this.stopIteration),
 
                 switchMap(() => {
-                    return this.deviceService.loadMerossDevices(this.devicesSearch);
+                    return this.deviceService.loadMerossDevices(this.deviceFilter.device.models);
                 }),
 
                 catchError((err: any) => {
