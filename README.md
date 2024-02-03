@@ -22,7 +22,7 @@ It's an all-in-one solution with Docker.
 
 A bash script clones all required repositories (MerossApi & MerossJS), compiles them, and publishes both on two Docker containers. 
 
-You can access the app at http://localhost:8389.
+You can access the app at http://localhost:8389
 
 ## Changelog - 1.1.0
 
