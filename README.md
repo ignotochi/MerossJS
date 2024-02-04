@@ -26,6 +26,9 @@ You can access the app at http://localhost:8389
 
 ## Changelog - 1.1.3
 
+[Fixed] **Filter devices**
+   - Fixed device filter service registration
+
 [Added] **Filter devices**
    - Introduced a new feature: the ability to filter devices via a dialog. Users can now conveniently filter devices in the list, including MSS_310H, MSS_710, MSL_120, MSS_110, MSS_210, MSS_10, MSS_530H, MSS_425E, MSG_100, MSG_200, MSH_300, MS_100, MSXH_0, using the added filter functionality.
 

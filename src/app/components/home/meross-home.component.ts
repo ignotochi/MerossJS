@@ -67,15 +67,8 @@ export class MerossHome implements OnInit, AfterViewInit, OnDestroy {
     }
 
     openDialog(): void {
-
-        const deviceFilter2: Record<FilterName.DeviceFilter, IDeviceFilter> = {
-
-            deviceFilter: {
-              name: FilterName.DeviceFilter,
-            } as IDeviceFilter
-          };
         
-        const deviceFilter = this.filterService.retrieveInstance(deviceFilter2);
+        const deviceFilter = this.filterService.retrieveInstanceByName(FilterName.DeviceFilter);
 
         const dialogRef = this.dialog.open(DeviceFilterDialogComponent, {
 
@@ -84,9 +77,8 @@ export class MerossHome implements OnInit, AfterViewInit, OnDestroy {
 
         dialogRef.afterClosed().subscribe(result => {
             
-           this.filterService.invoke(this.filterService.retrieveInstance(deviceFilter));
+           this.filterService.invoke(deviceFilter);
         });
-
     }
 
     changeLanguage(value: string): string {

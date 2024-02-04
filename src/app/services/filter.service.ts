@@ -10,20 +10,12 @@ import { isNullOrEmptyString } from "../utils/helper";
 
 export class FilterService<T extends FilterType<Record<FilterName, IFilter>>> implements IFilterService<T> {
 
-    private readonly FilterDeclarations: Record<FilterName, IDeviceFilter>[] = [
-        { deviceFilter: { name: FilterName.DeviceFilter } } as Record<FilterName.DeviceFilter, IDeviceFilter>
-    ];
-
     private readonly fitlers: Map<number, T> = new Map();
 
     private id: number = 0;
     public uid = (() => () => this.id++)();
 
     constructor() {
-
-        for (let index = 0; index < this.FilterDeclarations.length; index++) {
-            this.register(this.FilterDeclarations[index]);
-        }
     }
 
     public retrieveInstanceByName(name: FilterName): T {
