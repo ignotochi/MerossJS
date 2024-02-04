@@ -42,27 +42,27 @@ export class FilterService<T extends FilterType<Record<FilterName, IFilter>>> im
 
     public retrieveInstance<K extends keyof T>(filter: Record<K, IFilter>): T {
 
-        let instance: T = {} as T;
+        let f: T = {} as T;
 
         const filterKey: K = Object.keys(filter)[0] as K;
 
         if (!isNullOrEmptyString(filterKey)) {
 
             if (filter[filterKey].uid) {
-                instance = this.fitlers.get(filter[filterKey].uid) ?? {} as T;
+                f = this.fitlers.get(filter[filterKey].uid) ?? {} as T;
             }
             else if (filter[filterKey].name) {
 
-                instance = this.retrieveInstanceByName(filter[filterKey].name);
+                f = this.retrieveInstanceByName(filter[filterKey].name);
             }
         }
 
-        return instance;
+        return f;
     }
 
-    public register(filter: Record<FilterName, IFilter>): void {
+    public register<K extends keyof T>(filter: Record<K, IFilter>): void {
 
-        const filterKey = Object.keys(filter)[0] as FilterName;
+        const filterKey: K = Object.keys(filter)[0] as K;
 
         if (!isNullOrEmptyString(filterKey)) {
 
@@ -74,16 +74,16 @@ export class FilterService<T extends FilterType<Record<FilterName, IFilter>>> im
         }
     }
 
-    public invoke(filter: Record<FilterName, IFilter>): void {
+    public invoke<K extends keyof T>(filter: Record<K, IFilter>): void {
 
-        const filterKey = Object.keys(filter)[0] as FilterName;
+        const filterKey: K = Object.keys(filter)[0] as K;
 
         if (!isNullOrEmptyString(filterKey)) {
 
-            const f = this.fitlers.get(filter.deviceFilter.uid);
+            const f = this.fitlers.get(filter[filterKey].uid);
 
             if (f) {
-                filter.deviceFilter.invoke();
+                filter[filterKey].invoke();
             }
         }
     }
