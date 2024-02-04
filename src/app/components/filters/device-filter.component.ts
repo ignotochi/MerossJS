@@ -30,18 +30,18 @@ export class DeviceFilterDialogComponent {
 
   public toggle(device: string): void {
 
-    const index = this.deviceFilter.device.models.findIndex(devicve => devicve.model === device);
+    const index = this.deviceFilter.deviceFilter.models.findIndex(deviceFilter => deviceFilter.model === device);
 
     if (index == -1) {
-      this.deviceFilter.device.models.push({ model: device });
+      this.deviceFilter.deviceFilter.models.push({ model: device });
     }
     else {
-      this.deviceFilter.device.models.splice(index, 1);
+      this.deviceFilter.deviceFilter.models.splice(index, 1);
     }
   }
 
   chipIsSelected(device: string): boolean {
-    const index = this.deviceFilter.device.models.findIndex(devicve => devicve.model === device);
+    const index = this.deviceFilter.deviceFilter.models.findIndex(deviceFilter => deviceFilter.model === device);
     return index !== -1;
   }
 

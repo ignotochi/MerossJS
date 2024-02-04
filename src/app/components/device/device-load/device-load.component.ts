@@ -14,6 +14,7 @@ import { DevicePollingComponent } from "../../../directives/device-polling/devic
 import { Auth } from "src/app/services/auth.service";
 import { FilterService } from "src/app/services/filter.service";
 import { FilterName } from "src/app/enum/enums";
+import { FilterType } from "src/app/types/custom-types";
 
 
 @Component({
@@ -30,19 +31,18 @@ export class LoadMerossDevice implements OnInit, OnDestroy, AfterViewInit {
   public showLoader: boolean = true;
   public datasource: IDevice[] = [] as IDevice[];
 
-  private deviceFilter: Record<FilterName.Device, IDeviceFilter> = {
+  private deviceFilter: FilterType<Record<FilterName.DeviceFilter, IDeviceFilter>> = {
 
-    device: {
+    deviceFilter: {
       models: [{ model: MSS_310H }, { model:MSS_710 }],
       uid: 0,
-      name: FilterName.Device,
-      type: 'IDeviceFilter',
-      invoke: () => this.LoadDevices(this.deviceFilter.device)
+      name: FilterName.DeviceFilter,
+      invoke: () => this.LoadDevices(this.deviceFilter.deviceFilter)
     }
   };
 
   constructor(private auth: Auth, private deviceService: DeviceService, private cd: ChangeDetectorRef, private badgeService: BadgeService,
-    private filterService: FilterService<Record<FilterName, IFilter>>) {
+    private filterService: FilterService<FilterType<Record<FilterName, IFilter>>>) {
   }
 
   ngOnInit(): void {
@@ -69,7 +69,7 @@ export class LoadMerossDevice implements OnInit, OnDestroy, AfterViewInit {
   }
 
   ngAfterViewInit() {
-    this.LoadDevices(this.deviceFilter.device);
+    this.LoadDevices(this.deviceFilter.deviceFilter);
   }
 
   private LoadDevices(deviceFilter: IDeviceFilter): void {

@@ -5,7 +5,8 @@ import { IDevice } from "src/app/interfaces/IDevice";
 import { PollingChangeDetectorService } from "src/app/core/detectors/polling-change-detector.service";
 import { FilterName, PollingAction } from "src/app/enum/enums";
 import { FilterService } from "src/app/services/filter.service";
-import { IDeviceFilter } from "src/app/interfaces/IDeviceFilter";
+import { IDeviceFilter, IFilter } from "src/app/interfaces/IDeviceFilter";
+import { FilterType } from "src/app/types/custom-types";
 
 enum polling {
     timeout = "timeout",
@@ -27,11 +28,10 @@ export class DevicePollingComponent implements OnInit, OnDestroy, AfterViewInit 
     private stopIteration: boolean = false;
     private pollingTimeout_mm: number = 180;
     private pollingInterval_ms: number = 30000;
+    private deviceFilter: FilterType<Record<FilterName, IDeviceFilter>>;
     private deviceLoadPolling$: Subscription = new Subscription();
-
-    private deviceFilter: Record<FilterName.Device, IDeviceFilter> = { device: { type : 'IDeviceFilter' }} as Record<FilterName, IDeviceFilter>;
-
-    constructor(private authDetector: PollingChangeDetectorService, private deviceService: DeviceService, private filterService: FilterService<Record<FilterName, IDeviceFilter>>) {
+    
+    constructor(private authDetector: PollingChangeDetectorService, private deviceService: DeviceService, private filterService: FilterService<FilterType<Record<FilterName, IDeviceFilter>>>) {
 
         this.authDetector.getDataChanges().pipe(filter(tt => tt.action === PollingAction.Enabled))
 
@@ -46,7 +46,7 @@ export class DevicePollingComponent implements OnInit, OnDestroy, AfterViewInit 
                 }
             });
 
-        this.deviceFilter = this.filterService.retrieveInstance(this.deviceFilter);
+        this.deviceFilter = this.filterService.retrieveInstanceByName(FilterName.DeviceFilter);
     }
 
     ngOnInit(): void {
@@ -68,7 +68,7 @@ export class DevicePollingComponent implements OnInit, OnDestroy, AfterViewInit 
             .pipe(takeWhile(t => this.continuePollingIteration(t) && !this.stopIteration),
 
                 switchMap(() => {
-                    return this.deviceService.loadMerossDevices(this.deviceFilter.device.models);
+                    return this.deviceService.loadMerossDevices(this.deviceFilter.deviceFilter.models);
                 }),
 
                 catchError((err: any) => {

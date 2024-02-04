@@ -12,7 +12,8 @@ import { I18nService } from 'src/app/services/i18n.service';
 import { DeviceFilterDialogComponent } from '../filters/device-filter.component';
 import { MatDialog } from '@angular/material/dialog';
 import { FilterService } from 'src/app/services/filter.service';
-import { IDeviceFilter } from 'src/app/interfaces/IDeviceFilter';
+import { IDeviceFilter, IFilter } from 'src/app/interfaces/IDeviceFilter';
+import { FilterType } from 'src/app/types/custom-types';
 
 @Component({
     selector: 'meross-home',
@@ -30,7 +31,7 @@ export class MerossHome implements OnInit, AfterViewInit, OnDestroy {
     public loadDevices: boolean = false;
 
     constructor(private router: Router, public auth: Auth, private pollingAuthDetector: PollingChangeDetectorService, private langAuthDetector: LanguageChangeDetectorService,
-        public commonService: CommonService, private i18n: I18nService, public dialog: MatDialog, private filterService: FilterService<Record<FilterName, IDeviceFilter>>) {
+        public commonService: CommonService, private i18n: I18nService, public dialog: MatDialog, private filterService: FilterService<FilterType<Record<FilterName, IFilter>>>) {
 
         if (this.commonService.options.polling) {
             this.pollingAuthDetector.enabled(true);
@@ -66,8 +67,15 @@ export class MerossHome implements OnInit, AfterViewInit, OnDestroy {
     }
 
     openDialog(): void {
+
+        const deviceFilter2: Record<FilterName.DeviceFilter, IDeviceFilter> = {
+
+            deviceFilter: {
+              name: FilterName.DeviceFilter,
+            } as IDeviceFilter
+          };
         
-        const deviceFilter: Record<FilterName.Device, IDeviceFilter> = {device: {type : 'IDeviceFilter' }} as Record<FilterName, IDeviceFilter>;
+        const deviceFilter = this.filterService.retrieveInstance(deviceFilter2);
 
         const dialogRef = this.dialog.open(DeviceFilterDialogComponent, {
 
