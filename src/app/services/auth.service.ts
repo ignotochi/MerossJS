@@ -73,6 +73,7 @@ export class Auth {
                     this.saveSession(String.Empty, conf);
                     return this.loginService.login(username, password);
                 }))
+                
             .subscribe({
                 next: (data) => {
                     if (!isNullOrEmptyString(data.token)) {
