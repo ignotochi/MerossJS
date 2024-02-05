@@ -1,6 +1,8 @@
 <mat-toolbar>
 
-    <button mat-icon-button [matMenuTriggerFor]="menu" aria-label="icon-button with a menu">
+    <div class="blur-block"></div>
+
+    <button mat-icon-button [matMenuTriggerFor]="menu" aria-label="icon-button with a menu" [ngStyle]="{'color':'#971f76'}">
         <mat-icon>more_vert</mat-icon>
     </button>
     
@@ -26,7 +28,7 @@
 
     <span class="nav-spacer"></span>
 
-    <button mat-icon-button class="nav-icon" aria-label="icon-button with logout icon" (click)="auth.logout()">
+    <button mat-icon-button class="nav-icon" aria-label="icon-button with logout icon" (click)="auth.logout()" [ngStyle]="{'color':'#971f76'}">
         <mat-icon aria-hidden="false" aria-label="logout icon" fontIcon="logout"></mat-icon>
     </button>
 

@@ -75,6 +75,9 @@ export class LoadMerossDevice implements OnInit, OnDestroy, AfterViewInit {
 
   private LoadDevices(deviceFilter: IDeviceFilter): void {
 
+    this.showLoader = true;
+    this.cd.markForCheck();
+
     this.deviceService.loadMerossDevices(deviceFilter.models).subscribe({
 
       next: (data) => {
@@ -94,6 +97,7 @@ export class LoadMerossDevice implements OnInit, OnDestroy, AfterViewInit {
         if (this.datasource.length > 0) {
           this.badgeService.showSuccessBadge("DevicesLoadedWithSuccess");
         }
+        this.showLoader = false;
       }
     });
   }

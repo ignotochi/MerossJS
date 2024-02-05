@@ -1,15 +1,36 @@
-.nav-spacer {
-    flex: 1 1 auto;
-  }
+.mat-toolbar-row,
+.mat-toolbar-single-row {
+  // background-image: url("../../../assets/img/meross-background.jpg");
+  // background-repeat: no-repeat;
+  // background-position: center;
+  // background-size: 100%;
+  background: white;
+}
 
-  .logo {
-    display: block;
-    width: 150px;
-    height: 60px;
-    background-image: url("../../../assets/img/MerossJS.png");
-    background-repeat: no-repeat;
-    background-size: 100%;
-    background-position: center;
+// .blur-block {
+//   display: block;
+//   position: absolute;
+//   width: 100%;
+//   height: 65px;
+//   top: 0;
+//   left: 0;
+//   background: rgb(175 157 158 / 20%);
+//   backdrop-filter: blur(1px);
+// }
+
+.nav-spacer {
+  flex: 1 1 auto;
+}
+
+.logo {
+  display: block;
+  width: 150px;
+  height: 60px;
+  background-image: url("../../../assets/img/MerossJS.png");
+  background-repeat: no-repeat;
+  background-size: 100%;
+  background-position: center;
+  z-index: 999;
 }
 
 .version-block {

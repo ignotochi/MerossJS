@@ -54,15 +54,21 @@ export class FilterService<T extends FilterType<Record<FilterName, IFilter>>> im
 
     public register<K extends keyof T>(filter: Record<K, IFilter>): void {
 
+        let f: T | undefined | null;
+
         const filterKey: K = Object.keys(filter)[0] as K;
 
         if (!isNullOrEmptyString(filterKey)) {
 
-            const uid = filter[filterKey].uid || this.uid();
-            filter[filterKey].uid = uid;
+            f = this.fitlers.get(filter[filterKey].uid);
 
-            const f: T = filter as T;
-            this.fitlers.set(uid, f);
+            if (!f) {           
+                const uid = filter[filterKey].uid || this.uid();
+                filter[filterKey].uid = uid;
+                
+                f = filter as T;              
+                this.fitlers.set(uid, f);
+            }
         }
     }
 
@@ -72,7 +78,7 @@ export class FilterService<T extends FilterType<Record<FilterName, IFilter>>> im
 
         if (!isNullOrEmptyString(filterKey)) {
 
-            const f = this.fitlers.get(filter[filterKey].uid);
+            const f : T | undefined | null = this.fitlers.get(filter[filterKey].uid);
 
             if (f) {
                 filter[filterKey].invoke();
