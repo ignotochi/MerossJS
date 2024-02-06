@@ -24,7 +24,10 @@ A bash script clones all required repositories (MerossApi & MerossJS), compiles 
 
 You can access the app at http://localhost:8389
 
-## Changelog - 1.1.7
+## Changelog - 1.1.8
+
+[Fixed] **Filter service**
+   - Bug fix on filter service, add initializeWithDefault method filter
 
 [Fixed] **Authentication fix**
    - Bug on UI authentication, user was checked two times if logged
