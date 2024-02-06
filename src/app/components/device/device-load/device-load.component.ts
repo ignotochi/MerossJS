@@ -3,7 +3,7 @@ import { AfterViewInit, ChangeDetectionStrategy, ChangeDetectorRef, Component, I
 import { MatGridListModule } from "@angular/material/grid-list";
 import { MatProgressBarModule } from "@angular/material/progress-bar";
 import { IDevice } from "src/app/interfaces/IDevice";
-import { IDeviceFilter, IFilter } from "src/app/interfaces/IDeviceFilter";
+import { IDeviceFilter } from "src/app/interfaces/IDeviceFilter";
 import { BadgeService } from "src/app/services/badge.service";
 import { DeviceService } from "src/app/services/device.service";
 import { SwitchMerossDevice } from "../device-switch/device-switch.component";
@@ -15,6 +15,7 @@ import { Auth } from "src/app/services/auth.service";
 import { FilterService } from "src/app/services/filter.service";
 import { FilterName } from "src/app/enum/enums";
 import { FilterType } from "src/app/types/custom-types";
+import { IFilter } from "src/app/interfaces/IFilter";
 
 
 @Component({
@@ -31,13 +32,13 @@ export class LoadMerossDevice implements OnInit, OnDestroy, AfterViewInit {
   public showLoader: boolean = true;
   public datasource: IDevice[] = [] as IDevice[];
 
-  private deviceFilter: FilterType<Record<FilterName.DeviceFilter, IDeviceFilter>> = {
+  private deviceFilter: FilterType<Record<FilterName.Device, IDeviceFilter>> = {
 
-    deviceFilter: {
+    device: {
       models: [{ model: MSS_310H }, { model:MSS_710 }],
       uid: 0,
-      name: FilterName.DeviceFilter,
-      invoke: () => this.LoadDevices(this.deviceFilter.deviceFilter)
+      name: FilterName.Device,
+      invoke: () => this.LoadDevices(this.deviceFilter.device)
     }
   };
 
@@ -70,7 +71,7 @@ export class LoadMerossDevice implements OnInit, OnDestroy, AfterViewInit {
   }
 
   ngAfterViewInit() {
-    this.LoadDevices(this.deviceFilter.deviceFilter);
+    this.LoadDevices(this.deviceFilter.device);
   }
 
   private LoadDevices(deviceFilter: IDeviceFilter): void {
@@ -78,7 +79,7 @@ export class LoadMerossDevice implements OnInit, OnDestroy, AfterViewInit {
     this.showLoader = true;
     this.cd.markForCheck();
 
-    this.deviceService.loadMerossDevices(deviceFilter.models).subscribe({
+    this.deviceService.loadMerossDevices(deviceFilter).subscribe({
 
       next: (data) => {
         if (data.length > 0) {

@@ -1,10 +1,5 @@
-import { FilterName } from "src/app/enum/enums";
+import { IFilter } from "./IFilter";
 
-export interface IFilter {
-    uid: number;
-    name: FilterName;
-    invoke: () => void;
-}
 
 export interface IDeviceFilter extends IFilter {
     models: { model: string }[];

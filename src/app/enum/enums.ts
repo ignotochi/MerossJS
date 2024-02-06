@@ -37,7 +37,7 @@ export enum Language {
 }
 
 export enum FilterName {
-    DeviceFilter = "deviceFilter",
+    Device = "device",
 }
 
 

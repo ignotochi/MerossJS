@@ -12,8 +12,8 @@ import { I18nService } from 'src/app/services/i18n.service';
 import { DeviceFilterDialogComponent } from '../filters/device-filter.component';
 import { MatDialog } from '@angular/material/dialog';
 import { FilterService } from 'src/app/services/filter.service';
-import { IDeviceFilter, IFilter } from 'src/app/interfaces/IDeviceFilter';
 import { FilterType } from 'src/app/types/custom-types';
+import { IFilter } from 'src/app/interfaces/IFilter';
 
 @Component({
     selector: 'meross-home',
@@ -68,14 +68,14 @@ export class MerossHome implements OnInit, AfterViewInit, OnDestroy {
 
     openDialog(): void {
         
-        const deviceFilter = this.filterService.retrieveInstanceByName(FilterName.DeviceFilter);
+        const deviceFilter = this.filterService.retrieveInstanceByName(FilterName.Device);
 
         const dialogRef = this.dialog.open(DeviceFilterDialogComponent, {
 
-            data: this.filterService.retrieveInstance(deviceFilter),
+            data: deviceFilter,
         });
 
-        dialogRef.afterClosed().subscribe(result => {
+        dialogRef.afterClosed().subscribe(() => {
             
            this.filterService.invoke(deviceFilter);
         });

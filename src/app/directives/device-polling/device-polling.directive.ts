@@ -5,7 +5,7 @@ import { IDevice } from "src/app/interfaces/IDevice";
 import { PollingChangeDetectorService } from "src/app/core/detectors/polling-change-detector.service";
 import { FilterName, PollingAction } from "src/app/enum/enums";
 import { FilterService } from "src/app/services/filter.service";
-import { IDeviceFilter, IFilter } from "src/app/interfaces/IDeviceFilter";
+import { IDeviceFilter } from "src/app/interfaces/IDeviceFilter";
 import { FilterType } from "src/app/types/custom-types";
 
 enum polling {
@@ -28,7 +28,7 @@ export class DevicePollingComponent implements OnInit, OnDestroy, AfterViewInit 
     private stopIteration: boolean = false;
     private pollingTimeout_mm: number = 180;
     private pollingInterval_ms: number = 30000;
-    private deviceFilter: FilterType<Record<FilterName, IDeviceFilter>>;
+    private deviceFilter: FilterType<Record<FilterName, IDeviceFilter>> = this.filterService.retrieveInstanceByName(FilterName.Device);
     private deviceLoadPolling$: Subscription = new Subscription();
     
     constructor(private authDetector: PollingChangeDetectorService, private deviceService: DeviceService, private filterService: FilterService<FilterType<Record<FilterName, IDeviceFilter>>>) {
@@ -45,8 +45,6 @@ export class DevicePollingComponent implements OnInit, OnDestroy, AfterViewInit 
                     this.stopIteration = true;
                 }
             });
-
-        this.deviceFilter = this.filterService.retrieveInstanceByName(FilterName.DeviceFilter);
     }
 
     ngOnInit(): void {
@@ -68,7 +66,8 @@ export class DevicePollingComponent implements OnInit, OnDestroy, AfterViewInit 
             .pipe(takeWhile(t => this.continuePollingIteration(t) && !this.stopIteration),
 
                 switchMap(() => {
-                    return this.deviceService.loadMerossDevices(this.deviceFilter.deviceFilter.models);
+
+                    return this.deviceService.loadMerossDevices(this.deviceFilter.device);
                 }),
 
                 catchError((err: any) => {

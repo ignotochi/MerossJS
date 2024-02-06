@@ -1,87 +1,112 @@
 import { Injectable } from "@angular/core";
-import { IDeviceFilter, IFilter } from "../interfaces/IDeviceFilter";
 import { FilterName } from "../enum/enums";
 import { IFilterService } from "../interfaces/IFilterService";
 import { FilterType } from "../types/custom-types";
 import { isNullOrEmptyString } from "../utils/helper";
+import { IFilter } from "../interfaces/IFilter";
 
 
 @Injectable()
 
 export class FilterService<T extends FilterType<Record<FilterName, IFilter>>> implements IFilterService<T> {
 
-    private readonly fitlers: Map<number, T> = new Map();
+    private readonly filters: Map<number, T> = new Map();
 
     private id: number = 0;
     public uid = (() => () => this.id++)();
 
-    constructor() {
+    constructor() { }
+
+    private initializeWithDefault<K extends keyof T>(name: K): T {
+
+        const f: T = {
+
+            [name as FilterName]: {
+                uid: -1,
+                name: name as FilterName,
+                invoke: () => undefined 
+            }
+        } as T;
+
+        return f;
     }
 
     public retrieveInstanceByName(name: FilterName): T {
 
-        let instance: T = {} as T;
+        let f: T = this.initializeWithDefault(name);
 
-        this.fitlers.forEach(el => {
+        this.filters.forEach(el => {
 
-            if (el.deviceFilter.name === name) {
-                instance = el;
+            if (el[name]?.name === name) {
+                f = el;
             }
         });
 
-        return instance;
+        return f;
     }
 
-    public retrieveInstance<K extends keyof T>(filter: Record<K, IFilter>): T {
+    public retrieveInstance<K extends keyof T, V extends IFilter>(filter: Record<K, V>): T | undefined | null {
 
-        let f: T = {} as T;
+        let f: T | undefined | null = null;
 
-        const filterKey: K = Object.keys(filter)[0] as K;
+        if (filter) {
 
-        if (!isNullOrEmptyString(filterKey)) {
+            const filterKey: K = Object.keys(filter)[0] as K;
 
-            if (filter[filterKey].uid) {
-                f = this.fitlers.get(filter[filterKey].uid) ?? {} as T;
-            }
-            else if (filter[filterKey].name) {
+            if (filterKey && !isNullOrEmptyString(filterKey)) {
 
-                f = this.retrieveInstanceByName(filter[filterKey].name);
+                if (filter[filterKey].uid >= 0) {
+
+                    f = this.filters.get(filter[filterKey].uid);
+                }
+                else if (filter[filterKey].name) {
+
+                    f = this.retrieveInstanceByName(filter[filterKey].name);
+                }
+                else {
+                    f = this.initializeWithDefault(filterKey);
+                }
             }
         }
 
         return f;
     }
 
-    public register<K extends keyof T>(filter: Record<K, IFilter>): void {
+    public register<K extends keyof T, V extends IFilter>(filter: Record<K, V> | undefined | null): void {
 
-        let f: T | undefined | null;
+        if (filter) {
 
-        const filterKey: K = Object.keys(filter)[0] as K;
+            if (!this.retrieveInstance(filter)) {
 
-        if (!isNullOrEmptyString(filterKey)) {
+                let f: T | undefined | null = null;
 
-            f = this.fitlers.get(filter[filterKey].uid);
+                const filterKey: K = Object.keys(filter)[0] as K;
 
-            if (!f) {           
-                const uid = filter[filterKey].uid || this.uid();
-                filter[filterKey].uid = uid;
-                
-                f = filter as T;              
-                this.fitlers.set(uid, f);
+                if (filterKey && !isNullOrEmptyString(filterKey)) {
+
+                    const uid = filter[filterKey].uid || this.uid();
+                    filter[filterKey].uid = uid;
+
+                    f = filter as T;
+                    this.filters.set(uid, f);
+                }
             }
         }
     }
 
-    public invoke<K extends keyof T>(filter: Record<K, IFilter>): void {
+    public invoke<K extends keyof T, V extends IFilter>(filter: Record<K, V> | undefined | null): void {
 
-        const filterKey: K = Object.keys(filter)[0] as K;
+        if (filter) {
 
-        if (!isNullOrEmptyString(filterKey)) {
+            const filterKey: K = Object.keys(filter)[0] as K;
 
-            const f : T | undefined | null = this.fitlers.get(filter[filterKey].uid);
+            if (!isNullOrEmptyString(filterKey)) {
 
-            if (f) {
-                filter[filterKey].invoke();
+                const f: T | undefined | null = this.filters.get(filter[filterKey].uid);
+
+                if (f) {
+                    filter[filterKey].invoke();
+                }
             }
         }
     }

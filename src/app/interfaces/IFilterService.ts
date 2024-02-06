@@ -1,13 +1,13 @@
 import { FilterName } from "../enum/enums";
-import { IFilter } from "./IDeviceFilter";
+import { IFilter } from "./IFilter";
 
 export abstract class IFilterService<T> {
 
-    abstract retrieveInstanceByName(name: FilterName): T;
+    public abstract retrieveInstanceByName(name: FilterName): T;
     
-    abstract retrieveInstance(filter: Record<FilterName.DeviceFilter, IFilter>): T;
+    public abstract retrieveInstance<K extends keyof T, V extends IFilter>(filter: Record<K, V>): T | undefined | null;
 
-    abstract register(filter: Record<FilterName.DeviceFilter, IFilter>): void;
+    public abstract register<K extends keyof T, V extends IFilter>(filter: Record<K, V>): void;
 
-    abstract invoke(filter: Record<FilterName.DeviceFilter, IFilter>): void;
+    public abstract invoke<K extends keyof T, V extends IFilter>(filter: Record<K, V>): void;
 }
