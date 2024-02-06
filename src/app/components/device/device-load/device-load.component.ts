@@ -45,7 +45,10 @@ export class LoadMerossDevice implements OnInit, OnDestroy, AfterViewInit {
   constructor(private auth: Auth, private deviceService: DeviceService, private cd: ChangeDetectorRef, private badgeService: BadgeService,
     private filterService: FilterService<Record<FilterName, IFilter>>) {
 
-    this.filterService.register(this.deviceFilter);
+      setTimeout(() => {
+        this.filterService.register(this.deviceFilter);
+      }, 5000);
+    
   }
 
   ngOnInit(): void {

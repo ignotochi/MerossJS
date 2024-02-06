@@ -30,13 +30,13 @@ export class FilterService<T extends Record<FilterName, IFilter>> implements IFi
         return f;
     }
 
-    private registerWithDefaultIfNot(name: FilterName): T {
+    private retrieveDefaultAndRegister(name: FilterName): T {
 
         const def: T = this.initializeWithDefault(name);
 
         this.register(def);
 
-        return this.filters.get(def.device.uid) as T;
+        return def;
     }
 
     public retrieveInstanceByName(name: FilterName): T {
@@ -53,8 +53,8 @@ export class FilterService<T extends Record<FilterName, IFilter>> implements IFi
         });
 
         if (!f) {
-
-            f = this.registerWithDefaultIfNot(name);
+            
+            f = this.retrieveDefaultAndRegister(name);
         }
 
         return f;
@@ -98,7 +98,6 @@ export class FilterService<T extends Record<FilterName, IFilter>> implements IFi
                     this.filters.set(uid, filter as T);
                 }
                 else {
-
                     this.filters.forEach(el => {
 
                         if (el[filterKey as FilterName].name === (filter as T)[filterKey as FilterName].name) {
