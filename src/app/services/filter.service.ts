@@ -92,12 +92,25 @@ export class FilterService<T extends Record<FilterName, IFilter>> implements IFi
 
             if (filterKey && !isNullOrEmptyString(filterKey)) {
 
-                if (!this.retrieveInstance(filter)) {
+                const f: T | undefined | null = this.retrieveInstance(filter);
 
-                    const uid = filter[filterKey].uid ?? this.uid();
+                if (!f) {
+
+                    let uid: number;
+
+                    if (filter[filterKey].uid >= 0) {
+                        uid = filter[filterKey].uid
+                    }
+                    else {
+                        uid = this.uid();
+                    }
+
                     this.filters.set(uid, filter as T);
                 }
                 else {
+
+                    (filter as T)[filterKey as FilterName].uid = (f as T)[filterKey as FilterName].uid;
+
                     this.filters.forEach(el => {
 
                         if (el[filterKey as FilterName].name === (filter as T)[filterKey as FilterName].name) {

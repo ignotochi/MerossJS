@@ -36,7 +36,7 @@ export class LoadMerossDevice implements OnInit, OnDestroy, AfterViewInit {
 
     device: {
       models: [{ model: MSS_310H }, { model: MSS_710 }],
-      uid: 0,
+      uid: -1,
       name: FilterName.Device,
       invoke: () => this.LoadDevices(this.deviceFilter.device)
     }
@@ -45,10 +45,13 @@ export class LoadMerossDevice implements OnInit, OnDestroy, AfterViewInit {
   constructor(private auth: Auth, private deviceService: DeviceService, private cd: ChangeDetectorRef, private badgeService: BadgeService,
     private filterService: FilterService<Record<FilterName, IFilter>>) {
 
-      setTimeout(() => {
-        this.filterService.register(this.deviceFilter);
-      }, 5000);
-    
+
+    setTimeout(() => {
+      
+      this.filterService.register(this.deviceFilter);
+
+    }, 5000);
+      
   }
 
   ngOnInit(): void {

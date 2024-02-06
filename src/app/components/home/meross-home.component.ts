@@ -12,7 +12,6 @@ import { I18nService } from 'src/app/services/i18n.service';
 import { DeviceFilterDialogComponent } from '../filters/device-filter.component';
 import { MatDialog } from '@angular/material/dialog';
 import { FilterService } from 'src/app/services/filter.service';
-import { FilterType } from 'src/app/types/custom-types';
 import { IFilter } from 'src/app/interfaces/IFilter';
 
 @Component({
@@ -27,6 +26,7 @@ export class MerossHome implements OnInit, AfterViewInit, OnDestroy {
 
     private languageActionDelay_ms: number = 2000;
     private languageAction$ = new Subject<Language>();
+    private deviceFilter = this.filterService.retrieveInstanceByName(FilterName.Device);
 
     public loadDevices: boolean = false;
 
@@ -68,16 +68,14 @@ export class MerossHome implements OnInit, AfterViewInit, OnDestroy {
 
     openDialog(): void {
 
-        const deviceFilter = this.filterService.retrieveInstanceByName(FilterName.Device);
-
         const dialogRef = this.dialog.open(DeviceFilterDialogComponent, {
 
-            data: deviceFilter,
+            data: this.deviceFilter,
         });
 
         dialogRef.afterClosed().subscribe(() => {
 
-            this.filterService.invoke(deviceFilter);
+            this.filterService.invoke(this.deviceFilter);
         });
     }
 

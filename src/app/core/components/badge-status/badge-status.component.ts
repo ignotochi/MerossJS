@@ -17,9 +17,9 @@ import { BadgeService } from 'src/app/services/badge.service';
 
 export class BadgeStatus implements OnInit, AfterViewInit, OnDestroy {
 
-    public messages: Map<number,  Map<Badge, string>> = new Map();
+    public messages: Map<number, Map<Badge, string>> = new Map();
 
-    private expiry: number = 5000;
+    private readonly expiry: number = 5000;
 
     public showSuccessBadge: boolean = false;
     public showErrorBadge: boolean = false;
