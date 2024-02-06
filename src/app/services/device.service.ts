@@ -24,7 +24,7 @@ export class DeviceService {
         token: this.auth.getLocalToken()
       }),
       params: new HttpParams({
-        fromString: `DevicesFilter= ${JSON.stringify(filters.models)}`
+        fromString: `DevicesFilter= ${JSON.stringify(filters?.models ?? [])}`
       }),
     };
 

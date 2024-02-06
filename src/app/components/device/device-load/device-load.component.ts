@@ -32,10 +32,10 @@ export class LoadMerossDevice implements OnInit, OnDestroy, AfterViewInit {
   public showLoader: boolean = true;
   public datasource: IDevice[] = [] as IDevice[];
 
-  private deviceFilter: FilterType<Record<FilterName.Device, IDeviceFilter>> = {
+  private deviceFilter: Record<FilterName.Device, IDeviceFilter> = {
 
     device: {
-      models: [{ model: MSS_310H }, { model:MSS_710 }],
+      models: [{ model: MSS_310H }, { model: MSS_710 }],
       uid: 0,
       name: FilterName.Device,
       invoke: () => this.LoadDevices(this.deviceFilter.device)
@@ -43,9 +43,9 @@ export class LoadMerossDevice implements OnInit, OnDestroy, AfterViewInit {
   };
 
   constructor(private auth: Auth, private deviceService: DeviceService, private cd: ChangeDetectorRef, private badgeService: BadgeService,
-    private filterService: FilterService<FilterType<Record<FilterName, IFilter>>>) {
+    private filterService: FilterService<Record<FilterName, IFilter>>) {
 
-      this.filterService.register(this.deviceFilter);
+    this.filterService.register(this.deviceFilter);
   }
 
   ngOnInit(): void {

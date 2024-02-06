@@ -28,10 +28,10 @@ export class DevicePollingComponent implements OnInit, OnDestroy, AfterViewInit 
     private stopIteration: boolean = false;
     private pollingTimeout_mm: number = 180;
     private pollingInterval_ms: number = 30000;
-    private deviceFilter: FilterType<Record<FilterName, IDeviceFilter>> = this.filterService.retrieveInstanceByName(FilterName.Device);
+    private deviceFilter: Record<FilterName, IDeviceFilter>;
     private deviceLoadPolling$: Subscription = new Subscription();
-    
-    constructor(private authDetector: PollingChangeDetectorService, private deviceService: DeviceService, private filterService: FilterService<FilterType<Record<FilterName, IDeviceFilter>>>) {
+
+    constructor(private authDetector: PollingChangeDetectorService, private deviceService: DeviceService, private filterService: FilterService<Record<FilterName, IDeviceFilter>>) {
 
         this.authDetector.getDataChanges().pipe(filter(tt => tt.action === PollingAction.Enabled))
 
@@ -45,6 +45,8 @@ export class DevicePollingComponent implements OnInit, OnDestroy, AfterViewInit 
                     this.stopIteration = true;
                 }
             });
+
+        this.deviceFilter = this.filterService.retrieveInstanceByName(FilterName.Device);
     }
 
     ngOnInit(): void {

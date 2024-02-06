@@ -31,7 +31,7 @@ export class MerossHome implements OnInit, AfterViewInit, OnDestroy {
     public loadDevices: boolean = false;
 
     constructor(private router: Router, public auth: Auth, private pollingAuthDetector: PollingChangeDetectorService, private langAuthDetector: LanguageChangeDetectorService,
-        public commonService: CommonService, private i18n: I18nService, public dialog: MatDialog, private filterService: FilterService<FilterType<Record<FilterName, IFilter>>>) {
+        public commonService: CommonService, private i18n: I18nService, public dialog: MatDialog, private filterService: FilterService<Record<FilterName, IFilter>>) {
 
         if (this.commonService.options.polling) {
             this.pollingAuthDetector.enabled(true);
@@ -67,7 +67,7 @@ export class MerossHome implements OnInit, AfterViewInit, OnDestroy {
     }
 
     openDialog(): void {
-        
+
         const deviceFilter = this.filterService.retrieveInstanceByName(FilterName.Device);
 
         const dialogRef = this.dialog.open(DeviceFilterDialogComponent, {
@@ -76,8 +76,8 @@ export class MerossHome implements OnInit, AfterViewInit, OnDestroy {
         });
 
         dialogRef.afterClosed().subscribe(() => {
-            
-           this.filterService.invoke(deviceFilter);
+
+            this.filterService.invoke(deviceFilter);
         });
     }
 
