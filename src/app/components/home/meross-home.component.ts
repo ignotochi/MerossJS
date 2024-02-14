@@ -12,7 +12,8 @@ import { I18nService } from 'src/app/services/i18n.service';
 import { DeviceFilterDialogComponent } from '../filters/device-filter.component';
 import { MatDialog } from '@angular/material/dialog';
 import { FilterService } from 'src/app/services/filter.service';
-import { IFilter } from 'src/app/interfaces/IFilter';
+import { BaseFilterComponent } from '../base/base-filter.component';
+import { DeviceFilter } from 'src/app/types/filter-types';
 
 @Component({
     selector: 'meross-home',
@@ -22,17 +23,17 @@ import { IFilter } from 'src/app/interfaces/IFilter';
     providers: [PollingChangeDetectorService, LanguageChangeDetectorService, FilterService]
 })
 
-export class MerossHome implements OnInit, AfterViewInit, OnDestroy {
+export class MerossHome extends BaseFilterComponent<DeviceFilter> implements OnInit, AfterViewInit, OnDestroy {
 
     private languageActionDelay_ms: number = 2000;
     private languageAction$ = new Subject<Language>();
-    private deviceFilter = this.filterService.retrieveInstanceByName(FilterName.Device);
-
     public loadDevices: boolean = false;
 
     constructor(private router: Router, public auth: Auth, private pollingAuthDetector: PollingChangeDetectorService, private langAuthDetector: LanguageChangeDetectorService,
-        public commonService: CommonService, private i18n: I18nService, public dialog: MatDialog, private filterService: FilterService<Record<FilterName, IFilter>>) {
+        public commonService: CommonService, private i18n: I18nService, public dialog: MatDialog) {
 
+        super(FilterName.Device);
+        
         if (this.commonService.options.polling) {
             this.pollingAuthDetector.enabled(true);
         }
@@ -70,12 +71,12 @@ export class MerossHome implements OnInit, AfterViewInit, OnDestroy {
 
         const dialogRef = this.dialog.open(DeviceFilterDialogComponent, {
 
-            data: this.deviceFilter,
+            data: this.filter.device,
         });
 
         dialogRef.afterClosed().subscribe(() => {
 
-            this.filterService.invoke(this.deviceFilter);
+            this.filter.device.invoke();
         });
     }
 

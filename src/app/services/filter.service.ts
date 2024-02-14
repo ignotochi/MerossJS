@@ -3,11 +3,12 @@ import { FilterName } from "../enum/enums";
 import { IFilterService } from "../interfaces/IFilterService";
 import { isNullOrEmptyString } from "../utils/helper";
 import { IFilter } from "../interfaces/IFilter";
+import { FilterType } from "../types/custom-types";
 
 
 @Injectable()
 
-export class FilterService<T extends Record<FilterName, IFilter>> implements IFilterService<T> {
+export class FilterService<T extends FilterType<Record<FilterName, IFilter>>> implements IFilterService<T> {
 
     private readonly filters: Map<number, T> = new Map();
 
@@ -20,7 +21,7 @@ export class FilterService<T extends Record<FilterName, IFilter>> implements IFi
 
         const f: T = {
 
-            [name as FilterName]: {
+            [name as K]: {
                 uid: this.uid(),
                 name: name as FilterName,
                 invoke: () => undefined
@@ -118,23 +119,6 @@ export class FilterService<T extends Record<FilterName, IFilter>> implements IFi
                             Object.assign(el[filterKey as FilterName], (filter as T)[filterKey as FilterName]);
                         }
                     });
-                }
-            }
-        }
-    }
-
-    public invoke<K extends keyof T, V extends IFilter>(filter: Record<K, V> | undefined | null): void {
-
-        if (filter) {
-
-            const filterKey: K = Object.keys(filter)[0] as K;
-
-            if (!isNullOrEmptyString(filterKey)) {
-
-                const f: T | undefined | null = this.filters.get(filter[filterKey].uid);
-
-                if (f) {
-                    filter[filterKey].invoke();
                 }
             }
         }

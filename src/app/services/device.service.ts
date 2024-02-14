@@ -11,10 +11,9 @@ import { CommonService } from "./common.service";
 @Injectable()
 
 export class DeviceService {
-  constructor(private http: HttpClient, private commonService: CommonService, private auth: Auth) {
-  }
+  constructor(private http: HttpClient, private commonService: CommonService, private auth: Auth) {}
 
-  loadMerossDevices(filters: IDeviceFilter): Observable<IDevice[]> {
+  public loadMerossDevices(filters: IDeviceFilter): Observable<IDevice[]> {
     const url = this.commonService.buildUrl() + "/loaddevices";
 
     const httpOptions = {
@@ -31,7 +30,7 @@ export class DeviceService {
     return this.http.get<IDevice[]>(url, httpOptions);
   }
 
-  toggleDevice(filters: IToggleDevicesFilter[]): Observable<IDevice[]> {
+  public toggleDevice(filters: IToggleDevicesFilter[]): Observable<IDevice[]> {
     
     const httpOptions = {
       headers: new HttpHeaders({

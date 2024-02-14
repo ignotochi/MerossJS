@@ -10,7 +10,7 @@ import {
   MSS_530H, MSS_425E, MSG_100, MSG_200, MSH_300, MS_100, MSXH_0
 } from "src/app/device-constants";
 import { NgFor } from "@angular/common";
-import { FilterName } from "src/app/enum/enums";
+
 
 @Component({
   standalone: true,
@@ -24,24 +24,24 @@ export class DeviceFilterDialogComponent {
 
   public readonly devicesList: string[] = []
 
-  constructor(public dialogRef: MatDialogRef<DeviceFilterDialogComponent>, @Inject(MAT_DIALOG_DATA) public deviceFilter: Record<FilterName, IDeviceFilter>) {
+  constructor(public dialogRef: MatDialogRef<DeviceFilterDialogComponent>, @Inject(MAT_DIALOG_DATA) public deviceFilter: IDeviceFilter) {
     this.devicesList.push(MSS_310H, MSS_710, MSL_120, MSS_110, MSS_210, MSS_10, MSS_530H, MSS_425E, MSG_100, MSG_200, MSH_300, MS_100, MSXH_0);
   }
 
   public toggle(device: string): void {
 
-    const index = this.deviceFilter.device.models.findIndex(filter => filter.model === device);
+    const index = this.deviceFilter.models.findIndex(filter => filter.model === device);
 
     if (index == -1) {
-      this.deviceFilter.device.models.push({ model: device });
+      this.deviceFilter.models.push({ model: device });
     }
     else {
-      this.deviceFilter.device.models.splice(index, 1);
+      this.deviceFilter.models.splice(index, 1);
     }
   }
 
   chipIsSelected(device: string): boolean {
-    const index = this.deviceFilter.device.models.findIndex(deviceFilter => deviceFilter.model === device);
+    const index = this.deviceFilter.models.findIndex(deviceFilter => deviceFilter.model === device);
     return index !== -1;
   }
 

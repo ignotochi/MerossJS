@@ -6,11 +6,11 @@ import { RouterModule } from '@angular/router';
 import { CommonComponentModules } from './components/components.module';
 import { AuthChangeDetectorService } from './core/detectors/auth-change-detector.service';
 import { MerossApp } from './meross-app.component';
-import { AuthGuardService as AuthGuard, AuthGuardService } from './services/auth-guard.service';
+import { AuthGuardService } from './services/auth-guard.service';
 import { Auth } from './services/auth.service';
 import { MerossLoginService } from './services/login.service';
 import { I18nService } from './services/i18n.service';
-import { APP_BASE_HREF, HashLocationStrategy, LocationStrategy } from '@angular/common';
+import { APP_BASE_HREF } from '@angular/common';
 
 @NgModule({
   declarations: [
@@ -27,7 +27,7 @@ import { APP_BASE_HREF, HashLocationStrategy, LocationStrategy } from '@angular/
       {
         path: 'home',
         loadChildren: () => import('./components/home/home.module').then(tt => tt.MerossHomeModule),
-        canActivate: [AuthGuard]
+        canActivate: [AuthGuardService]
       },
       {
         path: 'login',

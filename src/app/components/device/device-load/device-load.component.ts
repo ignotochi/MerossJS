@@ -43,7 +43,7 @@ export class LoadMerossDevice implements OnInit, OnDestroy, AfterViewInit {
   };
 
   constructor(private auth: Auth, private deviceService: DeviceService, private cd: ChangeDetectorRef, private badgeService: BadgeService,
-    private filterService: FilterService<Record<FilterName, IFilter>>) {
+    private filterService: FilterService<FilterType<Record<FilterName, IFilter>>>) {
 
     this.filterService.register(this.deviceFilter);
   }
@@ -72,6 +72,11 @@ export class LoadMerossDevice implements OnInit, OnDestroy, AfterViewInit {
 
   ngAfterViewInit() {
     this.LoadDevices(this.deviceFilter.device);
+  }
+
+  public updateData(data: IDevice[]): void {
+
+    this.datasource = data;
   }
 
   private LoadDevices(deviceFilter: IDeviceFilter): void {

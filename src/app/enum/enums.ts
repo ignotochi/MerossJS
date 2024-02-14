@@ -38,6 +38,13 @@ export enum Language {
 
 export enum FilterName {
     Device = "device",
+    Status = 'status'
+}
+
+export enum polling {
+    timeout = "timeout",
+    stop = "stop",
+    continue = 'continue'
 }
 
 
