@@ -1,11 +1,11 @@
 import { AfterViewInit, Directive, EventEmitter, Input, OnDestroy, OnInit, Output } from "@angular/core";
 import { Subscription, catchError, filter, switchMap, takeWhile, timer } from "rxjs";
-import { DeviceService } from "src/app/services/device.service";
 import { IDevice } from "src/app/interfaces/IDevice";
 import { PollingChangeDetectorService } from "src/app/core/detectors/polling-change-detector.service";
 import { FilterName, PollingAction, polling } from "src/app/enum/enums";
-import { BaseFilterComponent } from "src/app/components/base/base-filter.component";
 import { DeviceFilter } from "src/app/types/filter-types";
+import { BaseFilterComponent } from "src/app/core/base-components/base-filter/base-filter.component";
+import { DeviceService } from "src/app/components/device-components/device.service";
 
 
 @Directive({

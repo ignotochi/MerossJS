@@ -8,12 +8,12 @@ import { NgModule } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { CommonModule } from '@angular/common';
 import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
-import { DeviceService } from '../services/device.service';
-import { BadgeService } from '../services/badge.service';
+import { BadgeService } from '../core/components/badge.service';
 import {MatToolbarModule} from '@angular/material/toolbar';
 import {MatMenuModule} from '@angular/material/menu';
 import { TranslatePipe } from '../pipes/translate.pipe';
 import { TranslatorService } from '../services/translator.service';
+import { DeviceService } from './device-components/device.service';
 
 @NgModule({
   declarations: [
@@ -36,6 +36,6 @@ import { TranslatorService } from '../services/translator.service';
             MatButtonToggleModule, MatIconModule, MatDialogModule, MatProgressSpinnerModule],
   providers: [DeviceService, BadgeService, TranslatePipe, TranslatorService]
 })
-export class CommonComponentModules { }
+export class CommonMatModules { }
 
 

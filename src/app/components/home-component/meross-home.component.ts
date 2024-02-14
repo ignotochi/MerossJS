@@ -9,18 +9,23 @@ import { Router } from '@angular/router';
 import { LanguageChangeDetectorService } from 'src/app/core/detectors/language-change-detector.service';
 import { Subject, debounceTime, filter } from 'rxjs';
 import { I18nService } from 'src/app/services/i18n.service';
-import { DeviceFilterDialogComponent } from '../filters/device-filter.component';
-import { MatDialog } from '@angular/material/dialog';
-import { FilterService } from 'src/app/services/filter.service';
-import { BaseFilterComponent } from '../base/base-filter.component';
+import { MatDialog, MatDialogModule } from '@angular/material/dialog';
 import { DeviceFilter } from 'src/app/types/filter-types';
+import { FilterService } from '../filters-components/filter.service';
+import { BaseFilterComponent } from 'src/app/core/base-components/base-filter/base-filter.component';
+import { DeviceFilterDialogComponent } from '../filters-components/device-filter.component';
+import { CommonMatModules } from '../components.module';
+import { LoadMerossDevice } from '../device-components/device-load-component/device-load.component';
+import { SharedModule } from 'src/app/shared.module';
 
 @Component({
+    standalone: true,
     selector: 'meross-home',
     templateUrl: './meross-home.component.html',
     styleUrls: ['./meross-home.component.scss'],
     changeDetection: ChangeDetectionStrategy.OnPush,
-    providers: [PollingChangeDetectorService, LanguageChangeDetectorService, FilterService]
+    providers: [PollingChangeDetectorService, LanguageChangeDetectorService, FilterService],
+    imports:[CommonMatModules, MatDialogModule, LoadMerossDevice, SharedModule]
 })
 
 export class MerossHome extends BaseFilterComponent<DeviceFilter> implements OnInit, AfterViewInit, OnDestroy {
@@ -71,7 +76,7 @@ export class MerossHome extends BaseFilterComponent<DeviceFilter> implements OnI
 
         const dialogRef = this.dialog.open(DeviceFilterDialogComponent, {
 
-            data: this.filter.device,
+            data: this.filter.device
         });
 
         dialogRef.afterClosed().subscribe(() => {

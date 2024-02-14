@@ -1,9 +1,9 @@
 import { Injectable } from "@angular/core";
-import { FilterName } from "../enum/enums";
-import { IFilterService } from "../interfaces/IFilterService";
-import { isNullOrEmptyString } from "../utils/helper";
-import { IFilter } from "../interfaces/IFilter";
-import { FilterType } from "../types/custom-types";
+import { FilterName } from "../../enum/enums";
+import { IFilterService } from "../../interfaces/IFilterService";
+import { isNullOrEmptyString } from "../../utils/helper";
+import { IFilter } from "../../interfaces/IFilter";
+import { FilterType } from "../../types/custom-types";
 
 
 @Injectable()
@@ -12,7 +12,7 @@ export class FilterService<T extends FilterType<Record<FilterName, IFilter>>> im
 
     private readonly filters: Map<number, T> = new Map();
 
-    private id: number = 0;
+    private id: number = 0; 
     public uid = (() => () => this.id++)();
 
     constructor() { }

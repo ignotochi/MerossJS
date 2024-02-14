@@ -4,7 +4,7 @@ import {
 } from '@angular/core';
 import { MatButtonModule } from '@angular/material/button';
 import { Badge } from 'src/app/enum/enums';
-import { BadgeService } from 'src/app/services/badge.service';
+import { BadgeService } from 'src/app/core/components/badge.service';
 
 @Component({
     standalone: true,

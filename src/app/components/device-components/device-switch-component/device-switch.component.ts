@@ -3,11 +3,11 @@ import { AfterViewInit, ChangeDetectionStrategy, ChangeDetectorRef, Component, E
 import { String } from '../../../utils/helper';
 import { MatButtonModule } from "@angular/material/button";
 import { IToggleDevicesFilter } from "../../../interfaces/IToggleDevices";
-import { DeviceService } from "src/app/services/device.service";
-import { BadgeService } from "src/app/services/badge.service";
+import { BadgeService } from "src/app/core/components/badge.service";
 import { MatProgressSpinnerModule } from "@angular/material/progress-spinner";
 import { SharedModule } from "src/app/shared.module";
 import { Auth } from "src/app/services/auth.service";
+import { DeviceService } from "../device.service";
 
 
 @Component({

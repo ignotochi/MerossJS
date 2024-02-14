@@ -1,12 +1,12 @@
 import { HttpClient, HttpHeaders, HttpParams } from "@angular/common/http";
 import { Injectable } from "@angular/core";
 import { Observable } from "rxjs";
-import { Token } from "../core/constants";
-import { IDevice } from "../interfaces/IDevice";
-import { IDeviceFilter } from "../interfaces/IDeviceFilter";
-import { IToggleDevicesFilter } from "../interfaces/IToggleDevices";
-import { Auth } from "./auth.service";
-import { CommonService } from "./common.service";
+import { Token } from "../../core/constants";
+import { IDevice } from "../../interfaces/IDevice";
+import { IDeviceFilter } from "../../interfaces/IDeviceFilter";
+import { IToggleDevicesFilter } from "../../interfaces/IToggleDevices";
+import { Auth } from "../../services/auth.service";
+import { CommonService } from "../../services/common.service";
 
 @Injectable()
 

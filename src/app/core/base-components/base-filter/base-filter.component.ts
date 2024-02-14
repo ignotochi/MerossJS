@@ -1,7 +1,7 @@
 import { inject } from "@angular/core";
+import { FilterService } from "src/app/components/filters-components/filter.service";
 import { FilterName } from "src/app/enum/enums";
 import { IFilter } from "src/app/interfaces/IFilter";
-import { FilterService } from "src/app/services/filter.service";
 import { FilterType } from "src/app/types/custom-types";
 
 type FilterPair = [IFilter, FilterName];

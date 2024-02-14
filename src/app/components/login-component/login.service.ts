@@ -1,9 +1,9 @@
 import { HttpClient, HttpHeaders } from "@angular/common/http";
 import { Injectable } from "@angular/core";
 import { Observable } from "rxjs";
-import { Token } from "../core/constants";
-import { ILogin, ILoginRequest } from "../interfaces/ILogin";
-import { CommonService } from "./common.service";
+import { Token } from "../../core/constants";
+import { ILogin, ILoginRequest } from "../../interfaces/ILogin";
+import { CommonService } from "../../services/common.service";
 
 @Injectable()
 
@@ -12,7 +12,7 @@ export class MerossLoginService {
   constructor(private http: HttpClient, private commonService: CommonService) { 
   }
 
-  validateLocalToken(token: string): Observable<ILogin> {
+  public validateLocalToken(token: string): Observable<ILogin> {
 
     const httpOptions = {
       headers: new HttpHeaders({
@@ -27,7 +27,7 @@ export class MerossLoginService {
     return this.http.post<ILogin>(url, null, httpOptions);
   }
 
-  login(username: string, password: string): Observable<ILogin> {
+  public login(username: string, password: string): Observable<ILogin> {
 
     const headers = new HttpHeaders({'Content-Type':'application/json; charset=utf-8'});
     const body: ILoginRequest = { user: username, password: password };
@@ -36,7 +36,7 @@ export class MerossLoginService {
     return this.http.post<ILogin>(url, body, { headers });
   }
 
-  logout(token: string): Observable<{logout: boolean}> {
+  public logout(token: string): Observable<{logout: boolean}> {
 
     const url = this.commonService.buildUrl() + "/logout";
 

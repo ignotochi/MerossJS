@@ -2,12 +2,12 @@ import { Injectable } from '@angular/core';
 import { Router } from '@angular/router';
 import { AuthChangeDetectorService } from '../core/detectors/auth-change-detector.service';
 import { Menu } from '../enum/enums';
-import { MerossLoginService } from './login.service';
 import { isNullOrEmptyString, String } from '../utils/helper';
 import { lastValueFrom, switchMap } from 'rxjs';
 import { CommonService } from './common.service';
 import { Settings, Token } from '../core/constants';
 import { IConfiguration } from '../interfaces/IConfiguration';
+import { MerossLoginService } from '../components/login-component/login.service';
 
 
 @Injectable({ providedIn: 'root' })

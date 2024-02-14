@@ -1,6 +1,6 @@
 import { AfterViewInit, EventEmitter, Injectable, OnDestroy, OnInit } from "@angular/core";
-import { Badge } from "../enum/enums";
-import { TranslatePipe } from "../pipes/translate.pipe";
+import { Badge } from "../../enum/enums";
+import { TranslatePipe } from "../../pipes/translate.pipe";
 
 @Injectable()
 

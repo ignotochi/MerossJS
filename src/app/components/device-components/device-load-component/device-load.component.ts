@@ -4,18 +4,18 @@ import { MatGridListModule } from "@angular/material/grid-list";
 import { MatProgressBarModule } from "@angular/material/progress-bar";
 import { IDevice } from "src/app/interfaces/IDevice";
 import { IDeviceFilter } from "src/app/interfaces/IDeviceFilter";
-import { BadgeService } from "src/app/services/badge.service";
-import { DeviceService } from "src/app/services/device.service";
-import { SwitchMerossDevice } from "../device-switch/device-switch.component";
+import { BadgeService } from "src/app/core/components/badge.service";
 import { BadgeStatus } from 'src/app/core/components/badge-status/badge-status.component';
 import { MSS_310H, MSS_710 } from "src/app/device-constants";
 import { SharedModule } from "src/app/shared.module";
 import { DevicePollingComponent } from "../../../directives/device-polling/device-polling.directive";
 import { Auth } from "src/app/services/auth.service";
-import { FilterService } from "src/app/services/filter.service";
 import { FilterName } from "src/app/enum/enums";
 import { FilterType } from "src/app/types/custom-types";
 import { IFilter } from "src/app/interfaces/IFilter";
+import { SwitchMerossDevice } from "../device-switch-component/device-switch.component";
+import { DeviceService } from "../device.service";
+import { FilterService } from "../../filters-components/filter.service";
 
 
 @Component({
