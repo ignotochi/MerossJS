@@ -38,7 +38,7 @@ export class LoadMerossDevice implements OnInit, OnDestroy, AfterViewInit {
       models: [{ model: MSS_310H }, { model: MSS_710 }],
       uid: -1,
       name: FilterName.Device,
-      invoke: () => this.LoadDevices(this.deviceFilter.device)
+      invoke: () => this.LoadMerossDevices()
     }
   };
 
@@ -71,7 +71,7 @@ export class LoadMerossDevice implements OnInit, OnDestroy, AfterViewInit {
   }
 
   ngAfterViewInit() {
-    this.LoadDevices(this.deviceFilter.device);
+    this.LoadMerossDevices();
   }
 
   public updateData(data: IDevice[]): void {
@@ -79,12 +79,12 @@ export class LoadMerossDevice implements OnInit, OnDestroy, AfterViewInit {
     this.datasource = data;
   }
 
-  private LoadDevices(deviceFilter: IDeviceFilter): void {
+  private LoadMerossDevices(): void {
 
     this.showLoader = true;
     this.cd.markForCheck();
 
-    this.deviceService.loadMerossDevices(deviceFilter).subscribe({
+    this.deviceService.loadMerossDevices(this.deviceFilter.device).subscribe({
 
       next: (data) => {
         if (data.length > 0) {

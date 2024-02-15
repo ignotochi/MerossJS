@@ -25,20 +25,19 @@ import { SharedModule } from 'src/app/shared.module';
     styleUrls: ['./meross-home.component.scss'],
     changeDetection: ChangeDetectionStrategy.OnPush,
     providers: [PollingChangeDetectorService, LanguageChangeDetectorService, FilterService],
-    imports:[CommonMatModules, MatDialogModule, LoadMerossDevice, SharedModule]
+    imports: [CommonMatModules, MatDialogModule, LoadMerossDevice, SharedModule]
 })
 
 export class MerossHome extends BaseFilterComponent<DeviceFilter> implements OnInit, AfterViewInit, OnDestroy {
 
     private languageActionDelay_ms: number = 2000;
     private languageAction$ = new Subject<Language>();
-    public loadDevices: boolean = false;
 
     constructor(private router: Router, public auth: Auth, private pollingAuthDetector: PollingChangeDetectorService, private langAuthDetector: LanguageChangeDetectorService,
         public commonService: CommonService, private i18n: I18nService, public dialog: MatDialog) {
 
         super(FilterName.Device);
-        
+
         if (this.commonService.options.polling) {
             this.pollingAuthDetector.enabled(true);
         }
@@ -46,18 +45,11 @@ export class MerossHome extends BaseFilterComponent<DeviceFilter> implements OnI
         this.router.routeReuseStrategy.shouldReuseRoute = () => false;
 
         this.langAuthDetector.getDataChanges().pipe(filter(tt => tt.action === LanguageAction.Language))
-
-            .subscribe((result) => {
-                this.i18n.userLangauge = result.payload;
-            });
+            .subscribe((result) => this.i18n.userLangauge = result.payload);
 
         this.languageAction$.pipe(debounceTime(this.languageActionDelay_ms)).subscribe((value) => {
-
             this.langAuthDetector.setLanguage(value);
-
-            setTimeout(() => {
-                this.router.navigate([Menu.Home]);
-            }, 500);
+            setTimeout(() => this.router.navigate([Menu.Home]), 500);
         });
     }
 
@@ -72,7 +64,7 @@ export class MerossHome extends BaseFilterComponent<DeviceFilter> implements OnI
         this.languageAction$.unsubscribe();
     }
 
-    openDialog(): void {
+    public openDialog(): void {
 
         const dialogRef = this.dialog.open(DeviceFilterDialogComponent, {
 
@@ -85,7 +77,7 @@ export class MerossHome extends BaseFilterComponent<DeviceFilter> implements OnI
         });
     }
 
-    changeLanguage(value: string): string {
+    public changeLanguage(value: string): string {
 
         this.languageActionDelay_ms += 1000;
 
@@ -126,7 +118,7 @@ export class MerossHome extends BaseFilterComponent<DeviceFilter> implements OnI
         }
     }
 
-    enablePolling(value: boolean): void {
+    public enablePolling(value: boolean): void {
 
         if (value === true) {
             this.commonService.options.polling = false;

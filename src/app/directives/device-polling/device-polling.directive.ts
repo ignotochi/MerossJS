@@ -53,7 +53,7 @@ export class DevicePollingComponent extends BaseFilterComponent<DeviceFilter> im
     ngAfterViewInit() {
     }
 
-    getDataPolling(interval_ms: number) {
+    private getDataPolling(interval_ms: number) {
 
         this.deviceLoadPolling$ = timer(1000, interval_ms)
 
@@ -76,7 +76,7 @@ export class DevicePollingComponent extends BaseFilterComponent<DeviceFilter> im
             });
     }
 
-    continuePollingIteration(attemps: number): boolean {
+    private continuePollingIteration(attemps: number): boolean {
 
         let result: boolean = true;
 
@@ -91,7 +91,7 @@ export class DevicePollingComponent extends BaseFilterComponent<DeviceFilter> im
         return result;
     }
 
-    pollingSubscriptionAction(value: polling): boolean {
+    private pollingSubscriptionAction(value: polling): boolean {
 
         let continueToSubscription: boolean = false;
 
@@ -110,7 +110,7 @@ export class DevicePollingComponent extends BaseFilterComponent<DeviceFilter> im
         return continueToSubscription;
     }
 
-    maxPollingAttemps() {
+    private maxPollingAttemps() {
         return (this.pollingTimeout_mm * 60) / (this.pollingInterval_ms / 1000);
     }
 }
