@@ -6,7 +6,6 @@ import { Auth } from './services/auth.service';
 import { filter } from 'rxjs/operators';
 import { AuthAction, Menu } from './enum/enums';
 import { AuthChangeDetectorService } from './core/detectors/auth-change-detector.service';
-import { CommonService } from './services/common.service';
 import { isNullOrEmptyString } from './utils/helper';
 
 
@@ -14,7 +13,7 @@ import { isNullOrEmptyString } from './utils/helper';
   selector: 'merossApp',
   template: '<router-outlet></router-outlet>',
   changeDetection: ChangeDetectionStrategy.OnPush,
-  providers: [CommonService]
+  providers: []
 })
 
 export class MerossApp implements OnInit, AfterViewInit, OnDestroy {
@@ -26,20 +25,16 @@ export class MerossApp implements OnInit, AfterViewInit, OnDestroy {
     this.authDetector.getDataChanges().pipe(filter(tt => tt.action === AuthAction.token))
 
       .subscribe((result) => {
-
         (async () => {
-            const userLoggedIn: boolean = !isNullOrEmptyString(result.payload.token);
-            this.loadHomePageIfLoggedIn(userLoggedIn);
+          const userLoggedIn: boolean = !isNullOrEmptyString(result.payload.token);
+          this.loadHomePageIfLoggedIn(userLoggedIn);
         })();
       });
   }
 
-  ngOnInit() {
-
-    (async () => {
-      const userLoggedIn: boolean = await this.auth.userIsLogged();
-      this.loadHomePageIfLoggedIn(userLoggedIn);
-    })();
+  async ngOnInit() {
+    const userLoggedIn: boolean = await this.auth.userIsLogged();
+    this.loadHomePageIfLoggedIn(userLoggedIn);
   }
 
   ngAfterViewInit() {
@@ -55,12 +50,9 @@ export class MerossApp implements OnInit, AfterViewInit, OnDestroy {
       this.router.navigate([Menu.Home]);
     }
     else {
-      setTimeout(() => {
-
-        if (location.origin != Menu.Login) {
-            this.router.navigate([Menu.Login]);
-        }
-    }, 1500);
+      if (location.origin != Menu.Login) {
+        this.router.navigate([Menu.Login]);
+      }
     }
   }
 }

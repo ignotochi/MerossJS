@@ -93,12 +93,14 @@ export class LoadMerossDevice implements OnInit, OnDestroy, AfterViewInit {
           this.cd.markForCheck();
         }
       },
+
       error: (error) => {
         this.showLoader = false;
         this.badgeService.showErrorBadge(error.error)
         this.cd.markForCheck();
         this.auth.destroySession();
       },
+
       complete: () => {
         if (this.datasource.length > 0) {
           this.badgeService.showSuccessBadge("DevicesLoadedWithSuccess");

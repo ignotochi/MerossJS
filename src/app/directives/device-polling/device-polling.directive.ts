@@ -7,7 +7,6 @@ import { DeviceFilter } from "src/app/types/filter-types";
 import { BaseFilterComponent } from "src/app/core/base-components/base-filter/base-filter.component";
 import { DeviceService } from "src/app/components/device-components/device.service";
 
-
 @Directive({
     standalone: true,
     selector: 'device-polling',
@@ -55,7 +54,7 @@ export class DevicePollingComponent extends BaseFilterComponent<DeviceFilter> im
 
     private getDataPolling(interval_ms: number) {
 
-        this.deviceLoadPolling$ = timer(1000, interval_ms)
+        this.deviceLoadPolling$ = timer(60000, interval_ms)
 
             .pipe(takeWhile(t => this.continuePollingIteration(t) && !this.stopIteration),
 

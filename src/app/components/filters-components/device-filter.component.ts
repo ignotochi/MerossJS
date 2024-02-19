@@ -6,9 +6,11 @@ import { MatChipsModule } from '@angular/material/chips';
 import { MatInputModule } from "@angular/material/input";
 import { IDeviceFilter } from "src/app/interfaces/IDeviceFilter";
 import { SharedModule } from "src/app/shared.module";
-import { MSS_310H, MSS_710, MSL_120, MSS_110, MSS_210, MSS_10,
+import { 
+         MSS_310H, MSS_710, MSL_120, MSS_110, MSS_210, MSS_10,
          MSS_530H, MSS_425E, MSG_100, MSG_200, MSH_300, MS_100, MSXH_0
-       } from "src/app/device-constants";
+       } 
+from "src/app/device-constants";
 
 
 @Component({

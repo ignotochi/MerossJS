@@ -5,7 +5,6 @@ import { isNullOrEmptyString } from "../../utils/helper";
 import { IFilter } from "../../interfaces/IFilter";
 import { FilterType } from "../../types/custom-types";
 
-
 @Injectable()
 
 export class FilterService<T extends FilterType<Record<FilterName, IFilter>>> implements IFilterService<T> {
