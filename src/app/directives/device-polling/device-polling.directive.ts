@@ -1,10 +1,9 @@
-import { AfterViewInit, Directive, EventEmitter, Input, OnDestroy, OnInit, Output } from "@angular/core";
-import { Subscription, catchError, filter, switchMap, takeWhile, timer } from "rxjs";
-import { IDevice } from "src/app/interfaces/IDevice";
+import { AfterViewInit, Directive, OnDestroy, OnInit } from "@angular/core";
+import { Subscription, filter, takeWhile, timer } from "rxjs";
 import { PollingChangeDetectorService } from "src/app/core/detectors/polling-change-detector.service";
 import { FilterName, PollingAction, polling } from "src/app/enum/enums";
 import { DeviceFilter } from "src/app/types/filter-types";
-import { BaseFilterComponent } from "src/app/core/base-components/base-filter/base-filter.component";
+import { BaseFilterableComponent } from "src/app/core/base-components/base-filter/base-filterable.component";
 import { DeviceService } from "src/app/components/device-components/device.service";
 
 @Directive({
@@ -12,10 +11,7 @@ import { DeviceService } from "src/app/components/device-components/device.servi
     selector: 'device-polling',
 })
 
-export class DevicePollingComponent extends BaseFilterComponent<DeviceFilter> implements OnInit, OnDestroy, AfterViewInit {
-
-
-    @Output() updateFromPolling = new EventEmitter<IDevice[]>();
+export class DevicePollingComponent extends BaseFilterableComponent<DeviceFilter> implements OnInit, OnDestroy, AfterViewInit {
 
     private stopIteration: boolean = false;
     private pollingTimeout_mm: number = 180;
@@ -56,23 +52,9 @@ export class DevicePollingComponent extends BaseFilterComponent<DeviceFilter> im
 
         this.deviceLoadPolling$ = timer(60000, interval_ms)
 
-            .pipe(takeWhile(t => this.continuePollingIteration(t) && !this.stopIteration),
+            .pipe(takeWhile(t => this.continuePollingIteration(t) && !this.stopIteration))
 
-                switchMap(() => {
-
-                    return this.deviceService.loadMerossDevices(this.filter.device);
-                }),
-
-                catchError((err: any) => {
-                    throw (err);
-                }))
-
-            .subscribe(result => {
-
-                if (result.length > 0) {
-                    this.updateFromPolling.emit(result);
-                }
-            });
+            .subscribe(() => this.filter.device.invoke());
     }
 
     private continuePollingIteration(attemps: number): boolean {

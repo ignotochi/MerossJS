@@ -14,8 +14,6 @@ export class FilterService<T extends FilterType<Record<FilterName, IFilter>>> im
     private id: number = 0; 
     public uid = (() => () => this.id++)();
 
-    constructor() { }
-
     private initializeWithDefault<K extends keyof T>(name: K): T {
 
         const f: T = {
@@ -119,6 +117,21 @@ export class FilterService<T extends FilterType<Record<FilterName, IFilter>>> im
                         }
                     });
                 }
+            }
+        }
+    }
+
+    public unregister<K extends keyof T, V extends IFilter>(filter: Record<K, V>): void {
+
+        if (filter) {
+
+            const filterKey: K = Object.keys(filter)[0] as K;
+
+            if (filterKey && !isNullOrEmptyString(filterKey)) {
+
+                const key = (filter as T)[filterKey as FilterName].uid;
+
+                this.filters.delete(key);
             }
         }
     }

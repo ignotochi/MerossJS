@@ -1,4 +1,4 @@
-import { inject } from "@angular/core";
+import { Injectable, inject } from "@angular/core";
 import { FilterService } from "src/app/components/filters-components/filter.service";
 import { FilterName } from "src/app/enum/enums";
 import { IFilter } from "src/app/interfaces/IFilter";
@@ -6,23 +6,24 @@ import { FilterType } from "src/app/types/custom-types";
 
 type FilterPair = [IFilter, FilterName];
 
+@Injectable()
 export abstract class BaseFilterComponent<T extends FilterPair> {
 
     protected readonly filter: { [key in T[1]]: T[0] } = {} as { [key in T[1]]: T[0] };
+    private readonly service: FilterService<FilterType<Record<T[1], T[0]>>>;
 
-    constructor(filterName: T[1]) {
+    constructor(f: Record<T[1], T[0]>) {
 
-        const service = inject(FilterService<FilterType<Record<FilterName, IFilter>>>);
+        this.service = inject(FilterService<FilterType<Record<T[1], T[0]>>>);
 
-        Object.entries(FilterName).forEach(obj => {
+        this.service.register(f);
 
-            const value = obj[1] as T[1];
+        const filterKey: T[1] = Object.keys(f)[0] as T[1];
 
-            if (value === filterName) {
-                this.filter[value] = service.retrieveInstanceByName(value)[value] as T[0];
-            }
-        });
+        this.filter[filterKey] = f[filterKey] as T[0];
+    }
+
+    protected ngOnDestroy(): void {
+        this.service.unregister(this.filter);
     }
 }
-
-

@@ -12,7 +12,7 @@ import { I18nService } from 'src/app/services/i18n.service';
 import { MatDialog, MatDialogModule } from '@angular/material/dialog';
 import { DeviceFilter } from 'src/app/types/filter-types';
 import { FilterService } from '../filters-components/filter.service';
-import { BaseFilterComponent } from 'src/app/core/base-components/base-filter/base-filter.component';
+import { BaseFilterableComponent } from 'src/app/core/base-components/base-filter/base-filterable.component';
 import { DeviceFilterDialogComponent } from '../filters-components/device-filter.component';
 import { CommonMatModules } from '../components.module';
 import { LoadMerossDevice } from '../device-components/device-load-component/device-load.component';
@@ -28,7 +28,7 @@ import { SharedModule } from 'src/app/shared.module';
     imports: [CommonMatModules, MatDialogModule, LoadMerossDevice, SharedModule]
 })
 
-export class MerossHome extends BaseFilterComponent<DeviceFilter> implements OnInit, AfterViewInit, OnDestroy {
+export class MerossHome extends BaseFilterableComponent<DeviceFilter> implements OnInit, AfterViewInit, OnDestroy {
 
     private languageActionDelay_ms: number = 2000;
     private languageAction$ = new Subject<Language>();

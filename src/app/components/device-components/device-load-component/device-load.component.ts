@@ -11,11 +11,10 @@ import { SharedModule } from "src/app/shared.module";
 import { DevicePollingComponent } from "../../../directives/device-polling/device-polling.directive";
 import { Auth } from "src/app/services/auth.service";
 import { FilterName } from "src/app/enum/enums";
-import { FilterType } from "src/app/types/custom-types";
-import { IFilter } from "src/app/interfaces/IFilter";
 import { SwitchMerossDevice } from "../device-switch-component/device-switch.component";
 import { DeviceService } from "../device.service";
-import { FilterService } from "../../filters-components/filter.service";
+import { BaseFilterComponent } from "src/app/core/base-components/base-filter/base-filter.component";
+import { DeviceFilter } from "src/app/types/filter-types";
 
 
 @Component({
@@ -27,32 +26,24 @@ import { FilterService } from "../../filters-components/filter.service";
   imports: [NgIf, NgFor, SwitchMerossDevice, MatGridListModule, MatProgressBarModule, SharedModule, BadgeStatus, DevicePollingComponent],
 })
 
-export class LoadMerossDevice implements OnInit, OnDestroy, AfterViewInit {
+export class LoadMerossDevice extends BaseFilterComponent<DeviceFilter> implements OnInit, AfterViewInit {
 
   public showLoader: boolean = true;
   public datasource: IDevice[] = [] as IDevice[];
 
-  private deviceFilter: Record<FilterName.Device, IDeviceFilter> = {
-
-    device: {
-      models: [{ model: MSS_310H }, { model: MSS_710 }],
-      uid: -1,
-      name: FilterName.Device,
-      invoke: () => this.LoadMerossDevices()
-    }
-  };
-
-  constructor(private auth: Auth, private deviceService: DeviceService, private cd: ChangeDetectorRef, private badgeService: BadgeService,
-    private filterService: FilterService<FilterType<Record<FilterName, IFilter>>>) {
-
-    this.filterService.register(this.deviceFilter);
+  constructor(private auth: Auth, private deviceService: DeviceService, private cd: ChangeDetectorRef, private badgeService: BadgeService) {
+    super({
+      device: {
+        models: [{ model: MSS_310H }, { model: MSS_710 }],
+        uid: -1,
+        owner: LoadMerossDevice.name,
+        name: FilterName.Device,
+        invoke: () => this.LoadMerossDevices()
+      }
+    });
   }
 
   ngOnInit(): void {
-  }
-
-  ngOnDestroy(): void {
-
   }
 
   setColsGrid(): number {
@@ -74,17 +65,12 @@ export class LoadMerossDevice implements OnInit, OnDestroy, AfterViewInit {
     this.LoadMerossDevices();
   }
 
-  public updateData(data: IDevice[]): void {
-
-    this.datasource = data;
-  }
-
   private LoadMerossDevices(): void {
 
     this.showLoader = true;
     this.cd.markForCheck();
 
-    this.deviceService.loadMerossDevices(this.deviceFilter.device).subscribe({
+    this.deviceService.loadMerossDevices(this.filter.device).subscribe({
 
       next: (data) => {
         if (data.length > 0) {
