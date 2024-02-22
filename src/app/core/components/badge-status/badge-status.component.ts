@@ -5,6 +5,7 @@ import {
 import { MatButtonModule } from '@angular/material/button';
 import { Badge } from 'src/app/enum/enums';
 import { BadgeService } from 'src/app/core/components/badge.service';
+import { debounce } from 'src/app/utils/helper';
 
 @Component({
     standalone: true,
@@ -17,9 +18,8 @@ import { BadgeService } from 'src/app/core/components/badge.service';
 
 export class BadgeStatus implements OnInit, AfterViewInit, OnDestroy {
 
-    public messages: Map<number, Map<Badge, string>> = new Map();
-
-    private readonly expiry: number = 5000;
+    public readonly queue: Map<number, Map<Badge, string>> = new Map();
+    private readonly badgeExpiry: number = 5000;
 
     public showSuccessBadge: boolean = false;
     public showErrorBadge: boolean = false;
@@ -27,7 +27,7 @@ export class BadgeStatus implements OnInit, AfterViewInit, OnDestroy {
     public showBadge: boolean = false;
 
     private id: number = 0;
-    public uid = (() => () => this.id ++)();
+    private uid = (() => () => this.id++)();
 
     constructor(private cd: ChangeDetectorRef, private badgeService: BadgeService) {
     }
@@ -48,73 +48,73 @@ export class BadgeStatus implements OnInit, AfterViewInit, OnDestroy {
 
             const id = this.uid();
 
-            if (item.type === Badge.Success) 
-            {   
-                this.messages.set(id, new Map().set(Badge.Success, item.msg))
+            if (item.type === Badge.Success) {
+                this.queue.set(id, new Map().set(Badge.Success, item.msg))
                 this.showSuccessBadge = true;
             }
 
-            if (item.type === Badge.Warning) 
-            {
-                this.messages.set(id, new Map().set(Badge.Warning, item.msg))
+            if (item.type === Badge.Warning) {
+                this.queue.set(id, new Map().set(Badge.Warning, item.msg))
                 this.showWarningBadge = true;
             }
 
-            if (item.type === Badge.Error) 
-            {
-                this.messages.set(id, new Map().set(Badge.Error, item.msg))
+            if (item.type === Badge.Error) {
+                this.queue.set(id, new Map().set(Badge.Error, item.msg))
                 this.showErrorBadge = true;
             }
 
             this.cd.markForCheck();
 
-            this.closeBadgeAfterTime(id);
+            debounce<number>(this.closeBadgeAfterTime.bind(this), id, this.badgeExpiry);
         });
     }
 
-    public closeBadgeAfterTime(id: number) {
+    private closeBadgeAfterTime(id: number) {
 
-        setTimeout(() => {
+        if (id != null) {
 
-            if (id != null) {
+            const item = this.queue.get(id);
 
-                const item = this.messages.get(id);
-        
-                for (const [key, value] of (item?.entries() ?? [])) {
-        
-                    if (!key && !value) { return; }
-        
+            const cleanQueue: boolean = this.queue.size === 1;
+
+            for (const [key, value] of (item?.entries() ?? [])) {
+
+                if (!key && !value) { return; }
+
+                if (cleanQueue) {
+
                     switch (key) {
                         case Badge.Success:
                             this.showSuccessBadge = false;
-                        break;
-        
+                            break;
+
                         case Badge.Warning:
                             this.showWarningBadge = false;
-                        break;
-        
+                            break;
+
                         case Badge.Error:
                             this.showErrorBadge = false;
-                        break;       
-                    }     
+                            break;
+                    }
+
+                    this.queue.clear();
                 }
 
-                this.messages.delete(id);
-            
-                this.cd.markForCheck();
+                this.queue.delete(id);
             }
 
-        }, this.expiry);
+            this.cd.markForCheck();
+        }
     }
 
     public getMessageFromMap(item: [number, Map<Badge, string>]): string {
 
         const value = item[1];
 
-        const [badge]  = value.entries();
+        const [badge] = value.entries();
 
         const message: string = badge[1];
 
         return message;
     }
- }
+}

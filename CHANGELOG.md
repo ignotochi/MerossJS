@@ -1,5 +1,10 @@
 **Versione Test: Frontend MDM 1.7.0-X -> dd/MM/yyyy** 
 
+### MerossJS 1.2.7 (2024-02-21) 
+
+[Added] **Badge service**
+   - Badge will be in queue, added deletion with debounce
+
 ### MerossJS 1.2.6 (2024-02-21) 
 
 [Fixed] **Filters Improvements**

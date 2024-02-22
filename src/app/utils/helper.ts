@@ -84,4 +84,16 @@ export function convertStringToDate(date: string) {
   return new Date(parseInt(year), parseInt(month)-1, parseInt(day));
 }
 
+export function debounce<T>(callback: Function, params: T, delay: number): void {
+
+  let timer: NodeJS.Timeout = setTimeout(() => null, 0);
+
+  ((timer: NodeJS.Timeout, params: T) => {
+
+      clearTimeout(timer);
+      timer = setTimeout(() => callback(params), delay);
+
+  })(timer, params);
+}
+
 
