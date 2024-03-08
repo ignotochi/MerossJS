@@ -32,6 +32,7 @@ export class MerossHome extends BaseFilterableComponent<DeviceFilter> implements
 
     private languageActionDelay_ms: number = 2000;
     private languageAction$ = new Subject<Language>();
+    public appVersion: string = "0.0.0";
 
     constructor(private router: Router, public auth: Auth, private pollingAuthDetector: PollingChangeDetectorService, private langAuthDetector: LanguageChangeDetectorService,
         public commonService: CommonService, private i18n: I18nService, public dialog: MatDialog) {
@@ -57,6 +58,7 @@ export class MerossHome extends BaseFilterableComponent<DeviceFilter> implements
     }
 
     ngAfterViewInit() {
+        this.appVersion = this.commonService.appSettings.version;
     }
 
     ngOnDestroy(): void {

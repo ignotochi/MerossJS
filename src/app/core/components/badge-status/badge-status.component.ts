@@ -72,14 +72,15 @@ export class BadgeStatus implements OnInit, AfterViewInit, OnDestroy {
     private closeBadgeAfterTime(id: number) {
 
         if (id != null) {
-
+            
             const item = this.queue.get(id);
-
             const cleanQueue: boolean = this.queue.size === 1;
 
             for (const [key, value] of (item?.entries() ?? [])) {
 
-                if (!key && !value) { return; }
+                if (!key && !value) { 
+                    return; 
+                }
 
                 if (cleanQueue) {
 
@@ -110,9 +111,7 @@ export class BadgeStatus implements OnInit, AfterViewInit, OnDestroy {
     public getMessageFromMap(item: [number, Map<Badge, string>]): string {
 
         const value = item[1];
-
         const [badge] = value.entries();
-
         const message: string = badge[1];
 
         return message;

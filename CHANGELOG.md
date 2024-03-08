@@ -1,5 +1,10 @@
 **Versione Test: Frontend MDM 1.7.0-X -> dd/MM/yyyy** 
 
+### MerossJS 1.2.8 (2024-03-08) 
+
+[Added] **Version Bug**
+   - Solved bug for version display in homepage
+
 ### MerossJS 1.2.7 (2024-02-21) 
 
 [Added] **Badge service**
