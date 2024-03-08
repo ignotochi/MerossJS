@@ -11,7 +11,8 @@ import { Language } from "../enum/enums";
 
 export class CommonService {
 
-  public angularPackajeJson: Map<string, string> = new Map();
+  private angularPackajeJson: Map<string, string> = new Map();
+
   public options = { polling: true };
   public appSettings: IConfiguration = { language: Language.En, marossApiUrl: String.Empty, port: String.Empty, protocol: String.Empty, version: String.Empty };
 
@@ -26,14 +27,13 @@ export class CommonService {
       this.appSettings = parsedSettings;
     }
 
-    const packajeJson_values = Object.values([packajeJson]);
+    const packajeJson_target_keys: string[] = ["version"];
 
-    packajeJson_values.forEach((el: object) => {
+    Object.values([packajeJson]).forEach((el: object) => {
+        
+      const entries = Object.entries(el);
 
-        const entries = Object.entries(el);
-
-        entries.forEach(ent => {
-
+        entries.filter(item => packajeJson_target_keys.includes(item[0])).forEach(ent => {
             this.angularPackajeJson.set(ent[0], ent[1])
         });
     });

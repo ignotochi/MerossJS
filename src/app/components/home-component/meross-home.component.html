@@ -36,6 +36,6 @@
 
 <device-load></device-load>
 
-<div class="version-block">
-    <p>{{ 'V ' + appVersion }}</p>
+<div *ngIf="showVersion.show" class="version-block">
+    <p>{{ 'V ' + commonService.appSettings.version }}</p>
 </div>

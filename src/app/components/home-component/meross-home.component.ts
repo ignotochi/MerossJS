@@ -17,6 +17,7 @@ import { DeviceFilterDialogComponent } from '../filters-components/device-filter
 import { CommonMatModules } from '../components.module';
 import { LoadMerossDevice } from '../device-components/device-load-component/device-load.component';
 import { SharedModule } from 'src/app/shared.module';
+import { executeFunctionRecursivelyBasedOnConditionAsync, isNullOrEmptyString } from 'src/app/utils/helper';
 
 @Component({
     standalone: true,
@@ -24,15 +25,16 @@ import { SharedModule } from 'src/app/shared.module';
     templateUrl: './meross-home.component.html',
     styleUrls: ['./meross-home.component.scss'],
     changeDetection: ChangeDetectionStrategy.OnPush,
-    providers: [PollingChangeDetectorService, LanguageChangeDetectorService, FilterService],
+    providers: [CommonService, PollingChangeDetectorService, LanguageChangeDetectorService, FilterService],
     imports: [CommonMatModules, MatDialogModule, LoadMerossDevice, SharedModule]
 })
 
 export class MerossHome extends BaseFilterableComponent<DeviceFilter> implements OnInit, AfterViewInit, OnDestroy {
 
+    public showVersion: { show: boolean } = { show: false };
+
     private languageActionDelay_ms: number = 2000;
     private languageAction$ = new Subject<Language>();
-    public appVersion: string = "0.0.0";
 
     constructor(private router: Router, public auth: Auth, private pollingAuthDetector: PollingChangeDetectorService, private langAuthDetector: LanguageChangeDetectorService,
         public commonService: CommonService, private i18n: I18nService, public dialog: MatDialog) {
@@ -58,7 +60,23 @@ export class MerossHome extends BaseFilterableComponent<DeviceFilter> implements
     }
 
     ngAfterViewInit() {
-        this.appVersion = this.commonService.appSettings.version;
+        (async (showVersion, appSettings) => {
+
+            const execute = (showVersion: { show: boolean }): void => { showVersion.show = true }; ;
+            
+            const condition = (attempt: number, maxAttemps: number): boolean => {
+                   
+            const iterate: boolean = isNullOrEmptyString(appSettings.version) && attempt <= maxAttemps;
+                return iterate;
+            };
+
+            await executeFunctionRecursivelyBasedOnConditionAsync(() => execute(showVersion), condition);
+
+        })(this.showVersion, this.commonService.appSettings);
+
+        setTimeout(() => {
+            console.log('timeout', this.commonService.appSettings);
+        }, 2000);
     }
 
     ngOnDestroy(): void {

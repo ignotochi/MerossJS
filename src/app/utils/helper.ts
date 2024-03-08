@@ -105,4 +105,44 @@ export function debounce<T>(callback: Function, params: T, delay: number): void 
   })(timer, params);
 }
 
+export async function executeFunctionRecursivelyBasedOnConditionAsync(execute: Function, condition: Function, attempt: number = 0): Promise<void> {
+
+  /**
+   * @param execute 
+   * Function parameter.
+   * Invoked on promise resolve.
+   * Trigger based on cn Function parameter.
+   */
+
+  /**
+   * @param condition 
+   * Function parameter.
+   * Determinate the iteration condition.
+   * Executed recursively.
+   */
+
+
+  /**
+   * Wait for something and execute when a condtion is satisfied.
+   * Ex. wait somthing in a constructor.
+   * 
+   */
+
+  return new Promise((resolve) => {
+
+      setTimeout(async () => {
+
+          const maxAttempts: number = 50;
+          const iterate: boolean = condition(attempt, maxAttempts);
+
+          if (iterate) {
+              await executeFunctionRecursivelyBasedOnConditionAsync(execute, condition, attempt + 1);
+          }
+          else {
+              resolve(execute());
+          }
+      }, 50);
+  });
+}
+
 
