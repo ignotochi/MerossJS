@@ -52,6 +52,7 @@ export class MerossHome extends BaseFilterableComponent<DeviceFilter> implements
 
         this.languageAction$.pipe(debounceTime(this.languageActionDelay_ms)).subscribe((value) => {
             this.langAuthDetector.setLanguage(value);
+            this.commonService.saveSettings();
             setTimeout(() => this.router.navigate([Menu.Home]), 500);
         });
     }

@@ -18,7 +18,8 @@ mat-grid-tile {
     margin: auto;
 }
 
-.device-off {
+.msl120 .device-off, .mss110 .device-off, .mss210 .device-off, .mss10 .device-off, .mss530h .device-off, 
+.mss425e .device-off, .msg100 .device-off, .msg200 .device-off, .msh300 .device-off, .ms100 .device-off, .msxh0 .device-off {
     display: block;
     position: absolute;
     top: 15px;
@@ -29,7 +30,8 @@ mat-grid-tile {
     background-color: red;
 }
 
-.device-on {
+.msl120 .device-on, .mss110 .device-on, .mss210 .device-on, .mss10 .device-on, .mss530h .device-on, 
+.mss425e .device-on, .msg100 .device-on, .msg200 .device-on, .msh300 .device-on, .ms100 .device-on, .msxh0 .device-on {
     display: block;
     position: absolute;
     top: 15px;
@@ -38,6 +40,17 @@ mat-grid-tile {
     height: 18px;
     border-radius: 100%;
     background-color: green;
+}
+
+.msl120, .mss110, .mss210, .mss10, .mss530h, .mss425e, .msg100, .msg200, .msh300, .ms100, .msxh0 {
+    display: block;
+    width: 120px;
+    height: 120px;
+    background-image: url("../../../../assets/img/meross_logo.png");
+    background-repeat: no-repeat;
+    background-size: 100%;
+    background-position: center;
+    margin: auto;
 }
 
 .mss710 {

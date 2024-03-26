@@ -30,15 +30,21 @@ export class CommonService {
     const packajeJson_target_keys: string[] = ["version"];
 
     Object.values([packajeJson]).forEach((el: object) => {
-        
+
       const entries = Object.entries(el);
 
-        entries.filter(item => packajeJson_target_keys.includes(item[0])).forEach(ent => {
-            this.angularPackajeJson.set(ent[0], ent[1])
-        });
+      entries.filter(item => packajeJson_target_keys.includes(item[0])).forEach(ent => {
+        this.angularPackajeJson.set(ent[0], ent[1])
+      });
     });
 
     this.appSettings.version = this.angularPackajeJson.get("version") ?? "0.0.0";
+  }
+
+  public saveSettings(): void {
+    if (this.appSettings) {
+      localStorage.setItem(Settings, JSON.stringify(this.appSettings));
+    }
   }
 
   public loadConfigurationFile(): Observable<IConfiguration> {
@@ -52,7 +58,7 @@ export class CommonService {
     if (!isNullOrEmptyString(this.appSettings.port)) {
       url += ":" + this.appSettings.port;
     }
-    
+
     return url;
   }
 }

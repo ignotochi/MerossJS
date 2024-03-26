@@ -19,14 +19,11 @@ export class Auth {
     constructor(private router: Router, private authDetector: AuthChangeDetectorService, private commonService: CommonService, private loginService: MerossLoginService) {
     }
 
-    private saveSession(token: string, settings?: IConfiguration) {
+    private saveSession(token: string) {
 
         if (!isNullOrEmptyString(token)) {
             localStorage.setItem(Token, token);
         }          
-        if (settings) {
-            localStorage.setItem(Settings, JSON.stringify(settings));
-        }   
     }
 
     public getLocalToken(): string {
@@ -70,7 +67,6 @@ export class Auth {
             .pipe(
                 switchMap((conf: IConfiguration) => {
                     this.commonService.appSettings = conf;
-                    this.saveSession(String.Empty, conf);
                     return this.loginService.login(username, password);
                 }))
                 
