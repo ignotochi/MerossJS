@@ -17,5 +17,4 @@ export class AuthChangeDetectorService extends DataStoreDetector<ILogin, AuthAct
     setToken(token: string) {
         this.updateDataChanges({ action: AuthAction.token, payload: { ...this.getClonedDataChange(), token: token } });
     }
-
 }

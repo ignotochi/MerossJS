@@ -1,9 +1,8 @@
 import { NgFor, NgIf } from "@angular/common";
-import { AfterViewInit, ChangeDetectionStrategy, ChangeDetectorRef, Component, Input, OnDestroy, OnInit } from "@angular/core";
+import { AfterViewInit, ChangeDetectionStrategy, ChangeDetectorRef, Component, OnInit } from "@angular/core";
 import { MatGridListModule } from "@angular/material/grid-list";
 import { MatProgressBarModule } from "@angular/material/progress-bar";
 import { IDevice } from "src/app/interfaces/IDevice";
-import { IDeviceFilter } from "src/app/interfaces/IDeviceFilter";
 import { BadgeService } from "src/app/core/components/badge.service";
 import { BadgeStatus } from 'src/app/core/components/badge-status/badge-status.component';
 import { MSS_310H, MSS_710 } from "src/app/device-constants";
@@ -15,7 +14,6 @@ import { SwitchMerossDevice } from "../device-switch-component/device-switch.com
 import { DeviceService } from "../device.service";
 import { BaseFilterComponent } from "src/app/core/base-components/base-filter/base-filter.component";
 import { DeviceFilter } from "src/app/types/filter-types";
-
 
 @Component({
   standalone: true,

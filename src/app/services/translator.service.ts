@@ -4,19 +4,9 @@ import { TranslatePipe } from "../pipes/translate.pipe";
 
 @Injectable()
 
-export class TranslatorService implements OnInit, AfterViewInit, OnDestroy {
+export class TranslatorService {
 
     constructor(private ts: TranslatePipe) {
-
-    }
-
-    ngOnInit(): void {
-    }
-
-    ngAfterViewInit(): void {
-    }
-
-    ngOnDestroy(): void {
     }
 
     public translate(message: string): string {

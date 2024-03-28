@@ -9,7 +9,6 @@ import { SharedModule } from "src/app/shared.module";
 import { Auth } from "src/app/services/auth.service";
 import { DeviceService } from "../device.service";
 
-
 @Component({
   standalone: true,
   selector: 'device-switch',
@@ -45,7 +44,7 @@ export class SwitchMerossDevice implements OnInit, OnDestroy, AfterViewInit {
   ngAfterViewInit(): void {
   }
 
-  toggleDevice(toggled: boolean) {
+  public toggleDevice(toggled: boolean) {
 
     this.isLoadingMode();
 

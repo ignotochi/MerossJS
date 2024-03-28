@@ -12,7 +12,6 @@ import {
        } 
 from "src/app/device-constants";
 
-
 @Component({
   standalone: true,
   selector: 'device-filter',

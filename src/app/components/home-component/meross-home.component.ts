@@ -53,7 +53,7 @@ export class MerossHome extends BaseFilterableComponent<DeviceFilter> implements
         this.languageAction$.pipe(debounceTime(this.languageActionDelay_ms)).subscribe((value) => {
             this.langAuthDetector.setLanguage(value);
             this.commonService.saveSettings();
-            setTimeout(() => this.router.navigate([Menu.Home]), 500);
+            this.router.navigate([Menu.Home]);
         });
     }
 
@@ -74,10 +74,6 @@ export class MerossHome extends BaseFilterableComponent<DeviceFilter> implements
             await executeFunctionRecursivelyBasedOnConditionAsync(() => execute(showVersion), condition);
 
         })(this.showVersion, this.commonService.appSettings);
-
-        setTimeout(() => {
-            console.log('timeout', this.commonService.appSettings);
-        }, 2000);
     }
 
     ngOnDestroy(): void {

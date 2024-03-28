@@ -13,7 +13,7 @@ import { MerossLoginService } from '../components/login-component/login.service'
 @Injectable({ providedIn: 'root' })
 
 export class Auth {
-    
+
     public errorLogin: string = String.Empty;
 
     constructor(private router: Router, private authDetector: AuthChangeDetectorService, private commonService: CommonService, private loginService: MerossLoginService) {
@@ -23,7 +23,7 @@ export class Auth {
 
         if (!isNullOrEmptyString(token)) {
             localStorage.setItem(Token, token);
-        }          
+        }
     }
 
     public getLocalToken(): string {
@@ -69,7 +69,7 @@ export class Auth {
                     this.commonService.appSettings = conf;
                     return this.loginService.login(username, password);
                 }))
-                
+
             .subscribe({
                 next: (data) => {
                     if (!isNullOrEmptyString(data.token)) {

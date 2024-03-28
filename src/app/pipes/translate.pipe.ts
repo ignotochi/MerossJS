@@ -6,17 +6,9 @@ import { Language } from "../enum/enums";
     name: 'translate'
 })
 
-export class TranslatePipe implements PipeTransform, OnInit, AfterViewInit, OnDestroy {
+export class TranslatePipe  {
 
     constructor(private i18n: I18nService) {
-    }
-    ngAfterViewInit(): void {
-    }
-
-    ngOnDestroy(): void {
-    }
-
-    ngOnInit(): void {
     }
 
     public transform(value: string, args?: any): any {
