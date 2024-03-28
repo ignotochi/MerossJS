@@ -62,7 +62,7 @@ Inside the dist/assets folder, you will find a file named merossApi.conf.json:
     "language" : "it",            (default language used by frontend)
     "port": "4449",               (port of MerossApi server)
     "marossApiUrl": "localhost",  (url of MerossAPI server)
-    "protocol": "http"           (protocol of MerossAPI server)
+    "protocol": "http"            (protocol of MerossAPI server)
 }
 
 Modify it only if necessary, such as when the backend is exposed on an address other than localhost (default) or if you want to change the default language.
