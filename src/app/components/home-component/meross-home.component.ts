@@ -63,14 +63,9 @@ export class MerossHome extends BaseFilterableComponent<DeviceFilter> implements
     ngAfterViewInit() {
         (async (showVersion, appSettings) => {
 
-            const execute = (showVersion: { show: boolean }): void => { showVersion.show = true }; ;
+            const execute = (showVersion: { show: boolean }): void => { showVersion.show = true };         
+            const condition = (attempt: number, maxAttemps: number): boolean => isNullOrEmptyString(appSettings.version) && attempt <= maxAttemps;
             
-            const condition = (attempt: number, maxAttemps: number): boolean => {
-                   
-            const iterate: boolean = isNullOrEmptyString(appSettings.version) && attempt <= maxAttemps;
-                return iterate;
-            };
-
             await executeFunctionRecursivelyBasedOnConditionAsync(() => execute(showVersion), condition);
 
         })(this.showVersion, this.commonService.appSettings);
