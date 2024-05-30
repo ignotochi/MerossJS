@@ -7,8 +7,7 @@ import { filter } from 'rxjs/operators';
 import { AuthAction, Menu } from './enum/enums';
 import { AuthChangeDetectorService } from './core/detectors/auth-change-detector.service';
 import { isNullOrEmptyString } from './utils/helper';
-import { Subscription, lastValueFrom } from 'rxjs';
-import { CommonService } from './services/common.service';
+import { Subscription } from 'rxjs';
 
 
 @Component({
@@ -18,13 +17,12 @@ import { CommonService } from './services/common.service';
   providers: []
 })
 
-export class MerossApp implements OnInit, AfterViewInit, OnDestroy {
+export class MerossApp implements OnDestroy {
 
   public readonly title = "MerossJS";
   private readonly dataChange$: Subscription;
 
-  constructor(private readonly authDetector: AuthChangeDetectorService, public readonly router: Router, public readonly auth: Auth,
-    private readonly commonService: CommonService) {
+  constructor(private readonly authDetector: AuthChangeDetectorService, public readonly router: Router, public readonly auth: Auth) {
 
     this.dataChange$ = this.authDetector.changes().pipe(filter(tt => tt.action === AuthAction.token))
 
@@ -36,24 +34,9 @@ export class MerossApp implements OnInit, AfterViewInit, OnDestroy {
       });
   }
 
-  async ngOnInit() {
-    await this.laodConfiguration();
-    const userLoggedIn: boolean = await this.auth.userIsLogged();
-    this.loadHomePageIfLoggedIn(userLoggedIn);
-  }
-
-  ngAfterViewInit() {
-  }
-
   ngOnDestroy(): void {
     this.authDetector.complete();
     this.dataChange$.unsubscribe();
-  }
-
-  private async laodConfiguration(): Promise<void> {
-
-    const conf = await lastValueFrom(this.commonService.loadConfigurationFile());
-    this.commonService.appSettings = conf;
   }
 
   private loadHomePageIfLoggedIn(userAthenticated: boolean): void {
