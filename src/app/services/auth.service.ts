@@ -16,14 +16,7 @@ export class Auth {
 
     public errorLogin: string = String.Empty;
 
-    constructor(private readonly router: Router, private readonly authDetector: AuthChangeDetectorService, private readonly commonService: CommonService,
-        private readonly loginService: MerossLoginService) {
-
-        this.commonService.loadConfigurationFile()
-
-            .subscribe(el => {
-                this.commonService.appSettings = el;
-            });
+    constructor(private readonly router: Router, private readonly authDetector: AuthChangeDetectorService, private readonly loginService: MerossLoginService) {
     }
 
     private saveSession(token: string) {

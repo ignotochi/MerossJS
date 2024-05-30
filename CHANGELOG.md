@@ -1,6 +1,6 @@
 **Versione Test: Frontend MerossJS 0.0.0-X -> dd/MM/yyyy** 
 
-### MerossJS 1.3.6 (2024-05-30) 
+### MerossJS 1.3.7 (2024-05-30) 
 [Fixed] **Auth**
 - Validation token fix (error on commonService)
 

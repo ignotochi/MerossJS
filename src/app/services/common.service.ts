@@ -6,6 +6,7 @@ import { IConfiguration } from "../interfaces/IConfiguration";
 import { isNullOrEmptyString, String } from "../utils/helper";
 import packajeJson from './../../../package.json';
 import { Language } from "../enum/enums";
+import confUrl from '../../assets/merossApi.conf.json';
 
 @Injectable({ providedIn: 'root' })
 
@@ -16,7 +17,7 @@ export class CommonService {
   public options = { polling: true };
   public appSettings: IConfiguration = { language: Language.En, marossApiUrl: String.Empty, port: String.Empty, protocol: String.Empty, version: String.Empty };
 
-  private confUrl: string = 'assets/merossApi.conf.json';
+  private conf: Map<string, string> = new Map();
 
   constructor(private http: HttpClient) {
 
@@ -39,6 +40,8 @@ export class CommonService {
     });
 
     this.appSettings.version = this.angularPackajeJson.get("version") ?? "0.0.0";
+
+    this.loadConfigurationFile();
   }
 
   public saveSettings(): void {
@@ -47,8 +50,28 @@ export class CommonService {
     }
   }
 
-  public loadConfigurationFile(): Observable<IConfiguration> {
-    return this.http.get<IConfiguration>(this.confUrl);
+  private loadConfigurationFile(): void {
+
+    const conf_values = Object.values([confUrl]);
+
+    conf_values.forEach((el: object) => {
+
+        const entries = Object.entries(el);
+
+        entries.forEach(ent => {
+
+            this.conf.set(ent[0], ent[1])
+        });
+    });
+
+    this.appSettings = { 
+
+      language: this.conf.get('language') as Language ?? Language.En,
+      marossApiUrl: this.conf.get('marossApiUrl') ?? '',
+      port: this.conf.get('port') ?? '',
+      protocol: this.conf.get('protocol') ?? '',
+      version: this.conf.get('version') ?? ''
+    };
   }
 
   public buildUrl(): string {
