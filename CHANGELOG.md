@@ -2,7 +2,7 @@
 
 ### MerossJS 1.3.7 (2024-05-30) 
 [Fixed] **Auth**
-- Validation token fix on load configuration (error on commonService)
+- Validation token fix (error on commonService)
 
 
 ### MerossJS 1.3.5 (2024-05-30) 
