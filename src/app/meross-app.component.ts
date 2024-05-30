@@ -7,6 +7,7 @@ import { filter } from 'rxjs/operators';
 import { AuthAction, Menu } from './enum/enums';
 import { AuthChangeDetectorService } from './core/detectors/auth-change-detector.service';
 import { isNullOrEmptyString } from './utils/helper';
+import { Subscription } from 'rxjs';
 
 
 @Component({
@@ -19,10 +20,11 @@ import { isNullOrEmptyString } from './utils/helper';
 export class MerossApp implements OnInit, AfterViewInit, OnDestroy {
 
   public readonly title = "MerossJS";
+  private readonly dataChange$: Subscription;
 
-  constructor(private authDetector: AuthChangeDetectorService, public router: Router, public auth: Auth) {
+  constructor(private readonly authDetector: AuthChangeDetectorService, public readonly router: Router, public readonly auth: Auth) {
 
-    this.authDetector.getDataChanges().pipe(filter(tt => tt.action === AuthAction.token))
+    this.dataChange$ = this.authDetector.changes().pipe(filter(tt => tt.action === AuthAction.token))
 
       .subscribe((result) => {
         (async () => {
@@ -41,7 +43,8 @@ export class MerossApp implements OnInit, AfterViewInit, OnDestroy {
   }
 
   ngOnDestroy(): void {
-    this.authDetector.compleDataChanges();
+    this.authDetector.complete();
+    this.dataChange$.unsubscribe();
   }
 
   private loadHomePageIfLoggedIn(userAthenticated: boolean): void {
@@ -50,9 +53,7 @@ export class MerossApp implements OnInit, AfterViewInit, OnDestroy {
       this.router.navigate([Menu.Home]);
     }
     else {
-      if (location.origin != Menu.Login) {
-        this.router.navigate([Menu.Login]);
-      }
+      this.router.navigate([Menu.Login]);
     }
   }
 }

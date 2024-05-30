@@ -10,6 +10,6 @@ import { DataStoreDetector } from "../../services/data-store-detector.service";
 export class PollingChangeDetectorService extends DataStoreDetector<boolean, PollingAction> {
     
     enabled(enabled: boolean) {
-        this.updateDataChanges({ action: PollingAction.Enabled, payload: enabled });
+        this.update({ action: PollingAction.Enabled, payload: enabled });
     }
 }

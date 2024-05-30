@@ -4,7 +4,7 @@ import {
 import { Auth } from 'src/app/services/auth.service';
 import { BadgeService } from 'src/app/core/components/badge.service';
 import { AuthChangeDetectorService } from 'src/app/core/detectors/auth-change-detector.service';
-import { filter } from 'rxjs';
+import { Subscription, filter } from 'rxjs';
 import { isNullOrEmptyString } from 'src/app/utils/helper';
 import { AuthAction } from 'src/app/enum/enums';
 import { SharedModule } from 'src/app/shared.module';
@@ -24,17 +24,19 @@ export class MerossLogin implements OnInit, AfterViewInit, OnDestroy {
 
     public showLoginBtn = true;
     public showSpinner = false;
+    
+    private readonly dataChange$: Subscription;
 
-    constructor(public auth: Auth, private authDetector: AuthChangeDetectorService, private badgeService: BadgeService, private cd: ChangeDetectorRef) {
+    constructor(public readonly auth: Auth, private readonly authDetector: AuthChangeDetectorService, private readonly badgeService: BadgeService, 
+        private readonly cd: ChangeDetectorRef) {
 
-        this.authDetector.getDataChanges().pipe(filter(tt => tt.action === AuthAction.token))
+        this.dataChange$ = this.authDetector.changes().pipe(filter(tt => tt.action === AuthAction.token))
 
         .subscribe((result) => {
 
             if (isNullOrEmptyString(result.payload.token)) {
                 this.badgeService.showErrorBadge(this.auth.errorLogin);
                 this.isLoginMode();
-
                 this.cd.markForCheck();
             }
         });
@@ -47,6 +49,7 @@ export class MerossLogin implements OnInit, AfterViewInit, OnDestroy {
     }
 
     ngOnDestroy(): void {
+        this.dataChange$.unsubscribe();
     }
 
     public isLoadingMode(): void {

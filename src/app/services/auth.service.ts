@@ -3,9 +3,9 @@ import { Router } from '@angular/router';
 import { AuthChangeDetectorService } from '../core/detectors/auth-change-detector.service';
 import { Menu } from '../enum/enums';
 import { isNullOrEmptyString, String } from '../utils/helper';
-import { lastValueFrom, switchMap } from 'rxjs';
+import { lastValueFrom, map, switchMap } from 'rxjs';
 import { CommonService } from './common.service';
-import { Settings, Token } from '../core/constants';
+import { Token } from '../core/constants';
 import { IConfiguration } from '../interfaces/IConfiguration';
 import { MerossLoginService } from '../components/login-component/login.service';
 
@@ -16,7 +16,14 @@ export class Auth {
 
     public errorLogin: string = String.Empty;
 
-    constructor(private router: Router, private authDetector: AuthChangeDetectorService, private commonService: CommonService, private loginService: MerossLoginService) {
+    constructor(private readonly router: Router, private readonly authDetector: AuthChangeDetectorService, private readonly commonService: CommonService,
+        private readonly loginService: MerossLoginService) {
+
+        this.commonService.loadConfigurationFile()
+
+            .subscribe(el => {
+                this.commonService.appSettings = el;
+            });
     }
 
     private saveSession(token: string) {
@@ -50,25 +57,23 @@ export class Auth {
     private async validateLocalToken(localToken: string): Promise<string> {
 
         let loadedToken: string = String.Empty;
-        const source = this.loginService.validateLocalToken(localToken);
 
-        await lastValueFrom(source).then((value) => {
-            loadedToken = value.token;
-        })
-            .catch((error) => {
-                console.log(error);
-            });
+        if (!isNullOrEmptyString(localToken)) {
+
+            const source = this.loginService.validateLocalToken(localToken);
+
+            await lastValueFrom(source).then((value) => loadedToken = value.token)
+                .catch((error) => {
+                    console.log(error);
+                });
+        }
+
         return loadedToken;
     }
 
     public login(username: string, password: string): void {
 
-        this.commonService.loadConfigurationFile()
-            .pipe(
-                switchMap((conf: IConfiguration) => {
-                    this.commonService.appSettings = conf;
-                    return this.loginService.login(username, password);
-                }))
+        this.loginService.login(username, password)
 
             .subscribe({
                 next: (data) => {

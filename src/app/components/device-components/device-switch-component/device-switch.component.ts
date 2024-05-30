@@ -30,7 +30,7 @@ export class SwitchMerossDevice implements OnInit, OnDestroy, AfterViewInit {
   @Output() 
   toggled = new EventEmitter<boolean>();
 
-  constructor(private auth: Auth, private deviceService: DeviceService, private cd: ChangeDetectorRef, private badgeService: BadgeService) {
+  constructor(private readonly auth: Auth, private readonly deviceService: DeviceService, private readonly cd: ChangeDetectorRef, private readonly badgeService: BadgeService) {
   }
 
   ngOnInit(): void {

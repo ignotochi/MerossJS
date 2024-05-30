@@ -12,7 +12,7 @@ import { Auth } from "src/app/services/auth.service";
 import { FilterName } from "src/app/enum/enums";
 import { SwitchMerossDevice } from "../device-switch-component/device-switch.component";
 import { DeviceService } from "../device.service";
-import { BaseFilterComponent } from "src/app/core/base-components/base-filter/base-filter.component";
+import { RegisterFilterComponent } from "src/app/core/base-components/base-filter/base-filter.component";
 import { DeviceFilter } from "src/app/types/filter-types";
 
 @Component({
@@ -24,12 +24,12 @@ import { DeviceFilter } from "src/app/types/filter-types";
   imports: [NgIf, NgFor, SwitchMerossDevice, MatGridListModule, MatProgressBarModule, SharedModule, BadgeStatus, DevicePollingComponent],
 })
 
-export class LoadMerossDevice extends BaseFilterComponent<DeviceFilter> implements OnInit, AfterViewInit {
+export class LoadMerossDevice extends RegisterFilterComponent<DeviceFilter> implements OnInit, AfterViewInit {
 
   public showLoader: boolean = true;
   public datasource: IDevice[] = [] as IDevice[];
 
-  constructor(private auth: Auth, private deviceService: DeviceService, private cd: ChangeDetectorRef, private badgeService: BadgeService) {
+  constructor(private readonly auth: Auth, private readonly deviceService: DeviceService, private readonly cd: ChangeDetectorRef, private readonly badgeService: BadgeService) {
     super({
       device: {
         models: [{ model: MSS_310H }, { model: MSS_710 }],
@@ -68,7 +68,9 @@ export class LoadMerossDevice extends BaseFilterComponent<DeviceFilter> implemen
     this.showLoader = true;
     this.cd.markForCheck();
 
-    this.deviceService.loadMerossDevices(this.filter.device).subscribe({
+    this.deviceService.loadMerossDevices(this.filter.device)
+    
+    .subscribe({
 
       next: (data) => {
         if (data.length > 0) {

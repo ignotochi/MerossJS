@@ -6,7 +6,7 @@ import { Auth } from './auth.service';
 @Injectable()
 
 export class AuthGuardService implements CanActivate {
-    constructor(public authConf: Auth, private router: Router) {
+    constructor(public readonly authConf: Auth, private readonly router: Router) {
     }
 
     async canActivate(): Promise<boolean> {

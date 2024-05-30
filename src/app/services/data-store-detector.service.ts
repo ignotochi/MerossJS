@@ -14,39 +14,39 @@ export abstract class DataStoreDetector<T, W extends Enum> {
         this.dataChangeEvent$ = this.dataChangeSubject.asObservable();
     }
 
-    public initializeDataChanges(): void {
-        if (!this.dataChangeSubject || this.dataChangeSubject.isStopped) {
+    public initialize(): void {
+        if (this.dataChangeSubject.closed) {
             this.dataChangeSubject = new BehaviorSubject({ action: {} as W, payload: {} as T });
             this.dataChangeEvent$ = this.dataChangeSubject.asObservable();
         }
     }
 
-    public compleDataChanges(): void {
+    public complete(): void {
         this.dataChangeSubject.complete();
     }
 
-    public resetDataChanges(): void {
+    public reset(): void {
         if (this.dataChangeSubject !== null) {
-            this.compleDataChanges();
+            this.complete();
         }
         else {
-            this.initializeDataChanges();
+            this.initialize();
         }
     }
 
-    public getDataChanges(): Observable<{ action: W, payload: T }> {
+    public changes(): Observable<{ action: W, payload: T }> {
         return this.dataChangeEvent$.pipe(filter(tt => tt.action !== null));
     }
 
-    public getDataChangesValues() {
+    public lastValue() {
         return this.dataChangeSubject.getValue();
     }
 
-    protected updateDataChanges(dataChangeEntries: { action: W, payload: T }): void {
+    protected update(dataChangeEntries: { action: W, payload: T }): void {
         this.dataChangeSubject.next(dataChangeEntries);
     }
 
-    protected getClonedDataChange(): T {
+    protected clone(): T {
         var storeValue = this.dataChangeSubject.getValue();
         return hardObjectClone(storeValue.payload) as T;
     }

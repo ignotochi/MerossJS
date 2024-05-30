@@ -24,7 +24,7 @@ export class DeviceFilterDialogComponent {
 
   public readonly devicesList: string[] = []
 
-  constructor(public dialogRef: MatDialogRef<DeviceFilterDialogComponent>, @Inject(MAT_DIALOG_DATA) public deviceFilter: IDeviceFilter) {
+  constructor(public readonly dialogRef: MatDialogRef<DeviceFilterDialogComponent>, @Inject(MAT_DIALOG_DATA) public readonly deviceFilter: IDeviceFilter) {
     this.devicesList.push(MSS_310H, MSS_710, MSL_120, MSS_110, MSS_210, MSS_10, MSS_530H, MSS_425E, MSG_100, MSG_200, MSH_300, MS_100, MSXH_0);
   }
 
