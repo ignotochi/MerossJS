@@ -8,7 +8,7 @@ export class BadgeService implements OnInit, AfterViewInit, OnDestroy {
 
     public badge: EventEmitter<{type: Badge, msg: string}>;
 
-    constructor(private translatePipe: TranslatePipe) {
+    constructor(private readonly translatePipe: TranslatePipe) {
         this.badge = new EventEmitter<{type: Badge, msg: string}>();
     }
 

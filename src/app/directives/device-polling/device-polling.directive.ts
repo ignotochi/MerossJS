@@ -3,26 +3,27 @@ import { Subscription, filter, takeWhile, timer } from "rxjs";
 import { PollingChangeDetectorService } from "src/app/core/detectors/polling-change-detector.service";
 import { FilterName, PollingAction, polling } from "src/app/enum/enums";
 import { DeviceFilter } from "src/app/types/filter-types";
-import { BaseFilterableComponent } from "src/app/core/base-components/base-filter/base-filterable.component";
-import { DeviceService } from "src/app/components/device-components/device.service";
+import { FilterableComponent } from "src/app/core/base-components/base-filter/base-filterable.component";
 
 @Directive({
     standalone: true,
     selector: 'device-polling',
 })
 
-export class DevicePollingComponent extends BaseFilterableComponent<DeviceFilter> implements OnInit, OnDestroy, AfterViewInit {
+export class DevicePollingComponent extends FilterableComponent<DeviceFilter> implements OnInit, OnDestroy, AfterViewInit {
 
     private stopIteration: boolean = false;
-    private pollingTimeout_mm: number = 180;
-    private pollingInterval_ms: number = 120000;
     private deviceLoadPolling$: Subscription = new Subscription();
 
-    constructor(private authDetector: PollingChangeDetectorService, private deviceService: DeviceService) {
+    private readonly pollingTimeout_mm: number = 180;
+    private readonly pollingInterval_ms: number = 120000;
+    private readonly dataChange$: Subscription;
+
+    constructor(private readonly authDetector: PollingChangeDetectorService) {
 
         super(FilterName.Device);
 
-        this.authDetector.getDataChanges().pipe(filter(tt => tt.action === PollingAction.Enabled))
+        this.dataChange$ = this.authDetector.changes().pipe(filter(tt => tt.action === PollingAction.Enabled))
 
             .subscribe((result) => {
 
@@ -42,7 +43,8 @@ export class DevicePollingComponent extends BaseFilterableComponent<DeviceFilter
 
     ngOnDestroy(): void {
         this.deviceLoadPolling$.unsubscribe();
-        this.authDetector.compleDataChanges();
+        this.authDetector.complete();
+        this.dataChange$.unsubscribe();
     }
 
     ngAfterViewInit() {

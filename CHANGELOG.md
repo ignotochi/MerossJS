@@ -1,4 +1,15 @@
-**Versione Test: Frontend MDM 1.7.0-X -> dd/MM/yyyy** 
+**Versione Test: Frontend MerossJS 0.0.0-X -> dd/MM/yyyy** 
+
+### MerossJS 1.3.6 (2024-05-30) 
+[Fixed] **Auth**
+- Validation token fix (error on commonService)
+
+
+### MerossJS 1.3.5 (2024-05-30) 
+[Fixed] **obs improvements**
+- Added unsubscribe to change detector subscription
+- Base class rename
+- Used readonly if possible
 
 ### MerossJS 1.3.0(2024-03-26) 
 [Added] **Feature**
