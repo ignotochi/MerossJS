@@ -11,10 +11,10 @@ import { DataStoreDetector } from "../../services/data-store-detector.service";
 export class AuthChangeDetectorService extends DataStoreDetector<ILogin, AuthAction> {
 
     setAll(input: ILogin) {
-        this.updateDataChanges({ action: AuthAction.All, payload: input });
+        this.update({ action: AuthAction.All, payload: input });
     }
     
     setToken(token: string) {
-        this.updateDataChanges({ action: AuthAction.token, payload: { ...this.getClonedDataChange(), token: token } });
+        this.update({ action: AuthAction.token, payload: { ...this.clone(), token: token } });
     }
 }

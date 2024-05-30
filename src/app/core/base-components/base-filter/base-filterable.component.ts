@@ -6,11 +6,11 @@ import { FilterType } from "src/app/types/custom-types";
 
 type FilterPair = [IFilter, FilterName];
 
-export abstract class BaseFilterableComponent<T extends FilterPair> {
+export abstract class FilterableComponent<T extends FilterPair> {
 
     protected readonly filter: { [key in T[1]]: T[0] } = {} as { [key in T[1]]: T[0] };
 
-    constructor(filterName: T[1]) {
+    constructor(public readonly filterName: T[1]) {
 
         const service = inject(FilterService<FilterType<Record<FilterName, IFilter>>>);
 

@@ -27,9 +27,9 @@ export class BadgeStatus implements OnInit, AfterViewInit, OnDestroy {
     public showBadge: boolean = false;
 
     private id: number = 0;
-    private uid = (() => () => this.id++)();
+    private readonly uid = (() => () => this.id++)();
 
-    constructor(private cd: ChangeDetectorRef, private badgeService: BadgeService) {
+    constructor(private readonly cd: ChangeDetectorRef, private readonly badgeService: BadgeService) {
     }
 
     ngOnInit() {

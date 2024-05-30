@@ -7,12 +7,12 @@ import { Menu, Language, LanguageAction, FilterName } from 'src/app/enum/enums';
 import { PollingChangeDetectorService } from 'src/app/core/detectors/polling-change-detector.service';
 import { Router } from '@angular/router';
 import { LanguageChangeDetectorService } from 'src/app/core/detectors/language-change-detector.service';
-import { Subject, debounceTime, filter } from 'rxjs';
+import { Subject, debounceTime, filter, Subscription } from 'rxjs';
 import { I18nService } from 'src/app/services/i18n.service';
 import { MatDialog, MatDialogModule } from '@angular/material/dialog';
 import { DeviceFilter } from 'src/app/types/filter-types';
 import { FilterService } from '../filters-components/filter.service';
-import { BaseFilterableComponent } from 'src/app/core/base-components/base-filter/base-filterable.component';
+import { FilterableComponent } from 'src/app/core/base-components/base-filter/base-filterable.component';
 import { DeviceFilterDialogComponent } from '../filters-components/device-filter.component';
 import { CommonMatModules } from '../components.module';
 import { LoadMerossDevice } from '../device-components/device-load-component/device-load.component';
@@ -29,15 +29,17 @@ import { executeFunctionRecursivelyBasedOnConditionAsync, isNullOrEmptyString } 
     imports: [CommonMatModules, MatDialogModule, LoadMerossDevice, SharedModule]
 })
 
-export class MerossHome extends BaseFilterableComponent<DeviceFilter> implements OnInit, AfterViewInit, OnDestroy {
+export class MerossHome extends FilterableComponent<DeviceFilter> implements OnInit, AfterViewInit, OnDestroy {
 
     public showVersion: { show: boolean } = { show: false };
 
     private languageActionDelay_ms: number = 2000;
-    private languageAction$ = new Subject<Language>();
+    private readonly languageAction$ = new Subject<Language>();
+    private readonly dataChange$: Subscription;
 
-    constructor(private router: Router, public auth: Auth, private pollingAuthDetector: PollingChangeDetectorService, private langAuthDetector: LanguageChangeDetectorService,
-        public commonService: CommonService, private i18n: I18nService, public dialog: MatDialog) {
+    constructor(private readonly router: Router, public readonly auth: Auth, private readonly pollingAuthDetector: PollingChangeDetectorService, 
+        private readonly langAuthDetector: LanguageChangeDetectorService, public readonly commonService: CommonService, private readonly i18n: I18nService, 
+        public readonly dialog: MatDialog) {
 
         super(FilterName.Device);
 
@@ -47,7 +49,7 @@ export class MerossHome extends BaseFilterableComponent<DeviceFilter> implements
 
         this.router.routeReuseStrategy.shouldReuseRoute = () => false;
 
-        this.langAuthDetector.getDataChanges().pipe(filter(tt => tt.action === LanguageAction.Language))
+        this.dataChange$ = this.langAuthDetector.changes().pipe(filter(tt => tt.action === LanguageAction.Language))
             .subscribe((result) => this.i18n.userLangauge = result.payload);
 
         this.languageAction$.pipe(debounceTime(this.languageActionDelay_ms)).subscribe((value) => {
@@ -72,8 +74,9 @@ export class MerossHome extends BaseFilterableComponent<DeviceFilter> implements
     }
 
     ngOnDestroy(): void {
-        this.langAuthDetector.compleDataChanges();
+        this.langAuthDetector.complete();
         this.languageAction$.unsubscribe();
+        this.dataChange$.unsubscribe();
     }
 
     public openDialog(): void {

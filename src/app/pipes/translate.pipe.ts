@@ -1,4 +1,4 @@
-import { AfterViewInit, OnDestroy, OnInit, Pipe, PipeTransform } from "@angular/core";
+import { Pipe } from "@angular/core";
 import { I18nService } from "../services/i18n.service";
 import { Language } from "../enum/enums";
 
@@ -8,7 +8,7 @@ import { Language } from "../enum/enums";
 
 export class TranslatePipe  {
 
-    constructor(private i18n: I18nService) {
+    constructor(private readonly i18n: I18nService) {
     }
 
     public transform(value: string, args?: any): any {

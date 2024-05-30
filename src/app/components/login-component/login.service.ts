@@ -9,7 +9,7 @@ import { CommonService } from "../../services/common.service";
 
 export class MerossLoginService {
 
-  constructor(private http: HttpClient, private commonService: CommonService) { 
+  constructor(private http: HttpClient, private readonly commonService: CommonService) { 
   }
 
   public validateLocalToken(token: string): Observable<ILogin> {

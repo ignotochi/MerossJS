@@ -1,4 +1,4 @@
-import { AfterViewInit, Injectable, OnDestroy, OnInit } from "@angular/core";
+import { Injectable } from "@angular/core";
 import { TranslatePipe } from "../pipes/translate.pipe";
 
 

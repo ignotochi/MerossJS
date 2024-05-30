@@ -10,6 +10,6 @@ import { DataStoreDetector } from "../../services/data-store-detector.service";
 export class LanguageChangeDetectorService extends DataStoreDetector<Language, LanguageAction> {
 
     setLanguage(lang: Language) {
-        this.updateDataChanges({ action: LanguageAction.Language, payload: lang });
+        this.update({ action: LanguageAction.Language, payload: lang });
     }
 }
