@@ -17,7 +17,7 @@ import { Subscription } from 'rxjs';
   providers: []
 })
 
-export class MerossApp implements OnInit, AfterViewInit, OnDestroy {
+export class MerossApp implements OnDestroy {
 
   public readonly title = "MerossJS";
   private readonly dataChange$: Subscription;
@@ -32,14 +32,6 @@ export class MerossApp implements OnInit, AfterViewInit, OnDestroy {
           this.loadHomePageIfLoggedIn(userLoggedIn);
         })();
       });
-  }
-
-  async ngOnInit() {
-    const userLoggedIn: boolean = await this.auth.userIsLogged();
-    this.loadHomePageIfLoggedIn(userLoggedIn);
-  }
-
-  ngAfterViewInit() {
   }
 
   ngOnDestroy(): void {

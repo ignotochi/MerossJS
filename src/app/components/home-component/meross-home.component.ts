@@ -25,7 +25,7 @@ import { executeFunctionRecursivelyBasedOnConditionAsync, isNullOrEmptyString } 
     templateUrl: './meross-home.component.html',
     styleUrls: ['./meross-home.component.scss'],
     changeDetection: ChangeDetectionStrategy.OnPush,
-    providers: [CommonService, PollingChangeDetectorService, LanguageChangeDetectorService, FilterService],
+    providers: [PollingChangeDetectorService, LanguageChangeDetectorService, FilterService],
     imports: [CommonMatModules, MatDialogModule, LoadMerossDevice, SharedModule]
 })
 

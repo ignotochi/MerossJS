@@ -3,10 +3,8 @@ import { Router } from '@angular/router';
 import { AuthChangeDetectorService } from '../core/detectors/auth-change-detector.service';
 import { Menu } from '../enum/enums';
 import { isNullOrEmptyString, String } from '../utils/helper';
-import { lastValueFrom, map, switchMap } from 'rxjs';
-import { CommonService } from './common.service';
+import { lastValueFrom} from 'rxjs';
 import { Token } from '../core/constants';
-import { IConfiguration } from '../interfaces/IConfiguration';
 import { MerossLoginService } from '../components/login-component/login.service';
 
 
@@ -16,14 +14,7 @@ export class Auth {
 
     public errorLogin: string = String.Empty;
 
-    constructor(private readonly router: Router, private readonly authDetector: AuthChangeDetectorService, private readonly commonService: CommonService,
-        private readonly loginService: MerossLoginService) {
-
-        this.commonService.loadConfigurationFile()
-
-            .subscribe(el => {
-                this.commonService.appSettings = el;
-            });
+    constructor(private readonly router: Router, private readonly authDetector: AuthChangeDetectorService, private readonly loginService: MerossLoginService) {
     }
 
     private saveSession(token: string) {

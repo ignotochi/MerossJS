@@ -1,11 +1,12 @@
 import { HttpClient } from "@angular/common/http";
-import { Injectable } from "@angular/core";
-import { Observable } from "rxjs";
+import { Injectable, OnInit } from "@angular/core";
 import { Settings } from "../core/constants";
 import { IConfiguration } from "../interfaces/IConfiguration";
 import { isNullOrEmptyString, String } from "../utils/helper";
 import packajeJson from './../../../package.json';
 import { Language } from "../enum/enums";
+import { lastValueFrom, Observable } from "rxjs";
+
 
 @Injectable({ providedIn: 'root' })
 
@@ -25,6 +26,9 @@ export class CommonService {
     if (!isNullOrEmptyString(settings)) {
       const parsedSettings: IConfiguration = JSON.parse(settings as string);
       this.appSettings = parsedSettings;
+    } 
+    else {
+      (async () => await this.loadConfigurationFile())();
     }
 
     const packajeJson_target_keys: string[] = ["version"];
@@ -47,8 +51,12 @@ export class CommonService {
     }
   }
 
-  public loadConfigurationFile(): Observable<IConfiguration> {
-    return this.http.get<IConfiguration>(this.confUrl);
+  public async loadConfigurationFile(): Promise<void>{
+
+    const conf = await lastValueFrom(this.http.get<IConfiguration>(this.confUrl));
+    this.appSettings = conf;
+
+    this.saveSettings();
   }
 
   public buildUrl(): string {
