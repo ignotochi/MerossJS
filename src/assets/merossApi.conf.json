@@ -1,6 +1,6 @@
 {
     "language" : "it",
-    "port": "4449",
+    "port": "4448",
     "marossApiUrl": "localhost",
     "protocol": "http"
 }
