@@ -1,5 +1,9 @@
 **Versione Test: Frontend MerossJS 0.0.0-X -> dd/MM/yyyy** 
 
+### MerossJS 1.4.1 (2024-08-25) 
+[Fixed] **Auth**
+- Solved an authentication, upgraded meross-iot to 0.4.7.3
+
 ### MerossJS 1.4.0 (2024-05-30) 
 [Fixed] **Auth**
 - Solved an authentication problem whit a token when refresh a page
