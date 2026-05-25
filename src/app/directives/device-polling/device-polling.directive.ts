@@ -56,6 +56,12 @@ export class DevicePollingComponent extends FilterableComponent<DeviceFilter> im
 
             .pipe(takeWhile(t => this.continuePollingIteration(t) && !this.stopIteration))
 
+           /**
+            ** TO DO:
+            **
+            ** Quando si usa l'invoke, si sta facendo una subscribe dentro una subscribe, utilizzare una forkjoin
+            **/
+
             .subscribe(() => this.filter.device.invoke());
     }
 

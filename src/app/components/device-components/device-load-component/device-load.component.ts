@@ -29,6 +29,14 @@ export class LoadMerossDevice extends RegisterFilterComponent<DeviceFilter> impl
   public showLoader: boolean = true;
   public datasource: IDevice[] = [] as IDevice[];
 
+  /**
+  ** TO DO:
+  **
+  ** Inizializzare i filtri qua dentro per renderli disponibile ovunque, determinerà un forte accoppiamento tra questo componente e gli utilizzatori.
+  ** L'inizializzazione del filtro deve avvenire in un servizio a parte e singleton e rimanre a disposizone per tutto il ciclo di vita.
+  ** Creare un servizio che permetta di implementare "RegisterFilterComponent" e spostarci dentro "LoadMerossDevices()"
+  **/
+
   constructor(private readonly auth: Auth, private readonly deviceService: DeviceService, private readonly cd: ChangeDetectorRef, private readonly badgeService: BadgeService) {
     super({
       device: {

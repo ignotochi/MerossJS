@@ -37,8 +37,8 @@ export class MerossHome extends FilterableComponent<DeviceFilter> implements OnI
     private readonly languageAction$ = new Subject<Language>();
     private readonly dataChange$: Subscription;
 
-    constructor(private readonly router: Router, public readonly auth: Auth, private readonly pollingAuthDetector: PollingChangeDetectorService, 
-        private readonly langAuthDetector: LanguageChangeDetectorService, public readonly commonService: CommonService, private readonly i18n: I18nService, 
+    constructor(private readonly router: Router, public readonly auth: Auth, private readonly pollingAuthDetector: PollingChangeDetectorService,
+        private readonly langAuthDetector: LanguageChangeDetectorService, public readonly commonService: CommonService, private readonly i18n: I18nService,
         public readonly dialog: MatDialog) {
 
         super(FilterName.Device);
@@ -52,11 +52,18 @@ export class MerossHome extends FilterableComponent<DeviceFilter> implements OnI
         this.dataChange$ = this.langAuthDetector.changes().pipe(filter(tt => tt.action === LanguageAction.Language))
             .subscribe((result) => this.i18n.userLangauge = result.payload);
 
-        this.languageAction$.pipe(debounceTime(this.languageActionDelay_ms)).subscribe((value) => {
-            this.langAuthDetector.setLanguage(value);
-            this.commonService.saveSettings();
-            this.router.navigate([Menu.Home]);
-        });
+       /**
+        ** TO DO:
+        **
+        ** Quanto segue effettuerà una sibscribe dentro una subscribe, utilizzare una forkjoin
+        **/
+
+        this.languageAction$.pipe(debounceTime(this.languageActionDelay_ms))
+            .subscribe((value) => {
+                this.langAuthDetector.setLanguage(value);
+                this.commonService.saveSettings();
+                this.router.navigate([Menu.Home]);
+            });
     }
 
     ngOnInit() {
@@ -65,9 +72,9 @@ export class MerossHome extends FilterableComponent<DeviceFilter> implements OnI
     ngAfterViewInit() {
         (async (showVersion, appSettings) => {
 
-            const execute = (showVersion: { show: boolean }): void => { showVersion.show = true };         
+            const execute = (showVersion: { show: boolean }): void => { showVersion.show = true };
             const condition = (attempt: number, maxAttemps: number): boolean => isNullOrEmptyString(appSettings.version) && attempt <= maxAttemps;
-            
+
             await executeFunctionRecursivelyBasedOnConditionAsync(() => execute(showVersion), condition);
 
         })(this.showVersion, this.commonService.appSettings);
